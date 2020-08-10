@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta data-n-head="true" data-hid="format-detection" name="format-detection" content="telephone=no">
+    <meta data-n-head="true" http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta data-n-head="true" name="renderer" content="webkit">
+    <title><?=$system['system']?>-我的资产</title>
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/public/css/commonHead.css">
+    <link rel="stylesheet" href="/public/css/index1.css">
+    <!-- 当前页面内容样式 -->
+    <link rel="stylesheet" href="/public/css/assetsIndex.css">
+    <style>
+        .rec-con ul li:nth-of-type(2n-1) {
+            background: #171c2c !important;
+            height: 45px;
+            border: none;
+        }
+        .rec-con ul li:nth-of-type(2n) {
+            background: #191E35 !important;
+            height: 45px;
+            border: none;
+        }
+    </style>
+</head>
+
+<body class="scroll">
+    <div id="app">
+        <div class="box">
+            <?php load_view("inc/nav");?>
+            <!-- 合约账户 -->
+            <div class="account contractAccount">
+                <div class="topcontent ft20 fColor1"><span>资产</span></div>
+                <?php load_view("inc/uc");?>
+                <div class="rightcontent contentBK">
+                    <div>
+                        <div class="header fColor1 navList" style="background: rgba(29,36,54,1);display: flex;">
+                            <p class="fl"><span class="activeList">卖单</span></p>
+                            <p class="fl"><span class="">买单</span></p>
+                            <p class="fr addBut"><span class="">添加</span></p>
+                        </div>
+                        <div class="content fColor1 ft12">
+                            <ul class="content_ul">
+                                <li class="li">
+                                    <div class="hide_div">
+                                        <!-- 点击记录 -->
+                                        <div class="rec-box boxCon">
+                                            <div class="rec-con">
+                                                <div class="rec-title">
+                                                    <span class="span">商家名称</span>
+                                                    <span class="span">币种</span>
+                                                    <span class="span">挂单数量</span>
+                                                    <span class="span">剩余数量</span>
+                                                    <span class="span">最低限额</span>
+                                                    <span class="span">最高限额</span>
+                                                    <span class="span">生效时间</span>
+                                                    <span class="span">状态</span>
+                                                    <span class="span">挂单状态</span>
+                                                    <span class="span">操作</span>
+                                                </div>
+                                                <ul class="rec-list">
+                                                    <?php foreach ($result as $k=>$v): ?>
+                                                        <li>
+                                                            <span class="span"><?=$v['name']?></span>
+                                                            <span class="span"><?=$v['designation']?></span>
+                                                            <span class="span"><?=$v['number']?></span>
+                                                            <span class="span"><?=$v['y_number']?></span>
+                                                            <span class="span"><?=$v['min_price']?></span>
+                                                            <span class="span"><?=$v['max_price']?></span>
+                                                            <span class="span"><?=date("Y-m-d",$v['ctime'])?></span>
+                                                            <span class="span"><?=($v['status']==0)?"出售中":"已收盘"?></span>
+                                                            <span class="span"><?=($v['type']==0)?"购买":"出售"?></span>
+                                                            <span class="span" style="color: orangered;" onclick="del(<?=$v['id']?>)">删除</span>
+                                                        </li>
+                                                    <?php endforeach; ?>
+                                                </ul>
+                                                <p class="more">加载更多</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 弹窗展示 -->
+        <div class="tipsPosi" style="display: none;"></div>
+        <!-- 弹窗内容 -->
+        <div class="tipsCon" style="display: none;">
+            <div class="title">添加: <img class="img error" src="/public/imgae/err.png" alt=""></div>
+
+            <div class="boxPosi">
+                <div class="texts" style="color: #434352;padding-top: 10px;overflow:hidden;width: 100%;">
+                    <div style="float: left">购买类型:</div>
+                    <div class="textBox"><img class="selectLeft" src="/public/imgae/userSelect1.png" alt="">买单</div>
+                    <div class="textBox"><img class="selectLeft" src="/public/imgae/userSelect1.png" alt="">卖单</div>
+                </div>
+                <div style="overflow: hidden;display: flex">
+                    <div class="texts fl" style="color: #434352;">商家名称: </div>
+                    <div class="inpBox fl" style="flex: 1;margin-left: 10px;">
+                        <input type="text" id="name" class="ipt" placeholder="请输入商家名称">
+                    </div>
+                </div>
+                <div style="overflow: hidden;display: flex">
+                    <div class="texts fl" style="color: #434352;">币种: </div>
+                    <div class="inpBox fl" style="flex: 1;margin-left: 10px;">
+                        <select class="ipt" id="designation" style="text-indent: 20px;width: 98%;padding: 0;">
+                            <?php foreach ($coin as $k1=>$v1): ?>
+                                <option value="<?=$v1['type']?>"><?=$v1['type']?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+                <div style="overflow: hidden;display: flex">
+                    <div class="texts fl" style="color: #434352;">出售数量: </div>
+                    <div class="inpBox fl" style="flex: 1;margin-left: 10px;">
+                        <input type="number" id="number" class="ipt" placeholder="请输入出售数量">
+                    </div>
+                </div>
+                <div style="overflow: hidden;display: flex">
+                    <div class="texts fl" style="color: #434352;">最低额: </div>
+                    <div class="inpBox fl" style="flex: 1;margin-left: 10px;">
+                        <input type="number" id="min_price" class="ipt" placeholder="请输入最低额">
+                    </div>
+                </div>
+                <div style="overflow: hidden;display: flex">
+                    <div class="texts fl" style="color: #434352;">最高额: </div>
+                    <div class="inpBox fl" style="flex: 1;margin-left: 10px;">
+                        <input type="number" id="max_price" class="ipt" placeholder="请输入最高额">
+                    </div>
+                </div>
+                <div style="overflow: hidden;display: flex">
+                    <div class="texts fl" style="color: #434352;">行情价格: </div>
+                    <div class="inpBox fl" style="flex: 1;margin-left: 10px;">
+                        <input type="number" id="price" class="ipt" placeholder="请输入行情价格">
+                    </div>
+                </div>
+                <div style="overflow: hidden;display: flex">
+                    <div class="texts fl" style="color: #434352;">支付方式: </div>
+                    <div class="inpBox fl" style="flex: 1;margin-left: 10px;">
+                        <select class="ipt" id="paytype" style="text-indent: 20px;width: 98%;padding: 0;">
+                            <option value="0">--请选择--</option>
+                            <option value="微信">微信</option>
+                            <option value="支付宝">支付宝</option>
+                            <option value="银联卡">银联卡</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="userBut">
+                    <div class="but" style="margin-right: 10px;" onclick="send()">确定</div>
+                    <div class="but cancel" style="background: #6E7480">取消</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="layui-layer-move"></div>
+</body>
+<script type="text/javascript" src="/public/layer/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/public/layer/layer.js"></script>
+</html>
+<style>
+    .hide_div {
+        padding: 0;
+        border: none;
+    }
+    
+    .rec-box .rec-con {
+        margin: 10px 0;
+        padding: 0;
+    }
+    .navList{
+        position: relative;
+    }
+    .navList P {
+        /*flex: 1;*/
+        margin-right: 30px;
+        text-align: center;
+        cursor: pointer;
+    }
+    .navList .addBut{
+        position: absolute;
+        right: 20px;
+        top: 15px;
+    }
+    .navList P span {
+        padding: 8px 5px;
+        border-bottom: 2px solid #0E2648;
+        color: rgba(255,255,255,0.5);
+    }
+    .activeList {
+        color: #008cf8 !important;
+        border-bottom: 2px solid #008cf8 !important;
+    }
+    .rec-box .rec-con .span{
+        flex: 1;
+        text-align: center;
+        /*line-height: 3;*/
+    }
+    .rec-box .rec-con .span1{
+        flex: none;
+        width: 350px;
+        /*overflow: hidden;*/
+        display: block;
+        /*white-space: nowrap;*/
+        /*text-overflow: ellipsis;*/
+        /*overflow: hidden;*/
+        /*word-break: break-all;*/
+    }
+    .rec-box .rec-con .span2{
+        flex: none;
+        width: 150px;
+        display: block;
+    }
+    .content_ul{
+        padding: 0 !important;
+    }
+</style>
+<style>
+    .active2px{
+        color: rgba(0, 191, 244, 1);
+        cursor: pointer;
+    }
+    .activeTitle{
+        color: rgba(0, 191, 244, 1) !important;
+    }
+    .userBox .txt{
+        cursor: pointer;
+    }
+    /*弹窗开始*/
+    .tipsPosi{
+        opacity: 0.7;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        left:0;
+        top:0;
+        background: #000000;
+        z-index:99;
+    }
+    .tipsCon {
+        position: fixed;
+        left: 50%;
+        top:50%;
+        width: 500px;
+        height: 530px;
+        margin-left: -250px;
+        margin-top: -265px;
+        z-index:100;
+    }
+    .tipsCon .title{
+        height: 45px;
+        background: #1D2436;
+        line-height: 45px;
+        text-indent: 25px;
+        font-size: 16px;
+        color: #FFCFCFCF;
+        position: relative;
+        border-radius:10px 10px 0 0;
+    }
+    .tipsCon .title .img{
+        position: absolute;
+        right:25px;
+        top:10px;
+    }
+    .tipsCon .boxPosi{
+        padding: 0 20px;
+        background: #131625;
+        border-radius: 0 0 8px 8px;
+    }
+    .tipsCon .texts{
+        line-height: 30px;
+        font-size: 14px;
+        padding-top: 20px;
+        width:60px;
+    }
+    .boxPosi .inpBox{
+        border:1px solid #0A88E0;
+        position: relative;
+        overflow: hidden;
+        border-right: 1px solid #0D4D80;
+        text-indent: 30px;
+        /*padding-left: 20px;*/
+        margin-top: 20px;
+    }
+    .boxPosi .inpBox .ipt{
+        float: left;
+        height:33px;
+        /*width:80%;*/
+        width: 85%;
+        border: none;
+        font-size: 12px;
+    }
+    .boxPosi .inpBox .ipt option{
+        font-size: 12pt;
+    }
+    .boxPosi .inpBox .coin{
+        position: absolute;
+        right:80px;
+        top:5px;
+        font-size: 16px;
+        color: #363745;
+    }
+    .quanbu{
+        font-size:14px;
+        line-height:33px;
+        text-align: center;
+        color: rgba(255,255,255,0.7);
+        position: absolute;
+        right:20px;
+        top:0px;
+        /*color: #FFA7A4B5;*/
+    }
+    .texts .textBox{
+        float: left;
+        margin: 0 0 0 20px;
+    }
+    .texts .textBox .selectLeft{
+        width: 21px;
+        height:21px;
+        margin-right: 10px;
+        vertical-align: middle;
+    }
+    .texts .textBox .img{
+        width: 60px;
+        height:21px;
+    }
+    .userBut {
+        display: flex;
+        text-align: center;
+        margin-top: 20px;
+        padding-bottom: 15px;
+    }
+    .userBut .but {
+        flex: 1;
+        background: #0AC38A;
+        height: 33px;
+        color: white;
+        line-height: 33px;
+        border-radius: 6px;
+    }
+    .ipt option{
+        background: #131625 !important;
+        color: rgba(255,255,255,0.5);
+    }
+</style>
+<script type="text/javascript">
+    var xtype = "";
+    $(function () {
+        $('.navList .addBut').click(function(){
+            $('.tipsPosi').show();
+            $('.tipsCon').show()
+        })
+        $('.tipsPosi, .tipsCon .error, .userBut .cancel').click(function(){
+            $('.tipsPosi').hide();
+            $('.tipsCon').hide();
+        })
+        $('.texts .textBox').click(function () {
+            var index = $(this).index();
+            $('.texts .textBox .selectLeft').attr("src","/public/imgae/userSelect1.png");
+            $(this).find('.selectLeft').attr("src","/public/imgae/userSelect2.png");
+
+        });
+        $(".navList p").click(function() {
+            var index = $(this).index();
+            var type = $(this).find("span").text();
+            $(".navList p span").removeClass("activeList");
+            $(".navList p").eq(index).children().addClass("activeList");
+//            ajax_http("post","/uc/transactions",{type:type},function(msg){
+//                $(".rec-list").empty();
+//                var str = "";
+//                for(item of msg){
+//                    str += "<li>";
+//                    str += "<span class='span'>"+item.id+"</span>";
+//                    str += "<span class='span'>"+item.type+"</span>";
+//                    str += "<span class='span1'>"+item.info+"</span>";
+//                    str += "<span class='span'>"+item.num+"</span>";
+//                    str += "<span class='span'>"+item.currency_name+"</span>";
+//                    str += "<span class='span2'>"+formatDate(item.create_time*1000)+"</span>";
+//                    str += "</li>";
+//                }
+//                $(".rec-list").html(str);
+//            },"json");
+        });
+        $(".textBox").click(function () {
+            $(".textBox").removeClass("readio");
+            $(this).addClass("readio");
+            var index = $(this).text();
+            xtype = index;
+        });
+    });
+
+    function send() {
+        var name = $("#name").val();
+        var designation = $("#designation").val();
+        var number = $("#number").val();
+        var min_price = $("#min_price").val();
+        var max_price = $("#max_price").val();
+        var price = $("#price").val();
+        var paytype = $("#paytype").val();
+        var type = "";
+        if(xtype == "买单"){
+            type = 0;
+        }else if(xtype == "卖单"){
+            type = 1;
+        }else{
+            layer.msg("请选择挂单类型");
+            return;
+        }
+        if(name == ""){
+            layer.msg("请输入商家名称");
+            return;
+        }
+        if(designation == ""){
+            layer.msg("请选择币种");
+            return;
+        }
+        if(number == ""){
+            layer.msg("请输入数量");
+            return;
+        }
+        if(min_price == ""){
+            layer.msg("请输入最低数量");
+            return;
+        }
+        if(max_price == ""){
+            layer.msg("请输入最高数量");
+            return;
+        }
+        if(price == ""){
+            layer.msg("请输入币种行情");
+            return;
+        }
+        if(paytype == 0){
+            layer.msg("请选择支付方式");
+            return;
+        }
+        var jsonstr = {
+            type:type,
+            name:name,
+            designation:designation,
+            number:number,
+            min_price:min_price,
+            max_price:max_price,
+            price:price,
+            paytype:paytype,
+            y_number:number,
+            degree:0,
+            transactions:0,
+            status:0
+        };
+        $.post("/uc/otc",jsonstr,function(msg){
+            if(msg == 1){
+                layer.msg("添加成功");
+                setTimeout(function () {
+                    window.location.href = location.href;
+                },500);
+            }else if(msg == 2){
+                layer.msg("数据重复");
+            }else{
+                layer.msg("添加失败");
+            }
+        });
+    }
+
+    function del(id) {
+        $.post("/uc/delotc",{id:id},function(msg){
+            if(msg == 1){
+                layer.msg("删除成功");
+                setTimeout(function () {
+                    window.location.href = location.href;
+                },500);
+            }else{
+                layer.msg("删除失败");
+            }
+        });
+    }
+</script>

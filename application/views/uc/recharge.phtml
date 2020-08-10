@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta data-n-head="true" data-hid="format-detection" name="format-detection" content="telephone=no">
+    <meta data-n-head="true" http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta data-n-head="true" name="renderer" content="webkit">
+    <title><?=$system['system']?>-余额充值</title>
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/public/css/commonHead.css">
+    <link rel="stylesheet" href="/public/css/index1.css">
+    <!-- 当前页面内容样式 -->
+    <link rel="stylesheet" href="/public/css/assetsIndex.css">
+    <link rel="stylesheet" href="/public/css/recharge.css">
+</head>
+
+<body class="scroll">
+    <div id="app">
+        <div class="box">
+            <?php load_view("inc/nav");?>
+            <!-- 合约账户 -->
+            <div class="account">
+                <div class="topcontent ft20 fColor1"><span>资产</span></div>
+                <?php load_view("inc/uc");?>
+                <div class="rightcontent contentBK">
+                    <!-- 主体内容 -->
+                    <div class="SettingRight">
+                        <div class="titles clearfix">
+                            <h3 class="fl">
+                                <span style="vertical-align: inherit;">
+                                    <span style="vertical-align: inherit;">充值</span>
+                                </span>
+                                <span>
+                                    <span style="vertical-align: inherit;">
+                                        <span  class="cointype" style="vertical-align: inherit;">btc</span>
+                                    </span>
+                                </span>
+                            </h3>
+                            <!-- 选择币种 -->
+                            <div class="select fr">
+                                <select onchange="selectIndex()" name="type" id="qianbao_type" class="selul">
+                                    <?php foreach ($coin as $k=>$v): ?>
+                                        <option value="<?=$v['type']?>">
+                                            <span style="vertical-align: inherit;"><span style="vertical-align: inherit;"><?=$v['type']?></span></span>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- 内容 -->
+                        <div class="Column_Coins">
+
+                            <div class="AssetInfo btc">
+                                <div>
+                                    <span style="vertical-align: inherit;"><span style="vertical-align: inherit;">可用</span></span>
+                                    <span class="span1"><span style="vertical-align: inherit;"><span style="vertical-align: inherit;" class="available"><?=$user['btc_available_balance']?> BTC</span></span></span>
+                                </div>
+                                <div>
+                                    <span style="vertical-align: inherit;"><span style="vertical-align: inherit;">冻结</span></span>
+                                    <span class="span1"><span style="vertical-align: inherit;"><span style="vertical-align: inherit;" class="frozen"><?=$user['btc_freeze_balance']?> BTC</span></span></span>
+                                </div>
+                            </div>
+
+                            <div class="AssetInfo eth">
+                                <div>
+                                    <span style="vertical-align: inherit;"><span style="vertical-align: inherit;">可用</span></span>
+                                    <span class="span1"><span style="vertical-align: inherit;"><span style="vertical-align: inherit;" class="available"><?=$user['eth_available_balance']?> ETH</span></span></span>
+                                </div>
+                                <div>
+                                    <span style="vertical-align: inherit;"><span style="vertical-align: inherit;">冻结</span></span>
+                                    <span class="span1"><span style="vertical-align: inherit;"><span style="vertical-align: inherit;" class="frozen"><?=$user['eth_freeze_balance']?> ETH</span></span></span>
+                                </div>
+                            </div>
+
+                            <div class="AssetInfo usdt" >
+                                <div>
+                                    <span style="vertical-align: inherit;"><span style="vertical-align: inherit;">可用</span></span>
+                                    <span class="span1"><span style="vertical-align: inherit;"><span style="vertical-align: inherit;" class="available"><?=$user['usdt_available_balance']?> USDT</span></span></span>
+                                </div>
+                                <div>
+                                    <span style="vertical-align: inherit;"><span style="vertical-align: inherit;">冻结</span></span>
+                                    <span class="span1"><span style="vertical-align: inherit;"><span style="vertical-align: inherit;" class="frozen"><?=$user['usdt_freeze_balance']?> USDT</span></span></span>
+                                </div>
+                            </div>
+
+                            <div class="AssetInfo lbth">
+                                <div>
+                                    <span style="vertical-align: inherit;"><span style="vertical-align: inherit;">可用</span></span>
+                                    <span class="span1"><span style="vertical-align: inherit;"><span style="vertical-align: inherit;" class="available"><?=$user['lbth_available_balance']?> LBTH</span></span></span>
+                                </div>
+                                <div>
+                                    <span style="vertical-align: inherit;"><span style="vertical-align: inherit;">冻结</span></span>
+                                    <span class="span1"><span style="vertical-align: inherit;"><span style="vertical-align: inherit;" class="frozen"><?=$user['lbth_freeze_balance']?> LBTH</span></span></span>
+                                </div>
+                            </div>
+
+                            <!-- 输入部分 -->
+                            <div class="rech_bd">
+                                <div class="group">
+                                    <label for="amount">
+                                        <span style="vertical-align: inherit;">
+                                            <span style="vertical-align: inherit;">充值金额：</span>
+                                        </span>
+                                    </label>
+                                    <input type="text" id="amount" name="num" style="padding-left: 10px;font-size: 14px;" autocomplete="off" maxlength="12" placeholder="充值金额">
+                                </div>
+                                <div class="group">
+                                    <label for="block_height">
+                                        <span style="vertical-align: inherit;">
+                                            <span style="vertical-align: inherit;">区块高度：</span>
+                                        </span>
+                                    </label>
+                                    <input type="text" id="block_height" name="block_height" style="padding-left: 10px;font-size: 14px;" autocomplete="off" maxlength="10" placeholder="请填写块高">
+                                </div>
+                                <div class="shiftto" style="position: relative">
+                                    <div value="btc">
+                                        <p class="item_title"><span style="vertical-align: inherit;">比特币 </span></p>
+                                        <img src="/public/imgae/anzhuo.png" style="width: 200px;border: 1px solid white;">
+                                    </div>
+                                </div>
+                                <div class="form-button">
+                                    <span style="vertical-align: inherit;">
+                                        <span style="vertical-align: inherit;">
+                                            <input type="button" class="btn btn-primary activeTap" id="btnn" data-coin="" value="提交充值申请" >
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- 安全提示 -->
+                            <div class="recharge_atten_text">
+                                <h5>
+                                    <span style="vertical-align: inherit;">
+                                        <span style="vertical-align: inherit;">提示</span>
+                                    </span>
+                                </h5>
+                                <p style="margin-bottom:5px;color:red;font-size:16px;">
+                                    <b style="font-weight: 500;">
+                                        <span style="vertical-align: inherit;">
+                                            <span style="vertical-align: inherit;" class="tipss">请不要将除BTC以外的其他数字资产存放到上述地址中。</span>
+                                            <span style="vertical-align: inherit;">否则，您可能会永久失去资产。&nbsp;</span>
+                                        </span>
+                                    </b>
+                                </p>
+                                <p>
+                                    <span style="vertical-align: inherit;">
+                                        <span style="vertical-align: inherit;">* 1.存款到上述地址需要整个网络的确认。</span>
+                                    <span style="vertical-align: inherit;">1确认后它将到达，3确认后将可撤回。</span>
+                                    </span>
+                                </p>
+
+                                <p>
+                                    <span style="vertical-align: inherit;">
+                                        <span style="vertical-align: inherit;">* 2.您的存款地址不会经常更改。</span>
+                                    <span style="vertical-align: inherit;">如有任何更改，我们将通过公告或电子邮件通知您。</span>
+                                    </span>
+                                </p>
+                                <p>
+                                    <span style="vertical-align: inherit;">
+                                        <span style="vertical-align: inherit;">* 3.请确保您的计算机和浏览器是安全的，并保护您的信息不被篡改或泄漏。</span>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="layui-layer-move"></div>
+</body>
+
+</html>
+<script src="/public/js/public.js"></script>
+<script type="text/javascript" src="/public/layer/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/public/layer/layer.js"></script>
+<script>
+    window.onload = function () {
+        selectIndex();
+    }
+    function selectIndex() {
+        var con = $("select option:selected").val();
+        var conxi = con.toLowerCase();
+        $(".item_title").text(con);
+        var txt = "请不要将除" + con + "以外的其他数字资产存放到上述地址中。";
+        $(".Column_Coins .AssetInfo").hide();
+        $(".Column_Coins ."+conxi).show();
+        $(".tipss").text(txt); //提示字段第一段红色
+        $(".cointype").text(con);
+        $("#btnn").attr("data-coin",con);
+    };
+    $("#btnn").click(function() {
+        var amount = $('#amount').val(); //充值金额
+        var block_height = $('#block_height').val(); //快高
+        var coin = $("#btnn").attr("data-coin");
+        if (amount == "" || amount == null) {
+            layer.msg("充值金额不能空");
+            return false;
+        }
+        if (block_height == "" || block_height == null) {
+            layer.msg("区块高度不能空");
+            return false;
+        }
+
+        var strjson = {
+            coin:coin,
+            amount:amount,
+            block_height:block_height
+        };
+
+        ajax_http("post","/uc/recharge",strjson,function (msg) {
+            if(msg == 1){
+                layer.msg("操作成功");
+                setTimeout(()=> location.reload(),1000);
+            }else{
+                layer.msg("操作失败");
+            }
+        });
+    })
+</script>

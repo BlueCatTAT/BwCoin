@@ -1,0 +1,80 @@
+<?php
+$uc = !isset($_GET['uc'])?"account":$_GET['uc'];
+$db = new dbModel();
+$username = $_SESSION['username'];
+$is_otc = $db->field("is_otc")->table("bw_user")->where(" username = '{$username}'")->find();
+?>
+<div class="leftcontent contentBK">
+    <div class="leftNav ft14">
+        <ul class="fColor1">
+            <li class="<?php if($uc == 'account'){echo 'active';} ?>">
+                <a href="/uc/account?uc=account&lang=zh" style="display: block;">
+                    <img src="/public/imgae/transferFunds1.png">
+                    <span>安全中心</span>
+                </a>
+            </li>
+            <li class="<?php if($uc == 'assets'){echo 'active';} ?>">
+                <a href="/uc/assets?uc=assets&lang=zh" style="display: block;">
+                    <img src="/public/imgae/contractAccount1.png">
+                    <span>我的资产</span>
+                </a>
+            </li>
+<!--            <li class="--><?php //if($uc == 'legalcurrencyindex'){echo 'active';} ?><!--">-->
+<!--                <a href="/uc/legalcurrencyindex?uc=legalcurrencyindex" style="display: block;">-->
+<!--                    <img src="/public/imgae/contractAccount2.png">-->
+<!--                    <span>法币账户</span>-->
+<!--                </a>-->
+<!--            </li>-->
+<!--            <li class="--><?php //if($uc == 'lever'){echo 'active';} ?><!--">-->
+<!--                <a href="/uc/lever?uc=lever" style="display: block;">-->
+<!--                    <img src="/public/imgae/contractAccount2.png">-->
+<!--                    <span>杠杆账户</span>-->
+<!--                </a>-->
+<!--            </li>-->
+<!--            <li class="--><?php //if($uc == 'heyue'){echo 'active';} ?><!--">-->
+<!--                <a href="/uc/heyue?uc=heyue" style="display: block;">-->
+<!--                    <img src="/public/imgae/transferFunds2.png">-->
+<!--                    <span>合约账户</span>-->
+<!--                </a>-->
+<!--            </li>-->
+            <li class="<?php if($uc == 'capitalindex'){echo 'active';} ?>">
+                <a href="/uc/capitalindex?uc=capitalindex&lang=zh" style="display: block;">
+                    <img src="/public/imgae/transferFunds2.png">
+                    <span>资金划转</span>
+                </a>
+            </li>
+            <li class="<?php if($uc == 'transactions'){echo 'active';} ?>">
+                <a href="/uc/transactions?uc=transactions&lang=zh" style="display: block;">
+                    <img src="/public/imgae/transferFunds1.png">
+                    <span>交易记录</span>
+                </a>
+            </li>
+            <li class="<?php if($uc == 'recharge'){echo 'active';} ?>">
+                <a href="/uc/recharge?uc=recharge&lang=zh" style="display: block;">
+                    <img src="/public/imgae/transferFunds1.png">
+                    <span>余额充值</span>
+                </a>
+            </li>
+            <li class="<?php if($uc == 'invitation'){echo 'active';} ?>">
+                <a href="/uc/invitation?uc=invitation&lang=zh" style="display: block;">
+                    <img src="/public/imgae/transferFunds1.png">
+                    <span>邀请奖励</span>
+                </a>
+            </li>
+            <?php if($is_otc['is_otc'] == 1) :?>
+            <li class="<?php if($uc == 'payment'){echo 'active';} ?>">
+                <a href="/uc/payment?uc=payment&lang=zh" style="display: block;">
+                    <img src="/public/imgae/transferFunds1.png">
+                    <span>OTC收款方式</span>
+                </a>
+            </li>
+            <li class="<?php if($uc == 'otc'){echo 'active';} ?>">
+                <a href="/uc/otc?uc=otc&lang=zh" style="display: block;">
+                    <img src="/public/imgae/transferFunds1.png">
+                    <span>OTC订单</span>
+                </a>
+            </li>
+            <?php endif; ?>
+        </ul>
+    </div>
+</div>

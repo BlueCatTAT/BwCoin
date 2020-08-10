@@ -1,0 +1,79 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>龙链 - 后台管理系统</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="/public/layuiadmin/layui/css/layui.css" media="all">
+    <style>
+        .layui-form-label{width: 100px;}
+        .layui-input, .layui-textarea{width: 90%;}
+    </style>
+</head>
+<body>
+
+<div class="layui-form" lay-filter="layuiadmin-form-role" id="layuiadmin-form-role" style="padding: 20px 30px 0 0;">
+    <div class="layui-form-item">
+        <label class="layui-form-label">代理商账号：</label>
+        <div class="layui-input-block">
+            <input type="text" name="username" readonly class="layui-input" value="<?=$result['username']?>">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">代理商姓名：</label>
+        <div class="layui-input-block">
+            <input type="text" name="name" lay-verify="required" class="layui-input" value="<?=$result['name']?>">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">代理商密码：</label>
+        <div class="layui-input-block">
+            <input type="password" name="password" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item" style="float: right;">
+        <button class="layui-btn" lay-submit lay-filter="LAY-user-role-submit" id="LAY-user-role-submit">提交</button>
+        <button class="layui-btn" lay-reset lay-filter="LAY-user-role-close" id="LAY-user-role-close">取消</button>
+    </div>
+</div>
+
+<script src="/public/layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({base: '/public/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'form'], function(){
+        var $ = layui.$
+            ,form = layui.form;
+        var index2 = parent.layer.getFrameIndex(window.name); //获取窗口索引
+        form.on("submit(LAY-user-role-submit)",function (data) {
+            let jsonstr = {
+                username:data.field.username,
+                name:data.field.name,
+                password:data.field.password
+            };
+            $.post("/adminmerc/editmerc",jsonstr,function (msg) {
+                if(msg == 1){
+                    //发异步，把数据提交给php
+                    layer.msg("修改代理商成功", {icon: 6}, function() {
+                        //关闭当前frame
+                        parent.layer.close(index2);
+                        // 可以对父窗口进行刷新
+                        parent.location.reload();
+                    });
+                }else if(msg == 2){
+                    layer.msg("该代理商已经存在，请重新输入")
+                }else{
+                    layer.msg("修改代理商失败")
+                }
+            });
+        });
+
+        $("#LAY-user-role-close").on("click",function (data) {
+            parent.layer.close(index2);
+        });
+    })
+</script>
+</body>
+</html>

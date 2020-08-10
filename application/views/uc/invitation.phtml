@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta data-n-head="true" data-hid="format-detection" name="format-detection" content="telephone=no">
+    <meta data-n-head="true" http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta data-n-head="true" name="renderer" content="webkit">
+    <title><?=$system['system']?>-我的资产</title>
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/public/css/commonHead.css">
+    <link rel="stylesheet" href="/public/css/index1.css">
+    <!-- 当前页面内容样式 -->
+    <link rel="stylesheet" href="/public/css/assetsIndex.css">
+    <link rel="stylesheet" href="/public/css/invitation.css">
+</head>
+
+<body class="scroll">
+    <div id="app">
+        <div class="box">
+            <?php load_view("inc/nav");?>
+            <!-- 合约账户 -->
+            <div class="account">
+                <div class="topcontent ft20 fColor1"><span>资产</span></div>
+                <?php load_view("inc/uc");?>
+                <div class="rightcontent contentBK">
+                    <!-- 初始内容 -->
+                    <div class="SettingRight recommendedContent">
+                        <div class="titles">
+                            <h3 class="fl">邀请奖励</h3>
+                        </div>
+
+                        <div class="Column_Invite">
+                            <div class="invite-banner">
+                                <!-- <h3>邀请好友注册，轻松获得交易返佣</h3> -->
+                            </div>
+
+                            <div class="InviteLink">
+                                <div class="fl">
+                                    <saon id="codeaa">
+                                        <img src="<?=$pic?>" alt="">
+                                    </saon>
+                                </div>
+                                <div class="fr">
+                                    <div class="rechipt_box">
+                                        <label><b>邀请码 : </b></label>
+                                        <div class="iptbox" style="margin-top: 10px;">
+                                            <input type="text" class="rechipt" id="copyInvitation" value="<?=$code?>" style="width:170px;" readonly="">
+                                            <input type="button" value="复制" class="rechbut copy_button1 activeTap" id="copy1" style="width:80px;height:39px;">
+                                        </div>
+                                    </div>
+                                    <div class="rechipt_box">
+                                        <label><b>专属链接 : </b></label>
+                                        <div class="iptbox" style="width: 600px;margin-top: 10px;">
+                                            <input type="text" class="rechipt" id="copyLink" value="<?=$url?>" style="width:480px;" readonly="">
+                                            <input type="button" value="复制" class="rechbut activeTap" id="copy2" style="width:80px;height:39px;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="InviteLink" style="font-size:15px;line-height:30px;">
+                                <p><b style="font-size:16px;">推荐挖矿</b></p>
+                                <p style="padding-left:20px;">
+                                    邀请规则：<br> 01、通过邀请链接邀请好友成功注册RHEX账户
+                                    <br> 02、邀请好友的数量不设上限
+                                </p>
+                                <p style="padding-left:20px;margin-top:5px;">
+                                    佣金返还规则：<br> 01、邀请人可获得被邀请人交易手续费的20%作为佣金返还
+                                    <br> 02、佣金返还为等值的RT，对应佣金将在被邀请人交易次日进行发放
+                                </p>
+                            </div>
+
+                            <div style="overflow: hidden;margin-top: 30px;">
+                                <a class="btns activeTap" id="recommend" href="#">我的推荐</a>
+                                <a class="btns activeTap" id="commission" href="#">佣金记录</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 推荐列表 -->
+                    <div class="SettingRight recommendedList" style="display: none;">
+                        <div class="titles">
+                            <h3 class="fl">我的推荐</h3>
+                            <span class="fl TotalAssets" style="margin-left: 20px;">一级人数 : <b><?=$onedata?></b> , 二级人数 : <b><?=$twodata?></b> , 三级人数 : <b><?=$threedata?></b></span>
+                            <span class="fr TotalAssets isReturn" style="font-size: 18px;cursor: pointer;">&lt;&lt;返回</span>
+                        </div>
+                        <div class="Column_LogonLog">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tbody>
+                                    <tr class="title">
+                                        <th width="150px">排序</th>
+                                        <th width="160px">用户名</th>
+                                        <th width="100px" class="last">注册时间</th>
+                                    </tr>
+                                    <?php foreach($userlist as $k=>$v): ?>
+                                    <tr class="title">
+                                        <th width="150px"><?=$v['id']?></th>
+                                        <th width="160px"><?=$v['username']?></th>
+                                        <th width="100px" class="last"><?=date("Y-m-d H:i:s",$v['create_time'])?></th>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                            <div class="pages"></div>
+                        </div>
+                    </div>
+                    <!-- 佣金记录 -->
+                    <div class="SettingRight commissionRecord" style="display: none;">
+                        <div class="titles">
+                            <h3 class="fl">佣金记录</h3>
+                            <span class="fl TotalAssets" style="margin-left: 20px;">佣金合计 : <b>0</b>RT ( 已到账 ) , <b>0</b>RT ( 未到账 )</span>
+                            <span class="fr TotalAssets isReturn" style="font-size: 18px;cursor: pointer;">&lt;&lt;返回</span>
+                        </div>
+                        <div class="Column_LogonLog">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tbody>
+                                    <tr class="title">
+                                        <th id="">下家用户名</th>
+                                        <th id="">奖励类型</th>
+                                        <th id="">奖励说明</th>
+                                        <th id="">操作时间</th>
+                                        <th id="">操作金额</th>
+                                        <th id="">奖励金额</th>
+                                        <th id="">奖励币种</th>
+                                        <th id="">奖励状态</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="pages"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="layui-layer-move"></div>
+</body>
+
+</html>
+<script type="text/javascript" src="/public/layer/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/public/layer/layer.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $("#recommend").click(function() { //点击展示推荐列表
+            $(".recommendedList").show(); //推荐列表
+            $(".recommendedContent").hide(); //初始内容
+            $(".commissionRecord").hide(); //佣金记录
+        });
+        $("#commission").click(function() { //点击展示推荐列表
+            $(".recommendedList").hide(); //推荐列表
+            $(".recommendedContent").hide(); //初始内容
+            $(".commissionRecord").show(); //佣金记录
+        });
+        $("#copy1").click(function() {
+            copyUrl2("copyInvitation");
+        });
+        $("#copy2").click(function() {
+            copyUrl2("copyLink");
+        });
+        //点击返回
+        $(".isReturn").click(function() {
+            $(".recommendedContent").show(); //初始内容
+            $(".recommendedList").hide(); //推荐列表
+            $(".commissionRecord").hide(); //佣金记录
+        })
+    });
+
+    function copyUrl2(copyInvitation) {
+        var Url2 = document.getElementById(copyInvitation);
+        Url2.select();
+        document.execCommand("Copy");
+        layer.msg("复制成功");
+    }
+    // $("#recommend").click(function() { //点击展示推荐列表
+    //     $(".recommendedList").show(); //推荐列表
+    //     $(".recommendedContent").hide(); //初始内容
+    //     $(".commissionRecord").hide(); //佣金记录
+    // });
+</script>

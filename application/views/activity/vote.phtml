@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html style="background: #000107;">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta data-n-head="true" data-hid="format-detection" name="format-detection" content="telephone=no">
+    <meta data-n-head="true" http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta data-n-head="true" name="renderer" content="webkit">
+    <title><?=$system['system']?>-投票上币</title>
+    <link href="/public/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="/public/css/commonHead.css">
+    <link rel="stylesheet" href="/public/css/vote.css">
+</head>
+
+<body class="scroll">
+<div id="app">
+    <div class="notice" style="background: #000107;">
+        <?php load_view("inc/nav");?>
+        <div style="background:#010715;">
+            <div class="box">
+                <div class="list">
+                    <div class="topcontent ft20 fColor1">
+                        <span class="fl">投票规则</span>
+                        <span class="fr isVote" style="cursor: pointer;">我的投票</span>
+                    </div>
+                    <ul class="list_financing">
+                        <?php foreach ($result as $k=>$v): ?>
+                            <li class="li">
+                                <div class="fin-box">
+                                    <div class="fin-title-li">
+                                        <div style="margin-bottom: 10px;">
+                                            <img src="/public/imgae/banner03.jpg">
+                                        </div>
+                                        <div>
+                                            <h3><?=get_currency_name($v['currency_id'])?></h3>
+                                            <p style="margin-top: 3px;"><?=$v['title']?></p>
+                                        </div>
+                                    </div>
+                                    <div class="fin-title-li-r">
+                                        <div class=" fin-info-box">
+                                            <div>
+                                                <b class="bs"><?=$v['support']?> <span class="unit"></span>票</b>
+                                                <p class="zs">支持票数</p>
+                                            </div>
+                                            <div class="Vs"></div>
+                                            <div class="">
+                                                <b class="bs"><?=$v['oppose']?> <span class="unit">票</span></b>
+                                                <p class="zs">反对票数</p>
+                                            </div>
+                                        </div>
+                                        <div class="process-bar">
+                                            <?php
+                                            $total = $v['support']+$v['oppose'];
+                                            if($v['support'] == 0){
+                                                $vote_val = 50;
+                                            }else{
+                                                $vote_val = ($v['support'] / $total) * 100;
+                                            }
+                                            ?>
+                                            <div class="process-bar-hover" style="width:<?=$vote_val?>%"></div>
+                                        </div>
+                                        <div style="overflow: hidden;margin-top: 13px;">
+                                            <b class="orange bs fr"><?=$total?> <span class="unit">票</span></b>
+                                            <p class="zs fl">总票数</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="fin-btn">
+                                    <?php if($v['status'] == 1): ?>
+                                        <a href="#" class="opens activeTap" onclick="votecl(<?=$v['id']?>)">投票</a>
+                                    <?php else: ?>
+                                        <a href="#" style="color: #a09595;background:#5f5f5f !important ;">活动未开启</a>
+                                    <?php endif; ?>
+                                </div>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+                <!-- 我的投票记录 -->
+                <div class="SettingRight" style="display: none;">
+                    <div class="titles">
+                        <h3 class="fl">我的投票</h3>
+                        <span class="fr isRrturn" style="color: #fff;cursor: pointer;">&lt;&lt;返回</span>
+                    </div>
+                    <div class="Column_LogonLog">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tbody>
+                            <tr class="title" style="height: 45px;line-height: 45px;background: #202641;color: hsla(0,0%,100%,.3);">
+                                <th class="bor-but" width="">活动ID</th>
+                                <th class="bor-but" width="">投币名称</th>
+                                <th class="bor-but" width="">燃烧币种名称</th>
+                                <th class="bor-but" width="">投票数量</th>
+                                <th class="bor-but" width="">消耗币种数量</th>
+                                <th class="bor-but" width="">状态</th>
+                                <th class="bor-but" width="">申请时间</th>
+                            </tr>
+                            <?php foreach ($user_log as $k=>$v): ?>
+                            <tr class="title">
+                                <th width=""><?=$v['activity_id']?></th>
+                                <th width=""><?=$v['currency_name']?></th>
+                                <th width=""><?=$v['x_currency_name']?></th>
+                                <th width=""><?=$v['number']?></th>
+                                <th width=""><?=$v['expend_num']?></th>
+                                <th width=""><?=($v['status']==1)?"支持":"反对"?></th>
+                                <th width=""><?=date("Y-m-d H:i:s",$v['ctime'])?></th>
+                            </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <!-- 弹出层统一背景 -->
+            <div class="contentBack" style="display: none;"></div>
+            <!-- 弹出层 -->
+            <div id="anim" class="box-page box-back layer-anim" style="display: none;">
+                <div id="" class="box-content">
+                    <div class="float_win_pay white_style" id="licai_mask">
+                        <div class="tan_title">
+                            <h4>投票</h4>
+                            <span class="close-btn" onclick="closeCharge();">
+                                    <img src="/public/imgae/btn_close.png" width="14" height="14">
+                                </span>
+                        </div>
+                        <div class="payment_content" id="dialog_content_CnyAddress" style="min-width:400px;">
+                            <ul>
+                                <li class="imgname">
+                                    <img id="licai_img" src="/public/imgae/banner02.jpg" width="20" height="20">
+                                    <div style="display:inline-block;">
+                                        <h3 id="licai_coin">tbt</h3><span id="licai_title">超级金融链</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <select class="xzbank" id="support_type">
+                                        <option value="1">支     持</option>
+                                        <option value="2">反     对</option>
+                                    </select>
+                                </li>
+                                <li class="input100">
+                                    <label>票</label>
+                                    <input id="number" type="number" autocomplete="off" min="" max="" class="input-1" id="licai_num" style="background-color: rgb(255, 255, 255);" value="" >
+                                </li>
+                                <li>
+                                    <span class="label-1" style="text-align:left;">交易密码</span>
+                                    <input type="password" autocomplete="off" class="input-1" id="paypassword">
+                                </li>
+                                <li class="explain">
+                                    <p class="vhide"><b class="bx">*</b>投票数（ 最少 <b id="low">1</b> 票，最多 <b id="high">10000</b> 票 ）</p>
+                                    <p class="vhide"><b class="bx">*</b>每投一票燃烧 <b id="licai_votecoininfo">1 btc</b>，从账户自动扣除</p>
+                                    <p><b class="bx">*</b>投票不可退票</p>
+                                </li>
+                                <li style="margin-top:30px;">
+                                    <a href="javascript:void(0)" data-id="" onclick="Update(this)" class="btns activeTap" id="btn">确认投票</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div><span class="layui-layer-setwin"></span><span class="layui-layer-resize"></span></div>
+        </div>
+    </div>
+</div>
+<div class="layui-layer-move"></div>
+</body>
+
+</html>
+<script type="text/javascript" src="/public/js/public.js"></script>
+<script type="text/javascript" src="/public/layer/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/public/layer/layer.js"></script>
+<script type="text/javascript">
+    function votecl(id){
+        ajax_http("post","/activity/isvote",{id:id},function (msg) {
+            $("#anim").css("display","block");
+            $(".contentBack").css("display","block");
+            $("#licai_title").html(msg.title);
+            $("#licai_coin").html(msg.currency_id);
+            $("#low").html(msg.least);
+            $("#high").html(msg.maximum);
+            $("#licai_votecoininfo").html(msg.consume_number + " " + msg.x_currency_id);
+            $("#number").attr({min:msg.least,max:msg.maximum});
+            $("#btn").attr("data-id",id);
+            $("#number").on("change",function () {
+                var v = Number($("#number").val());
+                if( v > msg.maximum){
+                    $("#number").val(msg.maximum);
+                }
+                if( v < msg.least){
+                    $("#number").val(msg.least);
+                }
+            });
+        },"json");
+    }
+    
+    function Update(tag) {
+        var id = tag.dataset.id;
+        var is_status = tag.parentNode.parentNode.childNodes[3].childNodes[1].value;
+        var number = tag.parentNode.parentNode.childNodes[5].childNodes[3].value;
+        if(number == ''){
+            layer.msg("请输入投票数");
+            return;
+        }
+        var paypass = tag.parentNode.parentNode.childNodes[7].childNodes[3].value;
+        if(paypass == ''){
+            layer.msg("请输入支付密码");
+            return;
+        }
+
+        var jsonstr = {
+            id:id,
+            is_status:is_status,
+            number:number,
+            paypass:paypass
+        };
+        ajax_http("post","/activity/ajaxvote",jsonstr,function (msg) {
+            if(msg.code == 1){
+                layer.msg(msg.msg);
+                setTimeout(()=> location.reload(),1000);
+            }else{
+                layer.msg(msg.msg);
+            }
+        },"json");
+    }
+    
+    function closeCharge () {
+        $("#anim").css("display","none");
+        $(".contentBack").css("display","none");
+    }
+
+    // 显示详情
+    $(".isVote").click(function() {
+        $(".list").hide();
+        $(".SettingRight").show();
+    });
+    // 显示详情
+    $(".isRrturn").click(function() {
+        $(".list").show();
+        $(".SettingRight").hide();
+    });
+</script>

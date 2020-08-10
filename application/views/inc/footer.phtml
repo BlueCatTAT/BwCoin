@@ -1,0 +1,102 @@
+<?php
+$db = new dbModel();
+$result['set'] = $db->field("*")
+->table("bw_setting")
+->order("id desc")
+->find();
+$data=explode("|",$result['set']["friend"]);
+$data1=explode("|",$result['set']["friend_url"]);
+$arrdata=array_map(null,$data,$data1);
+$count=count($arrdata)
+?>
+<div id="footer">
+    <div class="informationBox">
+        <ul class="clearfix">
+            <li class="fl" style="margin-left: 0px;">
+                <img src="/public/imgae/phone_img.png" style="width: 20px;height: 20px;margin: -2px 5px 0 0;" alt="">电话 ：400-955-7011
+            </li>
+            <li class="fl">
+                <img src="/public/imgae/fax_img.png" style="width: 20px;height: 20px;margin: -4px 4px 0 0;" alt="">传真：0755400-955-7011
+            </li>
+            <li class="fl">
+                <img src="/public/imgae/mobile_phone.png" style="width: 23px;height: 23px;margin: -4px 0px 0 0;" alt="">手机：136-3297-8801
+            </li>
+            <li class="fl">
+                <img src="/public/imgae/address_img.png" style="width: 22px;height: 22px;margin: -2px 0 0 0;" alt="">网址：heyue.longbasz.cn
+            </li>
+            <li class="fl">
+                <img src="/public/imgae/website_img.png" style="width: 20px;height: 21px;margin: -2px 5px 0 0;" alt="">地址：深圳市龙华区民治站1970科技园，8栋1A
+            </li>
+        </ul>
+    </div>
+    <div class="inner home-inner">
+        <!-- style=" display: none;" -->
+        <div class="footer-social clearfix" >
+            <div class="fl" style="margin-right: 20px;">
+                <img src="<?=$result['set']['qrcode']?>" alt="" style="width: 100px;height: 100px;display: block;margin-bottom: 10px;">
+                <div style="text-align: center;">关注公众好1</div>
+            </div>
+            <div class="fl">
+                <img src="<?=$result['set']['qrcode1']?>" alt="" style="width: 100px;height: 100px;display: block;margin-bottom: 10px;">
+                <div style="text-align: center;">关注公众好</div>
+            </div>
+
+        </div>
+        <div class="footer-about clearfix">
+            <dl>
+                <dt>营销型网站</dt>
+                <dd>
+                    <a href="/index/news?id=41&lang=zh">关于我们</a>
+                </dd>
+            </dl>
+            <dl>
+                <dt>深度云推广</dt>
+                <dd>
+                    <a href="/index/news?id=43&lang=zh"  target="_blank">技术团队</a>
+                </dd>
+            </dl>
+            <dl>
+                <dt>商学院</dt>
+                <dd>
+                    <a href="/index/news?id=42&lang=zh"  target="_blank">联系我们</a>
+                </dd>
+            </dl>
+            <dl>
+                <dt>各大分公司联系方式</dt>
+                <dd>
+                    <p><span>北京总部: 13928450212 陈经理</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>深圳总部: 13632978801 高经理</span></p>
+                    <p><span>华东渠道: 13928450212 陈经理</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>华南渠道: 13632978801 高经理</span></p>
+                    <p><span>华北片区: 18666220740 汤经理</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>西南片区: 18666224913 孙经理</span></p>
+                    <p><span>定制开发: 13632978801 高经理</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>渠道合作: 13632978801 高经理</span></p>
+                </dd>
+            </dl>
+        </div>
+
+        <div class="links links-friends" style="height: auto;">
+            <dl class="links-item">
+                <dt>友情链接：</dt>
+                <dd>
+                    <?php foreach ($arrdata as $k =>$v): ?>
+                        <a href="<?=$v[1]?>" target="_blank"><?=$v[0]?></a> &nbsp;<?php if($k<$count-1) echo "|" ?>&nbsp;
+                    <?php endforeach; ?>
+                </dd>
+                <ul class="channel clearfix">
+                    <li class="fl"><img src="/public/imgae/channel1.png" alt=""> </li>
+                    <li class="fl"><img src="/public/imgae/channel2.png" alt=""> </li>
+                    <li class="fl"><img src="/public/imgae/channel3.png" alt=""> </li>
+                </ul>
+            </dl>
+        </div>
+        <div class="copyright">
+            <p>
+                <span><span><?=$result['set']['bottom']?></span><span><?=$result['set']['icp']?></span>
+                <span><a href="javascript:;"  target="_blank"><img src="https://static.zhipin.com/v2/web/geek/images/icon-badge-1.png" alt="">电子营业执照</a></span>
+                <span><a href="javascript:;"  target="_blank"><img src="https://static.zhipin.com/v2/web/geek/images/icon-beian.png" alt=""> 京公网安备11010502032801</a></span>
+                <span class="fr"><a href="<?=$result['set']['domain']?>"  target="_blank">丨&nbsp;&nbsp;技术支持: 深圳龙霸软件</a></span>
+                <span class="fr"><a href="/index/news?id=42&lang=zh"  target="_blank">联系我们</a></span>
+                <span class="fr"><a href="/?lang=zh"  target="_blank">首页&nbsp;&nbsp;丨</a></span>
+
+            </p>
+        </div>
+    </div>
+</div>

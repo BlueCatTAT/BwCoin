@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html style="background: #010715;height: 100%;">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta data-n-head="true" data-hid="format-detection" name="format-detection" content="telephone=no">
+    <meta data-n-head="true" http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta data-n-head="true" name="renderer" content="webkit">
+    <title>投票上币</title>
+    <link rel="icon" type="image/x-icon" href="../imgae/anzhuo.png">
+    <link href="../css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/commonHead.css">
+    <link rel="stylesheet" href="./newCoinDetails.css">
+</head>
+
+<body class="scroll" style="background: #010715;height: 100%;">
+    <div id="app">
+        <div class="notice">
+            <div style="border-bottom: 2px solid #131625">
+                <!-- 导航栏部分 -->
+                <div class="nav_bar">
+                    <div class="content clear" style="height: 60px;">
+                        <div class="fl" style="color: #FE6600;font-weight: bold;font-size: 26px;">
+                            霸王
+                            <!-- <img src="./imgae/logo.0ef4895.png" class="navbar-logo" style="width: 150px; position: relative; top: -2px;"> -->
+                        </div>
+                        <!-- 导航栏 -->
+                        <ul class="navbar-item fl mouseDefault ml20">
+                            <!-- router-link-exact-active router-link-active -->
+                            <li class="base"><a href="../index.html" class="">首页</a></li>
+                            <li class="base"><a href="../transaction/index.html" class="">法币交易</a></li>
+                            <!-- <li class="base"><a href="javascript:;" class="">合约交易</a></li> -->
+                            <li class="base"><a href="../assets/index.html" class="">我的资产</a></li>
+                            <li class="base"><a class="router-link-active " href="../vote/vote.html" class="">投票上币</a></li>
+                            <li class="base"><a href="../notice/index.html" class="">帮助中心</a></li>
+                            <li class="base downapp">APP下载
+                                <!--  style="display: none;" -->
+                                <div class="appcode tl"><span></span>
+                                    <div class="app-left">
+                                        <p class="code">
+                                            <img src="../imgae/anzhuo.png" alt="haha"></p>
+                                        <p class="texts">扫码下载</p>
+                                    </div>
+                                    <div class="app-right">
+                                        <a href="http://heyue.longbasz.cn/dist/#">
+                                            <b><img src="../imgae/ios.png" alt=""></b>
+                                            <p class="texts"><img alt="">扫码下载</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- 用户登录状态 -->
+                        <div class="fr">
+                            <div class="account-box fl positionR curPer flex">
+                                <div class="msg_wrap">
+                                    <div class="account_login fColor1 fl">
+                                        <img src="../../public/imgae/setUp1.png" alt="" class="icon_img">
+                                        <span>136****8801</span>
+                                        <img src="../../public/imgae/setUp2.png" alt="">
+                                    </div>
+                                </div>
+                                <!--style="display: none;"-->
+                                <div class="account-choose mine ft14 fColor1">
+                                    <p class="curPer">
+                                        <img src="../../public/imgae/setUp1.png" alt="">
+                                        <img src="../../public/imgae/setUp2.png" alt="">
+                                        <span>账户设置</span></p>
+                                    <p class="curPer">
+                                        <img src="../../public/imgae/news1.png" alt="">
+                                        <img src="../../public/imgae/news2.png" alt="">
+                                        <span>交易日志</span>
+                                    </p>
+                                    <p class="curPer">
+                                        <img src="../../public/imgae/setUp1.png" alt="">
+                                        <img src="../../public/imgae/setUp2.png" alt="">
+                                        <span>收款设置</span></p>
+                                    <p class="curPer">
+                                        <img src="../../public/imgae/identity1.png" alt="">
+                                        <img src="../../public/imgae/identity2.png" alt="">
+                                        <span>身份认证</span></p>
+                                    <p class="curPer">
+                                        <img src="../../public/imgae/signIn1.png" alt="">
+                                        <img src="../../public/imgae/signIn1.png" alt="">
+                                        <span>退出登录</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 选择语法 -->
+                        <div class="fr language">
+                            <div class="account-box fl positionR curPer flex">
+                                <div class="msg_wrap">
+                                    <div class="account_login fColor1 fl">
+                                        <img src="../imgae/china.png" alt="" class="icon_img">
+                                        <span>简体中文</span>
+                                    </div>
+                                </div>
+                                <!--style="display: none;"-->
+                                <div class="account-choose mine ft14 fColor1">
+                                    <p class="curPer">
+                                        <img src="../imgae/Britain.png" alt="">
+                                        <span>English</span>
+                                    </p>
+                                    <p class="curPer">
+                                        <img src="../imgae/korea.png" alt="">
+                                        <span>韩语</span></p>
+                                    <p class="curPer">
+                                        <img src="../imgae/spain.png" alt="">
+                                        <span>西班牙</span>
+                                    </p>
+                                    <p class="curPer">
+                                        <img src="../imgae/italy.png" alt="">
+                                        <span>意大利</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 注册 登录 -->
+                        <div class="fr" style="color: #A8A4B5;font-size: 15px;margin-right: 20px;"><a href="../login/register.html" style="display: block;">&nbsp;注册</a></div>
+                        <div class="fr" style="color: #A8A4B5;font-size: 15px;"><a href="../login/login.html" style="display: block;">登录 丨 </a></div>
+                    </div>
+                </div>
+            </div>
+            <div style="background:#010715;">
+                <!-- 内容 -->
+                <div class="box">
+                    <!-- 投票列表 -->
+                    <div class="list">
+                        <div class="topcontent ft20 fColor1">
+                            <span class="fl">新币预售-项目详情</span>
+                        </div>
+                        <!-- 主要信息 -->
+                        <div class="list_issue clearfix">
+                            <div class="fl left">
+                                <img src="../imgae/anzhuo.png" alt="">
+                                <div class="">立即参与</div>
+                                <div class="joinClass">立即参与</div>
+                                <div class="conduct">进行中</div>
+                                <div class="closed">抢购已结束</div>
+                                <div class="timeOut">结束时间：2020年5月11日</div>
+                            </div>
+                            <div class="fr right">
+                                <div class="title clearfix">
+                                    <span class="fl">USDT(天使轮)</span>
+                                    <span class="fr" style="font-size: 14px;">兑换比例 : 0.01USDT ≈ 1USDT</span>
+                                </div>
+                                <div class="content_top">
+                                    <p>币种</p>
+                                    <p>可用</p>
+                                    <p>冻结</p>
+                                    <p>折合(CNY)</p>
+                                    <p>操作</p>
+                                </div>
+                                <div class="content_top">
+                                    <p class="color">币种</p>
+                                    <p class="color">可用</p>
+                                    <p class="color">冻结</p>
+                                    <p class="color">折合(CNY)</p>
+                                    <p class="color">操作</p>
+                                </div>
+                                <div class="process-bar">
+                                    <div class="process-bar-hover" style="width:60%"></div>
+                                </div>
+                                <div class="clearfix  clearfix">
+                                    <span class="fl" style="color: #fff;">
+                                        <span style="color: #0AC38A;">1</span> 支持者</span>
+                                    <span class="fr" style="color: #0AC38A;">1%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 文字内容 -->
+                        <div class="contentDetails">
+                            <div class="content">
+                                <div class="text">
+                                    目前加密市场都在屏息等待比特币的第三次减半，链闻查询 CoinMarketCap 数据发现，截至发稿时，距离减半还 有大约 16 个小时（大约在北京时间 5 月 12 日凌晨 3 点左右），距离目标区块高度还有大约 100 个。
+                                </div>
+                                <div class="text">
+                                    减半将至，比特币网络基本面较四年前发生了哪些变化？
+                                </div>
+                                <div class="text">
+                                    在期待第三次减半的同时，可以简单回顾对比一下上次减半的基本情况，链闻根据加密分析公司Glassnode的分析 师 Rafael Schultze-Kraft 提供的第二次减半的链上数据、基本面因素和发展，主要整理归纳如下：
+                                </div>
+                                <div class="text">
+                                    比特币的新每日地址数量（表明用户加入网络）上升了 68%； 持有 0.01、0.1、1 和 1000 个比特币以上的地址数量均有所增长； 每日活跃地址数量上升了 59%； 每日平均交易量（以美元计算）上升了 682%。 减半将至，比特币网络基本面较四年前发生了哪些变化？
+                                </div>
+                            </div>
+                        </div>
+                        <!-- tips 提示 -->
+                        <div class="tipsBox">
+                            <div class="title">温馨提示</div>
+                            <div class="tipsText">数字资产是创新的投资产品，可能存在矿工预挖、庄家操控、团队解散、技术缺陷等问题；其价格波动较大，具有较高的投资风险， 请您投资前对数字资产充分认知，理性判断自己的投资能力，审慎做出投资决策。
+                            </div>
+                        </div>
+                        <!--  -->
+                    </div>
+                </div>
+                <!-- 弹出层统一背景 -->
+                <div class="contentBack" style="display: none;"></div>
+                <!-- 弹出层 -->
+                <div class="box-back box-page" style="display: none;">
+                    <div class="box-content">
+                        <div class="float_win_pay layui-layer-wrap" id="licai_mask">
+                            <div class="tan_title">
+                                <h4 id="licai_title"></h4>
+                                <span class="close-btn closeCharge">x</span>
+                            </div>
+                            <div class="payment_content">
+                                <ul>
+                                    <li>
+                                        <span class="label-1" style="width: 46%;">可用 
+                                            <span style="color: #097DF7;">CNC9999.95</span>
+                                        </span>
+                                        <span class="label-1" style="width: 46%;">限购 
+                                            <span style="color: red;">SUF1000</span>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="label-1">购买数量</span>
+                                        <input type="text" class="input-1" id="licai_jine">
+                                    </li>
+
+                                    <li>
+                                        <span class="label-1">交易密码</span>
+                                        <input type="password" class="input-1" id="paypassword">
+                                    </li>
+                                    <li style="margin:-10px 0 10px 0;font-size:14px;text-transform:uppercase;color:#097DF7;">
+                                        <div style="text-align: center;padding-top: 20px;">结束时间 : 2020-05-26 16:53:19</div>
+                                    </li>
+                                    <li style="margin-top:30px;">
+                                        <a href="#" class="btns Update" id="btn">立即参与</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        // 点击关闭弹窗
+        $(".contentBack,.closeCharge").click(function() {
+            $(".box-back").hide();
+            $(".contentBack").hide();
+        });
+        // 点击关闭弹窗
+        $(".left .joinClass").click(function() {
+            $(".box-back").show();
+            $(".contentBack").show();
+        });
+        // 点击提交
+        $("#btn").click(function() {
+            var licai_jine = $("#licai_jine").val(); //购买数量
+            var paypassword = $("#paypassword").val(); //交易密码
+            console.log(licai_jine, paypassword)
+            if (licai_jine == '') {
+                console.log("购买数量不能为空");
+                return
+            } else if (paypassword == '') {
+                console.log("交易密码不能为空");
+                return
+            }
+            console.log("可以提交")
+        })
+    });
+</script>

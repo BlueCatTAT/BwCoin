@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html>
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+  <meta data-n-head="true" data-hid="format-detection" name="format-detection" content="telephone=no" /> 
+  <meta data-n-head="true" http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /> 
+  <meta data-n-head="true" name="renderer" content="webkit" /> 
+  <title>杠杆交易</title> 
+  <link rel="icon" type="image/x-icon" href="../imgae/anzhuo.png" /> 
+  <link href="../css/index.css" rel="stylesheet" /> 
+  <link rel="stylesheet" href="../css/commonHead.css" /> 
+  <link rel="stylesheet" href="./leveraged.css" /> 
+  <!-- <link rel="stylesheet" href="../notice/noticeIndex.css"> --> 
+  <style>
+
+    .select {
+        position: relative;
+        float: left;
+        width: 110px
+    }
+
+    .select .select-view {
+        position: relative
+    }
+
+    .select .select-view .select-text {
+        font-size:14px;
+        line-height: 24px
+    }
+
+    .select .select-view .select-icon {
+        display: block;
+        position: absolute;
+        right: 5px;
+        top: 25px;
+        border: solid 5px #fff;
+        border-top-color: #ccc;
+        cursor: pointer
+    }
+
+    .select .options {
+        display: none;
+        position: absolute;
+        left: 1px;
+        top: 100%;
+        padding: 5px 0;
+        background: #fff;
+        width: 100%;
+        border: solid 1px #ccc
+    }
+
+    .select .options>li {
+        margin: 0 10px;
+        cursor: pointer;
+        margin-top: -20px;
+        height: 50px;
+    }
+    </style> 
+ </head> 
+ <body class="scroll"> 
+  <div id="app" style="background-color: #000000;"> 
+   <div style="border-bottom: 2px solid #131625"> 
+    <!-- 导航栏部分 --> 
+    <div class="nav_bar"> 
+     <div class="content clear" style="height: 60px;"> 
+      <div class="fl" style="color: #FE6600;font-weight: bold;font-size: 26px;">
+       霸王
+      </div> 
+      <!-- 导航栏 --> 
+      <ul class="navbar-item fl mouseDefault ml20"> 
+       <!-- router-link-exact-active router-link-active --> 
+       <li class="base"><a href="../index.html" class="">首页</a></li> 
+       <li class="base"><a href="../transaction/index.html" class="router-link-active">法币交易</a></li> 
+       <li class="base"><a href="javascript:;" class="">合约交易</a></li> 
+       <li class="base"><a href="../assets/index.html" class="">我的资产</a></li> 
+       <li class="base"><a href="../notice/index.html" class="">帮助中心</a></li> 
+       <li class="base downapp">APP下载 
+        <!--  style="display: none;" --> 
+        <div class="appcode tl">
+         <span></span> 
+         <div class="app-left"> 
+          <p class="code"> <img src="../imgae/anzhuo.png" alt="haha" /></p> 
+          <p class="texts">扫码下载</p> 
+         </div> 
+         <div class="app-right"> 
+          <a href="http://heyue.longbasz.cn/dist/#"> <b><img src="../imgae/ios.png" alt="" /></b> <p class="texts"><img alt="" />扫码下载</p> </a> 
+         </div> 
+        </div> </li> 
+      </ul> 
+      <!-- 用户登录状态 --> 
+      <div class="fr"> 
+       <div class="account-box fl positionR curPer flex"> 
+        <div class="msg_wrap"> 
+         <div class="account_login fColor1 fl"> 
+          <img src="../../public/imgae/setUp1.png" alt="" class="icon_img" /> 
+          <span>136****8801</span> 
+          <img src="../../public/imgae/setUp2.png" alt="" /> 
+         </div> 
+        </div> 
+        <!--style="display: none;"--> 
+        <div class="account-choose mine ft14 fColor1"> 
+         <p class="curPer"> <img src="../../public/imgae/setUp1.png" alt="" /> <img src="../../public/imgae/setUp2.png" alt="" /> <span>账户设置</span></p> 
+         <p class="curPer"> <img src="../../public/imgae/news1.png" alt="" /> <img src="../../public/imgae/news2.png" alt="" /> <span>交易日志</span> </p> 
+         <p class="curPer"> <img src="../../public/imgae/setUp1.png" alt="" /> <img src="../../public/imgae/setUp2.png" alt="" /> <span>收款设置</span></p> 
+         <p class="curPer"> <img src="../../public/imgae/identity1.png" alt="" /> <img src="../../public/imgae/identity2.png" alt="" /> <span>身份认证</span></p> 
+         <p class="curPer"> <img src="../../public/imgae/signIn1.png" alt="" /> <img src="../../public/imgae/signIn1.png" alt="" /> <span>退出登录</span> </p> 
+        </div> 
+       </div> 
+      </div> 
+      <!-- 选择语法 --> 
+      <div class="fr language" style="width: 140px"> 
+       <div class="account-box fl positionR curPer flex"> 
+        <div class="msg_wrap"> 
+         <!--  <div class="account_login fColor1 fl">
+                                   <img src="../imgae/china.png" alt="" class="icon_img">
+                                   <span>简体中文</span>
+                               </div> --> 
+         <div class="select clear-float" id="select"> 
+          <div class="select-view "> 
+           <input type="hidden" name="" class="select-value" value="" /> 
+           <img src="../imgae/china.png" alt="" /> 
+           <span class="select-text">简体中文</span> 
+           <i class="select-icon"></i> 
+          </div> 
+          <ul class="options"> 
+           <li data-value="0"> <img src="../imgae/china.png" alt="" />简体中文</li> 
+           <li data-value="1"> <img src="../imgae/china.png" alt="" />繁体中文</li> 
+           <li data-value="2"> <img src="../imgae/china.png" alt="" />简体中文</li> 
+          </ul> 
+         </div> 
+        </div> 
+        <!--  <div class="account-choose mine ft14 fColor1">
+                               <p class="curPer">
+                                   <img src="../imgae/Britain.png" alt="">
+                                   <span>English</span>
+                               </p>
+                               <p class="curPer">
+                                   <img src="../imgae/korea.png" alt="">
+                                   <span>韩语</span></p>
+                               <p class="curPer">
+                                   <img src="../imgae/spain.png" alt="">
+                                   <span>西班牙</span>
+                               </p>
+                               <p class="curPer">
+                                   <img src="../imgae/italy.png" alt="">
+                                   <span>意大利</span>
+                               </p>
+                           </div> --> 
+       </div> 
+      </div> 
+      <!-- 注册 登录 --> 
+      <div class="fr" style="color: #A8A4B5;font-size: 15px;margin-right: 20px;">
+       <a href="../login/register.html" style="display: block;">&nbsp;注册</a>
+      </div> 
+      <div class="fr" style="color: #A8A4B5;font-size: 15px;">
+       <a href="../login/login.html" style="display: block;">登录 丨 </a>
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+   <div class="w100 baselight"> 
+    <div class="flex alcenter mt5 vh80" style="min-height: 753px;padding: 0 40px;"> 
+     <!-- 侧边栏币种 --> 
+     <div class="wt290 bd mr5  radius2 h100 radius" style=" "> 
+      <div class="bgpart radius2" style="margin-bottom: 20px"> 
+       <div class="bgheader bdbheader flex alcenter plr10  baselight2 left23 radiustop" style="padding-left: 23px;font-size: 16px;background: #1D2436;height: 45px;line-height: 45px;width: 100%; min-width: 230px"> 
+        <div class="bold ft16 pointer active2px">
+         限价交易
+        </div> 
+        <div class="bold ft16 pointer active2px" style="margin-left: 23px;">
+         市价交易
+        </div> 
+       </div> 
+       <div class="flex alcenter" style="height: 52px">
+        <span class="flex1 pl10">币种</span> 
+        <span class="flex1 tr">最新价</span> 
+        <span class="flex1 tr pr10">涨幅</span>
+       </div> 
+       <!-- 币种类型 --> 
+       <div class="overyscroll" style="max-height: 354px; "> 
+        <div class="flex alcenter ptb5 markethover bgshadow"> 
+         <div class="flex1 pl10 baselight2">
+          BTC
+         </div> 
+         <div class="flex1 tr baselight2">
+          8956.210000
+         </div> 
+         <div class="flex1 tr pr10  green">
+          <span>+</span> 0.5166% 
+         </div> 
+        </div> 
+        <div class="flex alcenter ptb5 markethover bgshadow"> 
+         <div class="flex1 pl10 baselight2">
+          BTC
+         </div> 
+         <div class="flex1 tr baselight2">
+          8956.210000
+         </div> 
+         <div class="flex1 tr pr10  red">
+          <span>+</span> 0.5166% 
+         </div> 
+        </div> 
+        <div class="flex alcenter ptb5 markethover bgshadow"> 
+         <div class="flex1 pl10 baselight2">
+          BTC
+         </div> 
+         <div class="flex1 tr baselight2">
+          8956.210000
+         </div> 
+         <div class="flex1 tr pr10  green">
+          <span>+</span> 0.5166% 
+         </div> 
+        </div> 
+        <div class="flex alcenter ptb5 markethover bgshadow"> 
+         <div class="flex1 pl10 baselight2">
+          BTC
+         </div> 
+         <div class="flex1 tr baselight2">
+          8956.210000
+         </div> 
+         <div class="flex1 tr pr10  red">
+          <span>+</span> 0.5166% 
+         </div> 
+        </div> 
+        <div class="flex alcenter ptb5 markethover bgshadow"> 
+         <div class="flex1 pl10 baselight2">
+          BTC
+         </div> 
+         <div class="flex1 tr baselight2">
+          8956.210000
+         </div> 
+         <div class="flex1 tr pr10  green">
+          <span>+</span> 0.5166% 
+         </div> 
+        </div> 
+        <div class="flex alcenter ptb5 markethover bgshadow"> 
+         <div class="flex1 pl10 baselight2">
+          BTC
+         </div> 
+         <div class="flex1 tr baselight2">
+          8956.210000
+         </div> 
+         <div class="flex1 tr pr10  red">
+          <span>+</span> 0.5166% 
+         </div> 
+        </div> 
+        <div class="flex alcenter ptb5 markethover bgshadow"> 
+         <div class="flex1 pl10 baselight2">
+          BTC
+         </div> 
+         <div class="flex1 tr baselight2">
+          8956.210000
+         </div> 
+         <div class="flex1 tr pr10  green">
+          <span>+</span> 0.5166% 
+         </div> 
+        </div> 
+        <div class="flex alcenter ptb5 markethover bgshadow"> 
+         <div class="flex1 pl10 baselight2">
+          BTC
+         </div> 
+         <div class="flex1 tr baselight2">
+          8956.210000
+         </div> 
+         <div class="flex1 tr pr10  red">
+          <span>+</span> 0.5166% 
+         </div> 
+        </div> 
+        <div class="flex alcenter ptb5 markethover bgshadow"> 
+         <div class="flex1 pl10 baselight2">
+          BTC
+         </div> 
+         <div class="flex1 tr baselight2">
+          8956.210000
+         </div> 
+         <div class="flex1 tr pr10  red">
+          <span>+</span> 0.5166% 
+         </div> 
+        </div> 
+        <div class="flex alcenter ptb5 markethover bgshadow"> 
+         <div class="flex1 pl10 baselight2">
+          BTC
+         </div> 
+         <div class="flex1 tr baselight2">
+          8956.210000
+         </div> 
+         <div class="flex1 tr pr10  red">
+          <span>+</span> 0.5166% 
+         </div> 
+        </div> 
+        <div class="flex alcenter ptb5 markethover bgshadow"> 
+         <div class="flex1 pl10 baselight2">
+          BTC
+         </div> 
+         <div class="flex1 tr baselight2">
+          8956.210000
+         </div> 
+         <div class="flex1 tr pr10  red">
+          <span>+</span> 0.5166% 
+         </div> 
+        </div> 
+        <div class="flex alcenter ptb5 markethover bgshadow"> 
+         <div class="flex1 pl10 baselight2">
+          BTC
+         </div> 
+         <div class="flex1 tr baselight2">
+          8956.210000
+         </div> 
+         <div class="flex1 tr pr10  red">
+          <span>+</span> 0.5166% 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="bgpart radius2" style="margin-bottom: 20px"> 
+       <div class="flex alcenter"> 
+        <div class="ht25 lh25 tl ft12 baselight2 radius2 txtwhite" style="padding-left: 20px;font-size: 16px;background: #1D2436;height: 45px;line-height: 45px;width: 100%;">
+         杠杆账户
+        </div> 
+       </div> 
+       <!-- 杠杆账户 --> 
+       <div class="overyscroll" style="min-height: 240px;"> 
+
+        <div>
+           <!-- 总资产 -->
+            <div class="bill fa14">
+             总资产 
+             <div class="">
+              <a class="ra">0.00000000</a> <span>BTC</span> 
+              <p>≈ 0.00 CNY</p> 
+             </div> 
+            </div>
+
+            <!-- 总负债 -->
+            <div class="bill fa14">
+             总负债 
+             <div class=""> 
+              <a class="red">0.00000000</a> <span>BTC</span> 
+              <p>≈ 0.00 CNY</p> 
+             </div> 
+            </div> 
+
+            <!-- 我的借币 -->
+            <div class="bill fa14">
+             我的借币 
+             <div class=""> 
+               
+             </div> 
+            </div> 
+       </div>
+        
+        <!-- 风险图 -->
+       <div>
+
+       </div>
+       
+       </div> 
+      </div> 
+     </div> 
+     <!-- 右边内容 --> 
+     <div class="flex1 flex column h100"> 
+      <div class="flex h100"> 
+       <div class="flex2 flex column mr5"> 
+        <div class="flex2"> 
+         <div class="bgheader bdbheader flex alcenter plr10 ht45 radiustop" style="height: 45px;text-align: center;"> 
+          <div class="baselight2 ft16 bold mr20 left16">
+           BTC/USDT
+          </div> 
+          <div> 
+           <div class="ft16 green">
+            8956.21 
+            <span class="ft12 gray">≈ 612804838.9175CNY</span>
+           </div> 
+          </div> 
+          <div class="flex1 ft12  flex ml30"> 
+           <div class="mr30"> 
+            <div class="flex1">
+             涨幅 
+             <span class="flex1 green">+ 0.8286%</span>
+            </div> 
+           </div> 
+           <div class="mr30"> 
+            <div class="flex1">
+             最高价 
+             <span class="flex1 baselight2">8956.160700</span>
+            </div> 
+           </div> 
+           <div class="mr30"> 
+            <div class="flex1">
+             最低价 
+             <span class="flex1 baselight2">0.154300 </span>
+            </div> 
+           </div> 
+           <div class="mr30"> 
+            <div class="flex1">
+             24H量 
+             <span class="flex1 baselight2">285212.4687605800 </span>
+            </div> 
+           </div> 
+          </div> 
+         </div> 
+         <!-- canvas画布 background: #fff; --> 
+         <div id="tv_chart_container" style="width: 100%; height: 90%; position: relative;"> 
+          <div class="times clearfix radiusbottom"> 
+           <div class="fl bttn activeClass">
+            1分钟
+           </div> 
+           <div class="fl bttn">
+            5分钟
+           </div> 
+           <div class="fl bttn">
+            15分钟
+           </div> 
+           <div class="fl bttn">
+            30分钟
+           </div> 
+           <div class="fl bttn">
+            1小时
+           </div> 
+           <div class="fl bttn">
+            1天
+           </div> 
+          </div> 
+          <div id="main" style="width: 100%; height: 95.5%;"></div> 
+          <!-- <iframe id="tradingview_6ca05" name="tradingview_6ca05" src="./demo-base-pc_files/tv-chart.630b704a2b9d0eaf1593.html" frameborder="0" allowtransparency="true" scrolling="no" allowfullscreen="" style="display: block; width: 100%; height: 100%;"></iframe> --> 
+         </div> 
+        </div> 
+        <div class="flex12 bgpart radius"> 
+         <div class="bgheader bdbheader flex alcenter plr10  baselight2 left23 radiustop" style="padding-left: 23px;font-size: 16px;background: #1D2436;height: 45px;line-height: 45px;width: 100%;"> 
+          <div class="bold ft16 pointer active2px">
+           限价交易
+          </div> 
+          <div class="bold ft16 pointer " style="margin-left: 23px;">
+           市价交易
+          </div> 
+          <span class="flex1 tr pr10 " style="font-size:14px;font-family:Source Han Sans CN;font-weight:400;line-height:30px;opacity:0.6;"><a href="" class="blue1">登录</a>或<a href="" class="blue1">注册</a>/开始交易</span> 
+         </div> 
+         <!-- 币币内容 --> 
+         <div class=" flex ft12"> 
+          <div class="flex1 plr10 mt10 radius" style="border-right: 1px dashed rgb(56, 63, 102); "> 
+           <div class="flex alcenter mb10" style="font-size: 14px;color: #6A6877;">
+            可用0.00000000USDT
+           </div> 
+           <div class="flex alcenter mb10 posRelt"> 
+            <span class="w15">买入价</span> 
+            <input type="number" class="ht30 bdinput lh30 plr5 radius2 ml10 flex1 white" /> 
+            <!-- 切换时显示 --> 
+            <input type="text" placeholder="以市场最优价格买入" disabled="disabled" class="trade ht30 bgheader lh30 plr5 radius2 ml10 flex1 white" style="display: none;" /> 
+            <span class="abstort ht30 lh30 plr5 rt0 btm0">USDT</span>
+           </div> 
+           <div class="flex alcenter mb10 posRelt"> 
+            <span class="w15">买入量</span> 
+            <input type="number" class="ht30 bdinput lh30 pl5 radius2 ml10 flex1 white" /> 
+            <span class="abstort ht30 lh30 plr5 rt0 btm0">BTC</span> 
+            <span class="abstort ht30 lh30 plr5 rt0 btm0" style="display: none;">BTC</span> 
+           </div> 
+           <div role="slider" aria-valuemin="0" aria-valuemax="100" aria-orientation="horizontal" class="el-slider buyslider ml10" aria-valuetext="0" aria-label="slider between 0 and 100"> 
+            <!----> 
+            <div class="el-slider__runway"> 
+             <div class="el-slider__bar" style="width: 0%; left: 0%;"></div> 
+             <div tabindex="0" class="el-slider__button-wrapper" style="left: 0%;"> 
+              <div class="el-tooltip el-slider__button" aria-describedby="el-tooltip-9241" tabindex="0"></div> 
+             </div> 
+             <!----> 
+             <div class="el-slider__stop" style="left: 25%;"></div> 
+             <div class="el-slider__stop" style="left: 50%;"></div> 
+             <div class="el-slider__stop" style="left: 75%;"></div> 
+             <!----> 
+            </div> 
+           </div> 
+           <div class="flex alcenter mb10">
+            交易额：0USDT
+           </div> 
+           <div class="bggreen tc ht30 lh30 white radius2 pointer">
+            买入
+           </div> 
+          </div> 
+          <div class="flex1 plr10 mt10 "> 
+           <div class="flex alcenter mb10" style="font-size: 14px;color: #6A6877;">
+            可用0.00000000BTC
+           </div> 
+           <div class="flex alcenter mb10 posRelt ">
+            <span class="w15 ">卖出价</span> 
+            <input type="number " class="ht30 bdinput lh30 plr5 radius2 ml10 flex1 white " /> 
+            <!-- 切换时显示 --> 
+            <input type="text " placeholder="以市场最优价格卖出 " disabled="disabled
+                                            " class="trade ht30 bgheader lh30 plr5 radius2 ml10 flex1 white " style="display: none; " /> 
+            <span class="abstort ht30 lh30 plr5 rt0 btm0 ">USDT</span> 
+           </div> 
+           <div class="flex alcenter mb10 posRelt "> 
+            <span class="w15 ">卖出量</span> 
+            <input type="number " class="ht30 bdinput lh30 pl5 radius2 ml10 flex1 white " /> 
+            <span class="abstort ht30 lh30 plr5 rt0 btm0 ">BTC</span> 
+           </div> 
+           <div role="slider " aria-valuemin="0 " aria-valuemax="100 " aria-orientation="horizontal " class="el-slider sellslider ml10 " aria-valuetext="0 " aria-label="slider between 0 and 100 "> 
+            <!----> 
+            <div class="el-slider__runway "> 
+             <div class="el-slider__bar " style="width: 0%; left: 0%; "></div> 
+             <div tabindex="0 " class="el-slider__button-wrapper " style="left: 0%; "> 
+              <div class="el-tooltip el-slider__button " aria-describedby="el-tooltip-301 " tabindex="0 "></div> 
+             </div> 
+             <!----> 
+             <div class="el-slider__stop " style="left: 25%; "></div> 
+             <div class="el-slider__stop " style="left: 50%; "></div> 
+             <div class="el-slider__stop " style="left: 75%; "></div> 
+             <!----> 
+            </div> 
+           </div> 
+           <div class="flex alcenter mb10 ">
+            交易额：0USDT
+           </div> 
+           <div class="bgred tc ht30 lh30 white radius2 pointer ">
+            卖出
+           </div> 
+          </div> 
+         </div> 
+         <!-- 合约交易部分--> 
+         <div class="flex12 mt5 bgpart " style="display: none;"> 
+          <div class="bgheader bdbheader flex alcenter plr10 baselight2"> 
+           <div class="ptb5 mr30 bold ft14 pointer">
+            市价交易
+           </div> 
+           <div class="ptb5 mr30 bold ft14 pointer active2px">
+            限价交易
+           </div> 
+          </div> 
+          <div class="flex alcenter mb10 plr10 ft14 pt10">
+           可用0.00000000USDT
+          </div> 
+          <div class="flex ft12 pb10"> 
+           <div class="flex1 plr10 mt10" style="border-right: 1px dashed rgb(56, 63, 102);"> 
+            <div class="flex alcenter mb10 posRelt mult" style="">
+             <span class="w15">价格</span> 
+             <input type="number" placeholder="请输入价格" class="ht30 bdinput lh30 plr5 radius2 ml10 flex1 white" />
+            </div> 
+            <div class="flex alcenter mb10 posRelt mult">
+             <span class="w15">倍数</span> 
+             <div class="el-select lh30 bdinput lh30 radius2 ml10 flex1 white"> 
+              <!----> 
+              <div class="el-input el-input--suffix"> 
+               <!---->
+               <input type="text" readonly="readonly" autocomplete="off" placeholder="请选择倍数" class="el-input__inner" /> 
+               <!---->
+               <span class="el-input__suffix"><span class="el-input__suffix-inner"><i class="el-select__caret el-input__icon el-icon-arrow-up"></i>
+                 <!---->
+                 <!---->
+                 <!---->
+                 <!---->
+                 <!----></span> 
+                <!----> </span> 
+               <!----> 
+               <!----> 
+              </div> 
+              <!-- display: none; --> 
+              <div class="el-select-dropdown el-popper selects" style=" min-width: 273.797px;"> 
+               <div class="el-scrollbar" style=""> 
+                <div class="el-select-dropdown__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default"> 
+                 <ul class="el-scrollbar__view el-select-dropdown__list"> 
+                  <!----> 
+                  <li class="el-select-dropdown__item"><span>2</span></li> 
+                  <li class="el-select-dropdown__item"><span>5</span></li> 
+                  <li class="el-select-dropdown__item"><span>10</span></li> 
+                  <li class="el-select-dropdown__item"><span>50</span></li> 
+                  <li class="el-select-dropdown__item"><span>100</span></li> 
+                  <li class="el-select-dropdown__item"><span>500</span></li> 
+                 </ul> 
+                </div> 
+                <div class="el-scrollbar__bar is-horizontal"> 
+                 <div class="el-scrollbar__thumb" style="transform: translateX(0%);"></div> 
+                </div> 
+                <div class="el-scrollbar__bar is-vertical"> 
+                 <div class="el-scrollbar__thumb" style="transform: translateY(0%);"></div> 
+                </div> 
+               </div> 
+               <!----> 
+              </div> 
+             </div> 
+            </div> 
+            <div class="mb10">
+             1手等于1BTC
+            </div> 
+            <div class="flex alcenter mb10 posRelt">
+             <span class="w15">手数</span> 
+             <div class="flex bdinput lh30 pl5 radius2 ml10 flex1 white mult">
+              <input type="number" class="white flex2 lh30" /> 
+              <div class="flex1" style="border-left: 1px solid rgb(56, 63, 102);"> 
+               <div class="el-select"> 
+                <!----> 
+                <div class="el-input el-input--suffix"> 
+                 <!---->
+                 <input type="text" readonly="readonly" autocomplete="off" placeholder="请选择" class="el-input__inner" /> 
+                 <!---->
+                 <span class="el-input__suffix"><span class="el-input__suffix-inner"><i class="el-select__caret el-input__icon el-icon-arrow-up"></i>
+                   <!---->
+                   <!---->
+                   <!---->
+                   <!---->
+                   <!----></span> 
+                  <!----> </span> 
+                 <!----> 
+                 <!----> 
+                </div> 
+                <!-- display: none; --> 
+                <div class="el-select-dropdown el-popper selects" style=" min-width: 88.5938px;"> 
+                 <div class="el-scrollbar" style=""> 
+                  <div class="el-select-dropdown__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default"> 
+                   <ul class="el-scrollbar__view el-select-dropdown__list"> 
+                    <!----> 
+                    <li class="el-select-dropdown__item"><span>1</span></li> 
+                    <li class="el-select-dropdown__item"><span>5</span></li> 
+                    <li class="el-select-dropdown__item"><span>10</span></li> 
+                    <li class="el-select-dropdown__item"><span>50</span></li> 
+                    <li class="el-select-dropdown__item"><span>100</span></li> 
+                    <li class="el-select-dropdown__item"><span>500</span></li> 
+                   </ul> 
+                  </div> 
+                  <div class="el-scrollbar__bar is-horizontal"> 
+                   <div class="el-scrollbar__thumb" style="transform: translateX(0%);"></div> 
+                  </div> 
+                  <div class="el-scrollbar__bar is-vertical"> 
+                   <div class="el-scrollbar__thumb" style="transform: translateY(0%);"></div> 
+                  </div> 
+                 </div> 
+                 <!----> 
+                </div> 
+               </div> 
+              </div> 
+             </div> 
+            </div> 
+            <div class="flex alcenter mb10">
+             <span class="w15">交易密码</span> 
+             <input type="password" autocomplete="new-password" class="ht30 bdinput lh30 pl5 radius2 ml10 flex1 white" />
+            </div> 
+            <div class="bggreen tc ht30 lh30 white radius2">
+             买入
+            </div> 
+           </div> 
+           <div class="flex1 plr10 mt10"> 
+            <div class="flex alcenter mb10 posRelt mult" style="">
+             <span class="w15">价格</span> 
+             <input type="number" placeholder="请输入价格" class="ht30 bdinput lh30 plr5 radius2 ml10 flex1 white" />
+            </div> 
+            <div class="flex alcenter mb10 posRelt mult">
+             <span class="w15">倍数</span> 
+             <div class="el-select bdinput lh30 radius2 ml10 flex1 white"> 
+              <!----> 
+              <div class="el-input el-input--suffix"> 
+               <!---->
+               <input type="text" readonly="readonly" autocomplete="off" placeholder="请选择倍数" class="el-input__inner" /> 
+               <!---->
+               <span class="el-input__suffix"><span class="el-input__suffix-inner"><i class="el-select__caret el-input__icon el-icon-arrow-up"></i>
+                 <!---->
+                 <!---->
+                 <!---->
+                 <!---->
+                 <!----></span> 
+                <!----> </span> 
+               <!----> 
+               <!----> 
+              </div> 
+              <!-- display: none;  --> 
+              <div class="el-select-dropdown el-popper selects" style="min-width: 273.797px;"> 
+               <div class="el-scrollbar" style=""> 
+                <div class="el-select-dropdown__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default"> 
+                 <ul class="el-scrollbar__view el-select-dropdown__list"> 
+                  <!----> 
+                  <li class="el-select-dropdown__item"><span>2</span></li> 
+                  <li class="el-select-dropdown__item"><span>5</span></li> 
+                  <li class="el-select-dropdown__item"><span>10</span></li> 
+                  <li class="el-select-dropdown__item"><span>50</span></li> 
+                  <li class="el-select-dropdown__item"><span>100</span></li> 
+                  <li class="el-select-dropdown__item"><span>500</span></li> 
+                 </ul> 
+                </div> 
+                <div class="el-scrollbar__bar is-horizontal"> 
+                 <div class="el-scrollbar__thumb" style="transform: translateX(0%);"></div> 
+                </div> 
+                <div class="el-scrollbar__bar is-vertical"> 
+                 <div class="el-scrollbar__thumb" style="transform: translateY(0%);"></div> 
+                </div> 
+               </div> 
+               <!----> 
+              </div> 
+             </div> 
+            </div> 
+            <div class="mb10">
+             1手等于1BTC
+            </div> 
+            <div class="flex alcenter mb10 posRelt">
+             <span class="w15">手数</span> 
+             <div class="flex bdinput lh30 pl5 radius2 ml10 flex1 white mult">
+              <input type="number" class="white flex2 lh30" /> 
+              <div class="flex1" style="border-left: 1px solid rgb(56, 63, 102);"> 
+               <div class="el-select"> 
+                <!----> 
+                <div class="el-input el-input--suffix"> 
+                 <!---->
+                 <input type="text" readonly="readonly" autocomplete="off" placeholder="请选择" class="el-input__inner" /> 
+                 <!---->
+                 <span class="el-input__suffix"><span class="el-input__suffix-inner"><i class="el-select__caret el-input__icon el-icon-arrow-up"></i>
+                   <!---->
+                   <!---->
+                   <!---->
+                   <!---->
+                   <!----></span> 
+                  <!----> </span> 
+                 <!----> 
+                 <!----> 
+                </div> 
+                <!-- display: none; --> 
+                <div class="el-select-dropdown el-popper selects" style=" min-width: 88.5938px;"> 
+                 <div class="el-scrollbar"> 
+                  <div class="el-select-dropdown__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default"> 
+                   <ul class="el-scrollbar__view el-select-dropdown__list"> 
+                    <!----> 
+                    <li class="el-select-dropdown__item"><span>1</span></li> 
+                    <li class="el-select-dropdown__item"><span>5</span></li> 
+                    <li class="el-select-dropdown__item"><span>10</span></li> 
+                    <li class="el-select-dropdown__item"><span>50</span></li> 
+                    <li class="el-select-dropdown__item"><span>100</span></li> 
+                    <li class="el-select-dropdown__item"><span>500</span></li> 
+                   </ul> 
+                  </div> 
+                  <div class="el-scrollbar__bar is-horizontal"> 
+                   <div class="el-scrollbar__thumb" style="transform: translateX(0%);"></div> 
+                  </div> 
+                  <div class="el-scrollbar__bar is-vertical"> 
+                   <div class="el-scrollbar__thumb" style="transform: translateY(0%);"></div> 
+                  </div> 
+                 </div> 
+                 <!----> 
+                </div> 
+               </div> 
+              </div> 
+             </div> 
+            </div> 
+            <div class="flex alcenter mb10">
+             <span class="w15">交易密码</span> 
+             <input type="password" autocomplete="new-password" class="ht30 bdinput lh30 pl5 radius2 ml10 flex1 white" />
+            </div> 
+            <div class="bgred tc ht30 lh30 white radius2">
+             卖出
+            </div> 
+           </div> 
+          </div> 
+          <div class="el-dialog__wrapper" style="display: none;"> 
+           <div role="dialog" aria-modal="true" aria-label="确认下单" class="el-dialog" style="margin-top: 15vh; width: 30%;"> 
+            <div class="el-dialog__header">
+             <span class="el-dialog__title">确认下单</span>
+             <button type="button" aria-label="Close" class="el-dialog__headerbtn"><i class="el-dialog__close el-icon el-icon-close"></i></button>
+            </div> 
+            <!----> 
+            <div class="el-dialog__footer">
+             <span class="dialog-footer"><button type="button" class="el-button radius4 el-button--default">
+               <!---->
+               <!----><span>取消</span></button> <button type="button" class="el-button radius4 el-button--primary">
+               <!---->
+               <!----><span>确定</span></button></span> 
+            </div> 
+           </div> 
+          </div> 
+         </div> 
+        </div> 
+       </div> 
+       <div class="flex12 flex column overy"> 
+        <div class="flex "> 
+         <div class="bgheader bdbheader flex1 plr10 ht40 lh40 baselight2 ft16 radiustop" style="padding-left: 20px;font-size: 16px;background: #1D2436;height: 45px;line-height: 45px;width: 100%;">
+          盘口
+         </div> 
+         <div class="bgheader bdbheader flex1 plr10 ht40 lh40 baselight2 ft16 ml5 radiustop" style="padding-left: 20px;font-size: 16px;background: #1D2436;height: 45px;line-height: 45px;width: 100%; ">
+          全站成交 
+         </div> 
+        </div> 
+        <div class="flex1 flex "> 
+         <div class="flex column w100 flex1 bgpart radiusbottom"> 
+          <div class="ptb10 flex1 flex column w100 "> 
+           <div class="flex alcenter plr10 ">
+            <span class="flex1 ">方向</span> 
+            <span class="flex1 tc ">价格(USDT)</span> 
+            <span class="flex1 tr ">数量(BTC)</span>
+           </div> 
+           <div class="mtb10 flex1 flex column jsend asks "> 
+            <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 27% 100%; ">
+             <span class="flex1 red ">卖10</span> 
+             <span class="flex1 tc baselight2 ">8956.31003100</span> 
+             <span class="flex1 tr baselight2 ">264.039</span>
+            </div> 
+            <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 45% 100%; ">
+             <span class="flex1 red ">卖9</span> 
+             <span class="flex1 tc baselight2 ">8956.30003100</span> 
+             <span class="flex1 tr baselight2 ">426.1742</span>
+            </div> 
+            <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 80% 100%; ">
+             <span class="flex1 red ">卖8</span> 
+             <span class="flex1 tc baselight2 ">8956.29003100</span> 
+             <span class="flex1 tr baselight2 ">762.1405</span>
+            </div> 
+            <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 97% 100%; ">
+             <span class="flex1 red ">卖7</span> 
+             <span class="flex1 tc baselight2 ">8956.28003100</span> 
+             <span class="flex1 tr baselight2 ">924.1817</span>
+            </div> 
+            <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 66% 100%; ">
+             <span class="flex1 red ">卖6</span> 
+             <span class="flex1 tc baselight2 ">8956.27003100</span> 
+             <span class="flex1 tr baselight2 ">628.2446</span>
+            </div> 
+            <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 96% 100%; ">
+             <span class="flex1 red ">卖5</span> 
+             <span class="flex1 tc baselight2 ">8956.26003100</span> 
+             <span class="flex1 tr baselight2 ">912.3143</span>
+            </div> 
+            <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 100% 100%; ">
+             <span class="flex1 red ">卖4</span> 
+             <span class="flex1 tc baselight2 ">8956.2500</span> 
+             <span class="flex1 tr baselight2 ">945.3679</span>
+            </div> 
+            <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 76% 100%; ">
+             <span class="flex1 red ">卖3</span> 
+             <span class="flex1 tc baselight2 ">8956.2400</span> 
+             <span class="flex1 tr baselight2 ">720.7668</span>
+            </div> 
+            <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 92% 100%; ">
+             <span class="flex1 red ">卖2</span> 
+             <span class="flex1 tc baselight2 ">8956.2300</span> 
+             <span class="flex1 tr baselight2 ">875.7526</span>
+            </div> 
+            <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 67% 100%; ">
+             <span class="flex1 red ">卖1</span> 
+             <span class="flex1 tc baselight2 ">8956.2200</span> 
+             <span class="flex1 tr baselight2 ">637.7829</span>
+            </div> 
+           </div> 
+           <div class="ptb15 bdtheader bdbheader plr10 ">
+            <span class="red bold ft20 ">8956.21</span> 
+            <span>≈62693.47CNY</span>
+           </div> 
+           <div class="bgpart mt10 flex1 flex column bids " style="border-radius: 0 0 6px 6px;"> 
+            <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 100% 100%; ">
+             <span class="flex1 green ">买1</span> 
+             <span class="flex1 tc baselight2 ">8956.20003100</span> 
+             <span class="flex1 tr baselight2 ">1691.6326</span>
+            </div> 
+            <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 30% 100%; ">
+             <span class="flex1 green ">买2</span> 
+             <span class="flex1 tc baselight2 ">8956.19003100</span> 
+             <span class="flex1 tr baselight2 ">524.2209</span>
+            </div> 
+            <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 38% 100%; ">
+             <span class="flex1 green ">买3</span> 
+             <span class="flex1 tc baselight2 ">8956.18003100</span> 
+             <span class="flex1 tr baselight2 ">643.6112</span>
+            </div> 
+            <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 54% 100%; ">
+             <span class="flex1 green ">买4</span> 
+             <span class="flex1 tc baselight2 ">8956.17003100</span> 
+             <span class="flex1 tr baselight2 ">917.4713</span>
+            </div> 
+            <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 63% 100%; ">
+             <span class="flex1 green ">买5</span> 
+             <span class="flex1 tc baselight2 ">8956.16003100</span> 
+             <span class="flex1 tr baselight2 ">1075.1648</span>
+            </div> 
+            <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 20% 100%; ">
+             <span class="flex1 green ">买6</span> 
+             <span class="flex1 tc baselight2 ">8956.1500</span> 
+             <span class="flex1 tr baselight2 ">347.235</span>
+            </div> 
+            <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 44% 100%; ">
+             <span class="flex1 green ">买7</span> 
+             <span class="flex1 tc baselight2 ">8956.1400</span> 
+             <span class="flex1 tr baselight2 ">747.9181</span>
+            </div> 
+            <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 31% 100%; ">
+             <span class="flex1 green ">买8</span> 
+             <span class="flex1 tc baselight2 ">8956.13003100</span> 
+             <span class="flex1 tr baselight2 ">530.6139</span>
+            </div> 
+            <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 42% 100%; ">
+             <span class="flex1 green ">买9</span> 
+             <span class="flex1 tc baselight2 ">8956.1200</span> 
+             <span class="flex1 tr baselight2 ">723.4418</span>
+            </div> 
+            <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 88% 100%; ">
+             <span class="flex1 green ">买10</span> 
+             <span class="flex1 tc baselight2 ">8956.1100</span> 
+             <span class="flex1 tr baselight2 ">1505.2413</span>
+            </div> 
+           </div> 
+          </div> 
+         </div> 
+         <div class="flex1 ml5 bgpart overy flex radiusbottom"> 
+          <div class=" ptb10 flex1 flex column w100 "> 
+           <div class="flex alcenter plr10 radius">
+            <span class="flex1 ">时间</span> 
+            <span class="flex1 tc ">价格(USDT)</span> 
+            <span class="flex1 tr ">数量(BTC)</span>
+           </div> 
+           <div class="flex1 mt10 "> 
+            <div class="overyscroll plr10 " style="height: 660px; "> 
+             <div style="display: none; "></div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:05</span> 
+              <span class="flex1 tc green ">8956.2100</span> 
+              <span class="flex1 tr baselight2 ">149.7714</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:05</span> 
+              <span class="flex1 tc green ">8956.2100</span> 
+              <span class="flex1 tr baselight2 ">351.7665</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:05</span> 
+              <span class="flex1 tc green ">8956.2100</span> 
+              <span class="flex1 tr baselight2 ">113.7439</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:05</span> 
+              <span class="flex1 tc green ">8956.2100</span> 
+              <span class="flex1 tr baselight2 ">1.2533</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:05</span> 
+              <span class="flex1 tc green ">8956.2100</span> 
+              <span class="flex1 tr baselight2 ">6.3613</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:05</span> 
+              <span class="flex1 tc green ">8956.2100</span> 
+              <span class="flex1 tr baselight2 ">30.5774</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:04</span> 
+              <span class="flex1 tc green ">8956.1800</span> 
+              <span class="flex1 tr baselight2 ">363.6274</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:04</span> 
+              <span class="flex1 tc green ">8956.1800</span> 
+              <span class="flex1 tr baselight2 ">1.6561</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:04</span> 
+              <span class="flex1 tc green ">8956.1800</span> 
+              <span class="flex1 tr baselight2 ">23.1225</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:04</span> 
+              <span class="flex1 tc green ">8956.1800</span> 
+              <span class="flex1 tr baselight2 ">182.1175</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:04</span> 
+              <span class="flex1 tc green ">8956.1800</span> 
+              <span class="flex1 tr baselight2 ">11.0331</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:04</span> 
+              <span class="flex1 tc green ">8956.1800</span> 
+              <span class="flex1 tr baselight2 ">37.3262</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:04</span> 
+              <span class="flex1 tc green ">8956.1800</span> 
+              <span class="flex1 tr baselight2 ">30.0605</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:04</span> 
+              <span class="flex1 tc green ">8956.1800</span> 
+              <span class="flex1 tr baselight2 ">9.4559</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:04</span> 
+              <span class="flex1 tc green ">8956.1800</span> 
+              <span class="flex1 tr baselight2 ">6.7952</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:04</span> 
+              <span class="flex1 tc green ">8956.1800</span> 
+              <span class="flex1 tr baselight2 ">2.1242</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:03</span> 
+              <span class="flex1 tc red ">8956.1500</span> 
+              <span class="flex1 tr baselight2 ">176.6515</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:03</span> 
+              <span class="flex1 tc red ">8956.1500</span> 
+              <span class="flex1 tr baselight2 ">514.8674</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:03</span> 
+              <span class="flex1 tc red ">8956.1500</span> 
+              <span class="flex1 tr baselight2 ">46.1187</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:03</span> 
+              <span class="flex1 tc red ">8956.1500</span> 
+              <span class="flex1 tr baselight2 ">116.6495</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:03</span> 
+              <span class="flex1 tc red ">8956.1500</span> 
+              <span class="flex1 tr baselight2 ">13.2465</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:03</span> 
+              <span class="flex1 tc red ">8956.1500</span> 
+              <span class="flex1 tr baselight2 ">2.5171</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:01</span> 
+              <span class="flex1 tc red ">8956.1900</span> 
+              <span class="flex1 tr baselight2 ">253.0451</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:01</span> 
+              <span class="flex1 tc red ">8956.1900</span> 
+              <span class="flex1 tr baselight2 ">177.9593</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:01</span> 
+              <span class="flex1 tc red ">8956.1900</span> 
+              <span class="flex1 tr baselight2 ">253.0451</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:01</span> 
+              <span class="flex1 tc red ">8956.1900</span> 
+              <span class="flex1 tr baselight2 ">177.9593</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:01</span> 
+              <span class="flex1 tc red ">8956.1900</span> 
+              <span class="flex1 tr baselight2 ">253.0451</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:01</span> 
+              <span class="flex1 tc red ">8956.1900</span> 
+              <span class="flex1 tr baselight2 ">177.9593</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:01</span> 
+              <span class="flex1 tc red ">8956.1900</span> 
+              <span class="flex1 tr baselight2 ">253.0451</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:01</span> 
+              <span class="flex1 tc red ">8956.1900</span> 
+              <span class="flex1 tr baselight2 ">177.9593</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:01</span> 
+              <span class="flex1 tc red ">8956.1900</span> 
+              <span class="flex1 tr baselight2 ">253.0451</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:01</span> 
+              <span class="flex1 tc red ">8956.1900</span> 
+              <span class="flex1 tr baselight2 ">177.9593</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:01</span> 
+              <span class="flex1 tc red ">8956.1900</span> 
+              <span class="flex1 tr baselight2 ">253.0451</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:01</span> 
+              <span class="flex1 tc red ">8956.1900</span> 
+              <span class="flex1 tr baselight2 ">177.9593</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:01</span> 
+              <span class="flex1 tc red ">8956.1900</span> 
+              <span class="flex1 tr baselight2 ">253.0451</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:01</span> 
+              <span class="flex1 tc red ">8956.1900</span> 
+              <span class="flex1 tr baselight2 ">177.9593</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:01</span> 
+              <span class="flex1 tc red ">8956.1900</span> 
+              <span class="flex1 tr baselight2 ">253.0451</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:01</span> 
+              <span class="flex1 tc red ">8956.1900</span> 
+              <span class="flex1 tr baselight2 ">177.9593</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:01</span> 
+              <span class="flex1 tc red ">8956.1900</span> 
+              <span class="flex1 tr baselight2 ">30.0958</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:01</span> 
+              <span class="flex1 tc red ">8956.1900</span> 
+              <span class="flex1 tr baselight2 ">1.1243</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:00</span> 
+              <span class="flex1 tc red ">8956.2000</span> 
+              <span class="flex1 tr baselight2 ">939.7279</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:00</span> 
+              <span class="flex1 tc red ">8956.2000</span> 
+              <span class="flex1 tr baselight2 ">8.9367</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:43:00</span> 
+              <span class="flex1 tc red ">8956.2000</span> 
+              <span class="flex1 tr baselight2 ">1.0627</span>
+             </div> 
+             <div class="ptb5 flex alcenter ">
+              <span class="flex1 ">13:42:56</span> 
+              <span class="flex1 tc red ">8956.2100</span> 
+              <span class="flex1 tr baselight2 ">376.3023</span>
+             </div> 
+            </div> 
+           </div> 
+          </div> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <!-- 底部 --> 
+    <div class="mt5 bgpart  radius" style="margin:20px 40px; "> 
+     <div class="bgheader bdbheader plr15 pt10 baselight2 flex alcenter between radius"> 
+      <div class="flex alcenter mb20 "> 
+       <p class="ft16 mr30 pointer blue ">当前委托</p> 
+       <p class="ft16 mr30 pointer ">全部委托</p> 
+       <p class="ft16 mr30 pointer ">历史委托</p> 
+      </div> 
+      <div class="flex alcenter "> 
+       <div class="plr5 tc ft12 baselight2 plr10 pb5 mr30 pointer green bdbgreen ">
+        买入
+       </div> 
+       <div class="plr5 tc ft12 baselight2 plr10 pb5 pointer ">
+        卖出
+       </div> 
+      </div> 
+     </div> 
+     <div class="bgpart plr30 radiusbottom"> 
+      <div class="flex alcenter ptb10 radiusbottom"> 
+       <span class="flex12 dsasds">时间</span> 
+       <span class="flex12 tc dsasds">交易对</span> 
+       <span class="flex12 tc dsasds">方向</span> 
+       <span class="flex12 tc dsasds">价格(USDT)</span> 
+       <span class="flex12 tc dsasds">数量(BTC)</span> 
+       <span class="flex12 tc dsasds">成交量(BTC)</span> 
+       <span class="flex12 tr dsasds" style="display: none; ">成交总额(USDT)</span> 
+       <span class="flex12 tr dsasds">操作</span> 
+       <span class="flex12 tr dsasds" style="display: none; ">状态</span> 
+      </div> 
+      <div class="flex alcenter ptb10 "> 
+       <span class="flex12 ">2020-5-12</span> 
+       <span class="flex12 tc ">交易对</span> 
+       <span class="flex12 tc ">方向</span> 
+       <span class="flex12 tc ">价格(USDT)</span> 
+       <span class="flex12 tc">数量(BTC)</span> 
+       <span class="flex12 tc ">成交量(BTC)</span> 
+       <span class="flex12 tr " style="display: none; ">成交总额(USDT)</span> 
+       <span class="flex12 tr ">操作</span> 
+       <span class="flex12 tr " style="display: none; ">状态</span> 
+      </div> 
+      <div class="pb50 posRelt "> 
+       <div class="tc "> 
+        <div class="ptb40 ">
+         <img src="../imgae/tips.png" alt=" " class="wt70 " /> 
+         <p>暂无记录</p> 
+        </div> 
+       </div> 
+       <div class="abstort w100 tc lf0 btm10 pages"> 
+        <!----> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="footer" style="display: block; text-align: center ;height: 40px"> 
+     <p class="fcopyright">&copy;2014-2018 CAC,All Rights Reserved <a href="">隐私政策</a> 京ICP证080268号 <a href="http://beian.miit.gov.cn">京ICP备10005211号</a> </p> 
+    </div> 
+   </div> 
+  </div>   
+  <style>
+    .times {
+        position: absolute;
+        left: 0;
+        top: 0px;
+        color: #fff;
+        z-index: 999;
+        padding: 10px;
+    }
+    
+    .times .bttn {
+        padding: 10px;
+        font-size: 12px;
+        margin-right: 11px;
+        cursor: pointer;
+    }
+    
+    .activeClass {
+        background: #0D101E;
+    }
+</style> 
+  <script src="../js/echarts.js"></script> 
+  <script src="../js/jquery-3.1.1.min.js"></script> 
+  <script src="../js/jSelection.js"></script> 
+  <script>
+    $(function() {
+        $(".times .bttn").click(function() {
+            var _index = $(this).index();
+            console.log(_index);
+            $(".times .bttn").removeClass("activeClass");
+            $(".times .bttn").eq(_index).addClass("activeClass");
+        })
+    })
+    var myChart = echarts.init(document.getElementById('main'));
+    var rawData = [
+        ['2015/12/31', '3570.47', '3539.18', '3538.35', '3580.6'],
+        ['2015/12/30', '3566.73', '3572.88', '3538.11', '3573.68'],
+    ].reverse();
+
+    function calculateMA(dayCount, data) {
+        var result = [];
+        for (var i = 0, len = data.length; i < len; i++) {
+            if (i < dayCount) {
+                result.push('-');
+                continue;
+            }
+            var sum = 0;
+            for (var j = 0; j < dayCount; j++) {
+                sum += data[i - j][1];
+            }
+            result.push(sum / dayCount);
+        }
+        return result;
+    }
+
+
+    var dates = rawData.map(function(item) {
+        return item[0];
+    });
+
+    var data = rawData.map(function(item) {
+        return [+item[1], +item[2], +item[3], +item[4]];
+    });
+    var option = {
+        backgroundColor: '#21202D',
+        legend: {
+            data: ['日K', 'MA5', 'MA10', 'MA20', 'MA30'],
+            inactiveColor: '#777',
+            textStyle: {
+                color: '#fff'
+            }
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                animation: false,
+                type: 'cross',
+                lineStyle: {
+                    color: '#376df4',
+                    width: 2,
+                    opacity: 1
+                }
+            }
+        },
+        xAxis: {
+            type: 'category',
+            data: dates,
+            axisLine: {
+                lineStyle: {
+                    color: '#8392A5'
+                }
+            }
+        },
+        yAxis: {
+            scale: true,
+            axisLine: {
+                lineStyle: {
+                    color: '#8392A5'
+                }
+            },
+            splitLine: {
+                show: false
+            }
+        },
+        grid: {
+            bottom: 30
+        },
+        dataZoom: [
+            // {
+            // textStyle: {
+            //     color: '#8392A5'
+            // },
+            // handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+            // handleSize: '80%',
+            // dataBackground: {
+            //     areaStyle: {
+            //         color: '#8392A5'
+            //     },
+            //     lineStyle: {
+            //         opacity: 0.1,
+            //         color: '#8392A5'
+            //     }
+            // },
+            // handleStyle: {
+            //     color: '#fff',
+            //     shadowBlur: 3,
+            //     shadowColor: 'rgba(0, 0, 0, 0.6)',
+            //     shadowOffsetX: 2,
+            //     shadowOffsetY: 2
+            // }
+            // },
+            {
+                type: 'inside'
+            }
+        ],
+        animation: false,
+        series: [{
+            type: 'candlestick',
+            name: '日K',
+            data: data,
+            itemStyle: {
+                color: '#FD1050',
+                color0: '#0CF49B',
+                borderColor: '#FD1050',
+                borderColor0: '#0CF49B'
+            }
+        }, {
+            name: 'MA5',
+            type: 'line',
+            data: calculateMA(5, data),
+            smooth: true,
+            showSymbol: false,
+            lineStyle: {
+                width: 1
+            }
+        }, {
+            name: 'MA10',
+            type: 'line',
+            data: calculateMA(10, data),
+            smooth: true,
+            showSymbol: false,
+            lineStyle: {
+                width: 1
+            }
+        }, {
+            name: 'MA20',
+            type: 'line',
+            data: calculateMA(20, data),
+            smooth: true,
+            showSymbol: false,
+            lineStyle: {
+                width: 1
+            }
+        }, {
+            name: 'MA30',
+            type: 'line',
+            data: calculateMA(30, data),
+            smooth: true,
+            showSymbol: false,
+            lineStyle: {
+                width: 1
+            }
+        }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表
+    myChart.setOption(option);
+    setTimeout(function() {
+        window.onresize = function() {
+            myChart.resize();
+        }
+    }, 200)
+</script> 
+  <script>
+        $(function () {
+
+            // 下拉选择菜单
+            $("#select").jSelect();
+        });
+    </script> 
+ </body>
+</html>

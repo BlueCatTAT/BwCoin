@@ -1,0 +1,363 @@
+.box {
+    background-color: #010715;
+}
+
+.ft20 {
+    font-size: 20px
+}
+
+.box .account {
+    width: 1200px;
+    /* padding-top: 30px; */
+    min-height: 880px;
+    margin: 0 auto;
+    overflow: hidden
+}
+
+.topcontent {
+    height: 45px;
+    line-height: 45px;
+    padding: 0 30px;
+    margin: 20px 0;
+    font-size: 16px;
+    border-radius: 3px;
+    background-color: #181b2a;
+}
+
+.contentBox {
+    padding-top: 38px;
+    background-color: #181b2a;
+    padding-bottom: 50px;
+}
+
+.contentBox .titleBox {
+    background-color: #181b2a;
+}
+
+.contentBox .title {
+    height: 31px;
+    font-size: 30px;
+    font-family: Microsoft YaHei;
+    font-weight: bold;
+    color: rgba(199, 199, 199, 1);
+    line-height: 30px;
+    background: linear-gradient(114deg, rgba(43, 117, 253, 1) 0%, rgba(79, 254, 254, 1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+}
+
+.contentBox .describe {
+    font-size: 18px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: rgba(168, 164, 181, 1);
+    line-height: 18px;
+    margin-top: 32px;
+    text-align: center;
+}
+
+.contentBox .time {
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: rgba(168, 164, 181, 1);
+    line-height: 14px;
+    text-align: center;
+    margin-top: 10px;
+    margin-top: 10px;
+}
+
+.contentBox .jiantou {
+    width: 76px;
+    height: 48px;
+    background: url(../imgae/jiantou.png);
+    background-repeat: no-repeat;
+    border: 1px dashed #ffffff;
+    margin: 16px auto;
+}
+
+
+/* 规则模块 */
+
+.auctionBox {
+    margin-top: 69px;
+    position: relative;
+    width: 1100px;
+    /* height: 200px; */
+    margin: 0 auto;
+    background: rgba(13, 16, 30, 1);
+    border: 1px solid;
+    margin-top: 69px;
+    border-image: linear-gradient(180deg, rgba(43, 117, 253, 1), rgba(79, 254, 254, 1)) 1 1;
+}
+
+.auctionBox .titleImg {
+    width: 243px;
+    height: 45px;
+    background: url(../imgae/auctionImg.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    left: 50%;
+    top: -45px;
+    margin-left: -121.5px;
+    font-size: 24px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: rgba(13, 16, 30, 1);
+    text-align: center;
+    line-height: 45px;
+}
+
+.auctionBox .textBOX {
+    padding: 32px 0 32px 50px;
+    background: rgba(13, 16, 30, 1);
+    border: 2px solid #ddd;
+    border-image: -webkit-linear-gradient(red, yellow) 30 30;
+    border-image: -moz-linear-gradient(#2B75FD, #4FFEFE) 30 30;
+    border-image: linear-gradient(#2B75FD, #4FFEFE) 30 30;
+}
+
+.auctionBox .text {
+    width: 11px;
+    height: 12px;
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+    font-weight: bold;
+    /* font-style: italic; */
+    color: rgba(110, 108, 123, 1);
+    line-height: 30px;
+    background: linear-gradient(114deg, rgba(43, 117, 253, 1) 0%, rgba(79, 254, 254, 1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-right: 10px;
+}
+
+.auctionBox .p {
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: rgba(110, 108, 123, 1);
+    line-height: 14px;
+}
+
+
+/* 活动部分 */
+
+.timeBox {
+    width: 1200px;
+    height: 360px;
+    background: #0D101E;
+}
+
+.timeBox .one {
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+    font-weight: bold;
+    color: rgba(168, 164, 181, 1);
+    line-height: 30px;
+    text-align: center;
+}
+
+.activityTime {
+    color: #A8A4B5;
+    font-size: 24px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: rgba(168, 164, 181, 1);
+    line-height: 30px;
+    text-align: center;
+    padding-top: 27px;
+    position: relative;
+}
+
+.activityTime .left {
+    width: 190px;
+    height: 11px;
+    position: absolute;
+    left: 200px;
+    top: 40px;
+    border: 1px dashed #ffffff;
+    background: url(../imgae/auctionLeft.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+.activityTime .right {
+    width: 190px;
+    height: 11px;
+    position: absolute;
+    right: 200px;
+    top: 40px;
+    border: 1px dashed #ffffff;
+    background: url(../imgae/auctionRight.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+.timeBox .jiantou {
+    width: 76px;
+    height: 48px;
+    background: url(../imgae/jiantou.png);
+    background-repeat: no-repeat;
+    /* border: 1px dashed #ffffff; */
+    margin: 16px auto;
+}
+
+.timeBox .PriceBox {
+    width: 225px;
+    height: 50px;
+    margin: 0 auto;
+    border: 1px dashed #ffffff;
+}
+
+.timeBox .PriceBut {
+    width: 225px;
+    height: 50px;
+    background: url(../imgae/auctionMoney.png) no-repeat;
+    background-size: 100% 100%;
+    text-align: center;
+    line-height: 50px;
+    font-size: 24px;
+    font-family: Microsoft YaHei;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 1);
+    color: #2be8fd;
+}
+
+.auctionOptions {
+    background: #131625;
+    padding-top: 25px;
+    padding-bottom: 50px;
+}
+
+.auctionOptions .title {
+    width: 175px;
+    height: 33px;
+    color: rgba(255, 255, 255, 1);
+    background: rgba(19, 22, 37, 1);
+    border: 2px solid;
+    border-image: linear-gradient(180deg, rgba(43, 117, 253, 1), rgba(79, 254, 254, 1)) 1 1;
+    border-radius: 6px;
+    margin: 0 auto;
+    line-height: 33px;
+    text-align: center;
+}
+
+.navList {
+    width: 1100px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.navList .ul {
+    display: flex;
+    background: #0D101E;
+    padding: 8px 0;
+}
+
+.navList .ul li {
+    flex: 1;
+    height: 33px;
+    text-align: center;
+    margin-left: 8px;
+    font-size: 16px;
+    color: #FFFFFF;
+    background: #1D2436;
+    line-height: 33px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.accountBox {
+    display: flex;
+    width: 1100px;
+    margin: 0 auto;
+    margin-top: 19px;
+}
+
+.accountBox .con {
+    font-size: 14px;
+    flex: 1;
+    color: #A8A4B5;
+}
+
+.auctionOptions .jiantou {
+    width: 76px;
+    height: 48px;
+    background: url(../imgae/jiantou.png);
+    background-repeat: no-repeat;
+    /* border: 1px dashed #ffffff; */
+    margin: 40px auto;
+}
+
+.butHistory {
+    font-size: 16px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: rgba(10, 136, 223, 1);
+    line-height: 30px;
+    text-align: center;
+    padding-top: 50px;
+}
+
+
+/* 历史记录 */
+
+.rec-box .rec-con {
+    margin: 10px;
+    /* padding: 0 20px; */
+    /* background: #262a42; */
+}
+
+.rec-box .rec-con .rec-title,
+.rec-box .rec-con li {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+.rec-box .rec-con .rec-title {
+    font-size: 14px;
+    color: #A8A4B5;
+    line-height: 1.5;
+}
+
+.rec-box .rec-con span {
+    -ms-flex: 1;
+    flex: 1;
+    text-align: center;
+    line-height: 3;
+    width: 179px;
+}
+
+.rec-title span:first-child {}
+
+.rec-box .rec-con li {
+    font-size: 12px;
+    color: #728daf;
+    /* border-top: 1px solid #2e394c; */
+}
+
+.rec-list li span {
+    color: #A8A4B5;
+}
+
+.boxCon {
+    border: 2px solid #ddd;
+    border-image: -webkit-linear-gradient(red, yellow) 30 30;
+    border-image: -moz-linear-gradient(#2B75FD, #4FFEFE) 30 30;
+    border-image: linear-gradient(#2B75FD, #4FFEFE) 30 30;
+}
+
+#remainTime {
+    font-size: 20px;
+    font-weight: 800;
+    color: #FF9900;
+    text-align: center;
+    padding: 20px;
+}
+
+.acrtiveColor {
+    background: #0AC38A !important;
+}

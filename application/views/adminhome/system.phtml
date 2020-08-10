@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>网站设置</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="/public/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/public/layuiadmin/style/admin.css" media="all">
+</head>
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">系统设置</div>
+                <div class="layui-card-body" pad15>
+
+                    <div class="layui-form" wid100 lay-filter="">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">网站名称</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="system" value="<?= $data['system'] ?>" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">网站域名</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="domain" value="<?= $data['domain'] ?>"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">PC网站logo</label>
+                            <div class="layui-input-block">
+                                <button type="button" class="layui-btn" id="test1">
+                                    <i class="layui-icon">&#xe67c;</i>上传logo图片
+                                </button>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <img id="pic_img" style="height: 100px;width: 100px" src="<?= $data['logo'] ?>">
+                                <input type="hidden" id="pic" name="pic" value="<?= $data['logo'] ?>">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">APP网站logo</label>
+                            <div class="layui-input-block">
+                                <button type="button" class="layui-btn" id="test10">
+                                    <i class="layui-icon">&#xe67c;</i>上传logo图片
+                                </button>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <img id="pic_img2" style="height: 100px;width: 100px" src="<?= $data['applogo'] ?>">
+                                <input type="hidden" id="applogo" name="applogo" value="<?= $data['applogo'] ?>">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">网站banner图</label>
+                            <div class="layui-input-block">
+                                <button type="button" class="layui-btn" id="banner">
+                                    <i class="layui-icon">&#xe67c;</i>上传banner图
+                                </button>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <div style="overflow: hidden" class="in-banner">
+                                    <? if (!empty($data['banner'])): ?>
+                                        <?php foreach ($data['banner'] as $k => $v): ?>
+                                            <div style="float: left;margin-right: 20px">
+                                                <img id="pic_img" style="height: 120px;width: 240px;display: block;" src="<?= $v ?>">
+                                                <input type="hidden" id="pic" name="banner_img[]" value="<?= $v ?>">
+                                                <div style="margin: 15px 0 0 95px;" data-name='<?= $v ?>' data-type='2' class="layui-btn layui-btn-sm layui-btn-normal delbtn"><i class="layui-icon"></i>删 除 </div>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">底部二维码</label>
+                            <div class="layui-input-block">
+                                <button type="button" class="layui-btn" id="test2">
+                                    <i class="layui-icon">&#xe67c;</i>上传二维码
+                                </button>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <img id="pic_qrcode" style="height: 100px;width: 100px" src="<?= $data['qrcode'] ?>">
+                                <input type="hidden" id="qrcode" name="qrcode" value="<?= $data['qrcode'] ?>">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">底部二维码</label>
+                            <div class="layui-input-block">
+                                <button type="button" class="layui-btn" id="test3">
+                                    <i class="layui-icon">&#xe67c;</i>上传二维码
+                                </button>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <img id="pic_qrcode1" style="height: 100px;width: 100px" src="<?= $data['qrcode1'] ?>">
+                                <input type="hidden" id="qrcode1" name="qrcode1" value="<?= $data['qrcode1'] ?>">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">平台邮箱</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="eamil" value="<?= $data['eamil'] ?>"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">平台电话</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="phone" value="<?= $data['phone'] ?>"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">友情链接名称<br/>名称之间请用英文竖线"|"隔开</label>
+                            <div class="layui-input-block">
+                                <textarea name="friend" class="layui-textarea"><?= $data['friend'] ?></textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">友情链接URL<br/>链接URL之间请用英文竖线"|"隔开</label>
+                            <div class="layui-input-block">
+                                <textarea name="friend_url" class="layui-textarea"><?= $data['friend_url'] ?></textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">ICP证书号</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="icp" value="<?= $data['icp'] ?>"
+                                       class="layui-input">
+                                <input type="hidden" name="id" value="<?= $data['id'] ?>">
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">版权底部信息</label>
+                            <div class="layui-input-block">
+                                <textarea name="bottom" class="layui-textarea"><?= $data['bottom'] ?></textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">站点状态</label>
+                            <div class="layui-input-block">
+                                <!--                                <input class="layui-input-inline" type="radio" name="sys_states" value="1">-->
+                                <!--                                <input class="layui-input-inline" type="radio" name="sys_states" value="0">-->
+                                <span style="line-height: 40px">开启</span><input class="layui-input-inline" type="radio"
+                                                                                name="sys_states"
+                                                                                value="1" <?php if ($data['sys_states'] == 1) echo "checked" ?>>
+                                <span style="line-height: 40px">关闭</span><input class="layui-input-inline" type="radio"
+                                                                                name="sys_states"
+                                                                                value="2" <?php if ($data['sys_states'] == 2) echo "checked" ?>>
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">关闭原因</label>
+                            <div class="layui-input-block">
+                                <textarea name="cause" class="layui-textarea"><?= $data['cause'] ?></textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" lay-submit lay-filter="set_website" id="set_website">确认保存
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/public/layuiadmin/layui/layui.js"></script>
+<script>
+
+    layui.use('upload', function () {
+        var $ = layui.$
+            , form = layui.form;
+        var upload = layui.upload;
+
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#test1',//绑定元素,
+            url: '/upload/index', //上传接口
+            acceptMime: 'image/png,image/jpeg,image/gif',//上传格式
+            // multiple:true,//是否开启多文件上传
+            done: function (res) {
+                if (res.code == 20000) {
+                    // console.log($("#pic_img"))
+                    $("#pic_img").attr("src", res.data);
+                    $("#pic").val(res.data)
+                } else {
+                    layer.msg(res.msg);
+                }
+                //上传完毕回调
+            },
+            error: function () {
+                //请求异常回调
+            }
+        });
+        // delPic()
+        $(".in-banner").on("click","div .delbtn",function () {
+            var name = $(this).attr("data-name")
+            var type = $(this).attr("data-type")
+            // delpic(name)
+            if(type == 1){
+                $(this).parent().remove()
+            }else{
+                $.ajax({
+                    url: "/ajax/delpic",
+                    type: "post",
+                    data: {
+                        banner_img: name
+                    },
+                    success:(msg)=> {
+                        if(msg==1){
+                            console.log($(this).parent(),"14444")
+                            $(this).parent().remove()
+                        }else{
+                            layer.msg("删除失败")
+                        }
+                    }
+                })
+            }
+        })
+    });
+
+    // function delPic(banner_img) {
+    //     var $ = layui.$
+    //         , form = layui.form;
+    //     $.ajax({
+    //         url: "/ajax/delpic",
+    //         type: "post",
+    //         data: {
+    //             banner_img: name
+    //         },
+    //         success:(msg)=> {
+    //             if(msg==1){
+    //                 // console.log($(this).parent(),"14444")
+    //                 $(this).parent().remove()
+    //             }else{
+    //                 layer.msg("删除失败")
+    //             }
+    //         }
+    //     })
+    //
+    // }
+
+    layui.use('upload', function () {
+        var $ = layui.$
+            , form = layui.form;
+        var upload = layui.upload;
+
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#test10',//绑定元素,
+            url: '/upload/index', //上传接口
+            acceptMime: 'image/png,image/jpeg,image/gif',//上传格式
+            multiple: true,//是否开启多文件上传
+            done: function (res) {
+                if (res.code == 20000) {
+                    $("#pic_img2").attr("src", res.data);
+                    $("#applogo").val(res.data)
+                } else {
+                    layer.msg(res.msg);
+                }
+                //上传完毕回调
+            },
+            error: function () {
+                //请求异常回调
+            }
+        });
+    });
+
+    layui.use('upload', function () {
+        var $ = layui.$
+            , form = layui.form;
+        var upload = layui.upload;
+
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#banner',//绑定元素,
+            url: '/upload/index', //上传接口
+            acceptMime: 'image/png,image/jpeg,image/gif',//上传格式
+            multiple: true,//是否开启多文件上传
+            done: function (res) {
+                if (res.code == 20000) {
+                    console.log(res, "打印毁掉")
+                    // console.log($("#pic_img"))
+                    // $("#pic_img").attr("src",res.data);
+                    // $("#pic").val(res.data)
+                    AppendPic(res.data)
+                } else {
+                    layer.msg(res.msg);
+                }
+                //上传完毕回调
+            },
+            error: function () {
+                //请求异常回调
+            }
+        });
+    });
+
+
+    function AppendPic(FileName) {
+        //onclick="delPic(this)"
+        var $ = layui.$
+            , form = layui.form;
+        var html = "<div style='float: left;margin-right: 20px'>" +
+            "<img style='height: 120px;width: 240px;display: block;' src='" + FileName + "' >" +
+            "<input type='hidden' name='banner_img[]' value='" + FileName + "'>" +
+            "<div  style='margin: 15px 0 0 95px;' data-name='" + FileName + "' data-type='1' class=\"layui-btn layui-btn-sm layui-btn-normal delbtn\"><i class=\"layui-icon\"></i>删 除</div>" +
+            "</div>";
+        var abhtml = $(".in-banner").html();
+
+        abhtml += html;
+        $(".in-banner").html(abhtml)
+    }
+
+    layui.use('upload', function () {
+        var $ = layui.$
+            , form = layui.form;
+        var upload = layui.upload;
+
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#test2',//绑定元素,
+            url: '/upload/index', //上传接口
+            acceptMime: 'image/png,image/jpeg,image/gif',//上传格式
+            // multiple:true,//是否开启多文件上传
+            done: function (res) {
+                if (res.code == 20000) {
+                    // console.log($("#pic_img"))
+                    $("#pic_qrcode").attr("src", res.data);
+                    $("#qrcode").val(res.data)
+                } else {
+                    layer.msg(res.msg);
+                }
+                //上传完毕回调
+            },
+            error: function () {
+                //请求异常回调
+            }
+        });
+    });
+    layui.use('upload', function () {
+        var $ = layui.$
+            , form = layui.form;
+        var upload = layui.upload;
+
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#test3',//绑定元素,
+            url: '/upload/index', //上传接口
+            acceptMime: 'image/png,image/jpeg,image/gif',//上传格式
+            // multiple:true,//是否开启多文件上传
+            done: function (res) {
+                if (res.code == 20000) {
+                    // console.log($("#pic_img"))
+                    $("#pic_qrcode1").attr("src", res.data);
+                    $("#qrcode1").val(res.data)
+                } else {
+                    layer.msg(res.msg);
+                }
+                //上传完毕回调
+            },
+            error: function () {
+                //请求异常回调
+            }
+        });
+    });
+    layui.config({
+        base: '/public/layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'form', 'layedit'], function () {
+        var $ = layui.$
+            , form = layui.form;
+        var layedit = layui.layedit;
+        form.on("submit(set_website)", function (data) {
+            var result = [];
+            $("input[name^='banner_img']").each(function (i) {
+                result[i] = $(this).val();
+            });
+            console.log(data)
+            let jsonstr = {
+                system: data.field.system,
+                domain: data.field.domain,
+                eamil: data.field.eamil,
+                phone: data.field.phone,
+                qrcode: data.field.qrcode,
+                qrcode1: data.field.qrcode1,
+                icp: data.field.icp,
+                friend: data.field.friend,
+                banner_img: result,
+                friend_url: data.field.friend_url,
+                bottom: data.field.bottom,
+                cause: data.field.cause,
+                sys_states: data.field.sys_states,
+                logo: data.field.pic,
+                id: data.field.id,
+                applogo: data.field.applogo
+            };
+            $.post("/ajax/editsystem", jsonstr, function (msg) {
+                if (msg == 1) {
+                    //发异步，把数据提交给php
+                    layer.alert("操作成功", {icon: 6}, function () {
+                        // 对窗口进行刷新
+                        location.reload();
+                    });
+                } else if (msg == 2) {
+                    layer.alert("该内容已经存在，请重新输入")
+                } else {
+                    layer.alert("操作成功")
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
+<style>
+    .layui-anim.layui-icon {
+        margin: -8px 0 0 8px;
+    }
+</style>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html style="background: #010715;height: 100%;">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta data-n-head="true" data-hid="format-detection" name="format-detection" content="telephone=no">
+    <meta data-n-head="true" http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta data-n-head="true" name="renderer" content="webkit">
+    <title><?=$system['system']?>-新币预售</title>
+    <link href="/public/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="/public/css/commonHead.css">
+    <link rel="stylesheet" href="/public/css/newCoinDetails.css">
+</head>
+
+<body class="scroll" style="background: #010715;height: 100%;">
+    <div id="app">
+        <div class="notice">
+            <?php load_view("inc/nav");?>
+            <div style="background:#010715;">
+                <!-- 内容 -->
+                <div class="box">
+                    <!-- 投票列表 -->
+                    <div class="list">
+                        <div class="topcontent ft20 fColor1">
+                            <span class="fl">新币预售-项目详情</span>
+                        </div>
+                        <!-- 主要信息 -->
+                        <div class="list_issue clearfix">
+                            <div class="fl left">
+                                <img src="<?=$result['pic']?>" alt="">
+
+                                <?php
+                                $time = time();
+                                $str = "";
+                                if($time < $result['start_time'] ){
+                                    $str = '<div style="color: #00B3FF;">即将开启</div>';
+                                }else if($time >= $result['start_time'] && $time <= $result['end_time']){
+                                    $str = '<div class="joinClass activeTap">立即参与</div>';
+                                }else{
+                                    $str = '<div class="closed">抢购已结束</div>';
+                                }
+                                $scale = ($result['deal'] / $result['total_num']) * 100;
+                                ?>
+                                <div class="">立即参与</div>
+                                <?=$str?>
+<!--                                <div class="conduct">进行中</div>-->
+                                <div class="timeOut">结束时间：<?=date("Y-m-d",$result['end_time'])?></div>
+                            </div>
+                            <div class="fr right">
+                                <div class="title clearfix">
+                                    <span class="fl"><?=get_currency_name($result['currency_id'])?></span> (<?=$result['title']?>)</span>
+                                    <span class="fr" style="font-size: 14px;">兑换比例 : <?=$result['price']?><?=get_currency_name($result['x_currency_id'])?> ≈ 1<?=get_currency_name($result['currency_id'])?></span>
+                                </div>
+                                <div class="content_top">
+                                    <p>发行额度</p>
+                                    <p>已参与量</p>
+                                    <p>锁仓周期</p>
+                                    <p>解冻间隔</p>
+                                </div>
+                                <div class="content_top">
+                                    <p class="color"><?=$result['total_num']?> <?=get_currency_name($result['currency_id'])?></p>
+                                    <p class="color"><?=$result['deal']?></p>
+                                    <p class="color"><?=$result['unfreeze']?>期</p>
+                                    <p class="color"><?=$result['financial_cycle']?><?=$result['time_type']?></p>
+                                </div>
+                                <div class="process-bar">
+                                    <div class="process-bar-hover" style="width:<?=$scale?>%"></div>
+                                </div>
+                                <div class="clearfix  clearfix">
+                                    <span class="fl" style="color: #fff; ">
+                                        <span style="color: #0AC38A;"><?=get_xbys_num($result['id'])?></span> 支持者</span>
+                                    <span class="fr" style="color: #0AC38A;"><?=$scale?>%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 文字内容 -->
+                        <div class="contentDetails">
+                            <div class="content" style="color: #CFCFCF; text-indent: 2em;">
+                                <?=$result['content']?>
+                            </div>
+                        </div>
+                        <!-- tips 提示 -->
+                        <div class="tipsBox">
+                            <div class="title">温馨提示</div>
+                            <div class="tipsText" style="color: red;">数字资产是创新的投资产品，可能存在矿工预挖、庄家操控、团队解散、技术缺陷等问题；其价格波动较大，具有较高的投资风险， 请您投资前对数字资产充分认知，理性判断自己的投资能力，审慎做出投资决策。
+                            </div>
+                        </div>
+                        <!--  -->
+                    </div>
+                </div>
+                <!-- 弹出层统一背景 -->
+                <div class="contentBack" style="display: none;"></div>
+                <!-- 弹出层 -->
+                <div class="box-back box-page" style="display: none;">
+                    <div class="box-content">
+                        <div class="float_win_pay layui-layer-wrap" id="licai_mask">
+                            <div class="tan_title">
+                                <h4 id="licai_title"></h4>
+                                <span class="close-btn closeCharge">x</span>
+                            </div>
+                            <div class="payment_content">
+                                <ul>
+                                    <li>
+                                        <?php
+                                        $coin_type = strtolower(get_currency_name($result['x_currency_id']));
+                                        $available_balance = $coin_type."_available_balance";
+                                        $balance = $user[$available_balance];
+                                        ?>
+                                        <span class="label-1" style="width: 46%;">可用 
+                                            <span style="color: #097DF7;"><?=get_currency_name($result['x_currency_id'])?><?=$balance?></span>
+                                        </span>
+                                        <span class="label-1" style="width: 46%;">限购 
+                                            <span style="color: red;"><?=get_currency_name($result['currency_id'])?><?=$result['max']?></span>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="label-1">购买数量</span>
+                                        <input type="text" class="input-1" id="licai_jine">
+                                    </li>
+
+                                    <li>
+                                        <span class="label-1">交易密码</span>
+                                        <input type="password" class="input-1" id="paypassword">
+                                    </li>
+                                    <li style="margin:-10px 0 10px 0;font-size:14px;text-transform:uppercase;color:#097DF7;">
+                                        <div style="text-align: center;padding-top: 20px;">结束时间 : <?=date("Y-m-d",$result['end_time'])?></div>
+                                    </li>
+                                    <li style="margin-top:30px;">
+                                        <a href="#" class="btns Update activeTap" id="btn">立即参与</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="/public/js/public.js"></script>
+<script type="text/javascript" src="/public/layer/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/public/layer/layer.js"></script>
+<script type="text/javascript">
+    $(function() {
+        // 点击关闭弹窗
+        $(".contentBack,.closeCharge").click(function() {
+            $(".box-back").hide();
+            $(".contentBack").hide();
+        });
+        // 点击关闭弹窗
+        $(".left .joinClass").click(function() {
+            $(".box-back").show();
+            $(".contentBack").show();
+        });
+        // 点击提交
+        $("#btn").click(function() {
+            var licai_jine = $("#licai_jine").val(); //购买数量
+            var paypassword = $("#paypassword").val(); //交易密码
+            var id = '<?=$result['id']?>';
+            if (licai_jine == '') {
+                layer.msg("购买数量不能为空");
+                return
+            } else if (paypassword == '') {
+                layer.msg("交易密码不能为空");
+                return
+            }
+            var jsonstr = {
+                id : id,
+                licai_jine : licai_jine,
+                paypassword : paypassword
+            };
+            ajax_http("post","/activity/ajaxxbys",jsonstr,function (msg) {
+                if(msg.code == 1){
+                    layer.msg(msg.msg);
+                    setTimeout(()=> location.reload(),1000);
+                }else{
+                    layer.msg(msg.msg);
+                }
+            },"json");
+        })
+    });
+</script>

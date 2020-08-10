@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>龙链 - 后台管理系统</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="/public/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/public/layuiadmin/style/admin.css" media="all">
+</head>
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+            <div class="layui-form-item">
+                <div style="float: left;">
+                    <div class="layui-inline">
+
+                    </div>
+                </div>
+                <div style="float: right">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">标题</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="loginname" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <button class="layui-btn layuiadmin-btn-admin" lay-submit lay-filter="LAY-user-back-search">
+                            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-card-body">
+            <table id="LAY-user-back-manage" lay-filter="LAY-user-back-manage"></table>
+            <script type="text/html" id="authenticate">
+                {{# if(d.authenticate == 1 || d.authenticate == 2 || d.authenticate == 5 ){ }}
+                    <span>初级认证</span>
+                {{# } }}
+                {{# if(d.authenticate == 3 || d.authenticate == 4 || d.authenticate == 6){ }}
+                    <span>高级认证</span>
+                {{# } }}
+            </script>
+            <script type="text/html" id="front_photo">
+                {{# if(d.front_photo){ }}
+                    <img src="{{d.front_photo}}" width="150" height="50" />
+                {{# } }}
+            </script>
+            <script type="text/html" id="reverse_photo">
+                {{# if(d.reverse_photo){ }}
+                    <img src="{{d.reverse_photo}}" width="150" height="50" />
+                {{# } }}
+            </script>
+            <script type="text/html" id="handheld_photo">
+                {{# if(d.handheld_photo){ }}
+                <img src="{{d.handheld_photo}}" width="150" height="50" />
+                {{# } }}
+            </script>
+            <script type="text/html" id="table-useradmin-admin">
+                {{# if(d.authenticate == 1 || d.authenticate == 3){ }}
+                     <a class="layui-btn layui-btn-success layui-btn-sm" data-uid="{{d.u_id}}" data-status="{{d.authenticate}}" data-id="{{d.id}}">通过</a>
+                     <a class="layui-btn layui-btn-danger layui-btn-sm" data-uid="{{d.u_id}}" data-status="{{d.authenticate}}" data-id="{{d.id}}">驳回</a>
+                {{# } }}
+            </script>
+        </div>
+    </div>
+</div>
+
+<script src="/public/layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({base: '/public/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'table',"layedit"], function(){
+        var $ = layui.$
+            ,form = layui.form
+            ,table = layui.table;
+        var field = "a.*,b.username,b.authenticate";
+        var condition = "b.authenticate";//sql条件字段
+        var operation = "=,=,>";//sql条件判断类型
+        table.render({
+            elem: "#LAY-user-back-manage",
+            url: "/ajax/list?table=user_authentication,user&on=a.u_id = b.id&field="+field,
+            page: true,
+
+            cols: [[
+                {field: "id", width: 80, title: "ID", sort: !0},
+                {field: "authenticate", title: "审核等级",toolbar: "#authenticate"},
+                {field: "username", title: "用户ID"},
+                {field: "country", title: "国籍"},
+                {field: "name", title: "姓名"},
+                {field: "ctype", title: "证件类型"},
+                {field: "cid",width: 200, title: "证件号"},
+                {field: "front_photo", title: "正面照",toolbar: "#front_photo"},
+                {field: "reverse_photo", title: "反面照",toolbar: "#reverse_photo"},
+                {field: "handheld_photo", title: "手持照",toolbar: "#handheld_photo"},
+                {field: "info", title: "反馈建议"},
+                {title: "操作", width: 150, align: "center", fixed: "right", toolbar: "#table-useradmin-admin"}
+            ]],
+            text: "对不起，加载出现异常！"
+        });
+        //监听搜索
+        form.on('submit(LAY-user-back-search)', function(data){
+            var field = data.field;
+            //执行重载
+            table.reload('LAY-user-back-manage', {
+                where: field
+            });
+        });
+
+        $(".layui-card-body").on("click",".layui-btn-danger",function () {
+            var status = $(this).data("status");
+            var id = $(this).data("id");
+            var u_id = $(this).data("uid");
+            layer.prompt({title: '请填写驳回意见', formType: 0}, function(pass, index){
+                $.post("/ajax/authentication",{type:'danger',status:status,id:id,u_id:u_id,info:pass},function (msg) {
+                    if(msg == 1){
+                        layer.msg("操作成功");
+                        setTimeout(()=> location.reload(),1000)
+                    }else{
+                        layer.msg("操作失败");
+                    }
+                });
+            });
+        });
+        $(".layui-card-body").on("click",".layui-btn-success",function () {
+            var status = $(this).data("status");
+            var id = $(this).data("id");
+            var u_id = $(this).data("uid");
+            $.post("/ajax/authentication",{type:'success',status:status,id:id,u_id:u_id},function (msg) {
+                if(msg == 1){
+                    layer.msg("操作成功");
+                    setTimeout(()=> location.reload(),1000)
+                }else{
+                    layer.msg("操作失败");
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
+<style>
+    .layui-table-cell {
+        height: 75px;
+        line-height: 75px;
+    }
+</style>
+

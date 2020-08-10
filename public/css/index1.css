@@ -1,0 +1,293 @@
+/*  */
+
+.rotationChart {
+    /* background: #fff; */
+}
+
+.rotationChart .swiper-container {
+    width: 100%;
+    height: 500px;
+    /* margin: 20px auto; */
+}
+
+.rotationChart .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.swiper-pagination-bullet {
+    width: 26px;
+    height: 11px;
+    display: inline-block;
+    border-radius: 10PX;
+    background: #DADADD !important;
+    opacity: 0.3 !important;
+}
+
+.swiper-pagination-bullet-active {
+    background: rgba(255,255,255,0.7) !important;
+    opacity: 1 !important;
+}
+
+
+/* 平台列表 */
+
+.platform {
+    width: 100%;
+    background: #0D0E10;
+}
+
+.platform .platformList {
+    width: 1200px;
+    margin: 0 auto;
+    padding: 30px 0 30px 0;
+}
+
+.platform .platformList .title {
+    text-align: center;
+    /* height:29px; */
+    font-size: 30px;
+    font-family: Source Han Sans CN;
+    font-weight: 400;
+    /*color: rgba(247, 248, 248, 1);*/
+    color: rgba(255,255,255,0.7);
+    line-height: 26px;
+    margin-bottom: 10px;
+}
+
+.platform .platformList .describe {
+    text-align: center;
+    /* height:16px; */
+    font-size: 16px;
+    font-family: Adobe Heiti Std;
+    font-weight: normal;
+    color: rgba(168, 164, 181, 1);
+    line-height: 26px;
+    opacity: 0.4;
+}
+
+.platform .list {
+    padding-top: 50px;
+}
+
+.platform .list ul li {
+    width: 220px;
+    height: 350px;
+    background: url(../imgae/platformList.png) no-repeat;
+    background-size: 100% 100%;
+    border-radius: 10px;
+    margin-left: 25px;
+}
+
+.platform .list ul li .img1 {
+    width: 94px;
+    height: 94px;
+    background: url(../imgae/img1.png) no-repeat;
+    background-size: 100% 100%;
+    margin: 0 auto;
+    margin-top: 40px;
+}
+
+.platform .list ul li .img2 {
+    background: url(../imgae/img2.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+.platform .list ul li .img3 {
+    background: url(../imgae/img3.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+.platform .list ul li .img4 {
+    background: url(../imgae/img4.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+.platform .list ul li .img5 {
+    background: url(../imgae/img5.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+.platform .list ul li .textTitle {
+    font-size: 18px;
+    font-family: Source Han Sans CN;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 26px;
+    text-align: center;
+    margin: 60px 0 20px 0;
+}
+
+.platform .list ul li .text {
+    font-family: Source Han Sans CN;
+    font-weight: 400;
+    font-size: 15px;
+    color: #61636A;
+    margin-bottom: 7px;
+    text-align: center;
+}
+
+
+/* 交易所背景图 */
+
+.platform .platformList .exchange {
+    width: 100%;
+    width: 100%;
+    height: 550px;
+    background: url(../imgae/exchange.png) no-repeat;
+    /* background-size: 100% 700px; */
+    background-size: 100% 100%;
+    position: relative;
+    min-width: 1200px;
+    margin-top: 40px;
+}
+
+
+/*  */
+
+.platform .platformList .terminal {
+    width: 100%;
+    width: 100%;
+    height: 445px;
+    background: url(../imgae/terminal.png) no-repeat;
+    /* background-size: 100% 700px; */
+    background-size: 100% 100%;
+    position: relative;
+    min-width: 1200px;
+    margin-top: 40px;
+}
+
+
+/* 交易所后台数据 */
+
+.exchangeData {
+    width: 100%;
+    height: 600px;
+    background: url(../imgae/exchangeData.jpg) no-repeat center;
+    /* background-size: 100% 700px; */
+    background-size: auto auto;
+    position: relative;
+    min-width: 1200px;
+}
+
+
+/* J交易平台 */
+
+.tradingPlatform {
+    width: 100%;
+    height: 600px;
+    background: url(../imgae/tradingPlatform.jpg) no-repeat center;
+    /* background-size: 100% 700px; */
+    background-size: auto auto;
+    position: relative;
+    min-width: 1200px;
+}
+
+.Blockchain {
+    width: 100%;
+    height: 700px;
+    background: url(../imgae/Blockchain.png) no-repeat center;
+    /* background-size: 100% 700px; */
+    background-size: auto auto;
+    position: relative;
+    min-width: 1200px;
+}
+
+.Blockchain .but {
+    width: 155px;
+    height: 32px;
+    font-size: 15px;
+    background: linear-gradient(90deg, rgba(2, 191, 205, 1), rgba(0, 140, 248, 1));
+    /* opacity: 0.6; */
+    border-radius: 20px;
+    color: #fff;
+    text-align: center;
+    line-height: 32px;
+    position: absolute;
+    left: 70%;
+    bottom: 80px;
+    /* margin-left: 265px; */
+}
+
+.platform .information {
+    margin-top: 50px;
+    background: #131625;
+}
+
+.platform .information ul .li {
+    width: 383px;
+    height: 390px;
+    /* background: url(../imgae/platformList.png) no-repeat; */
+    /* background-size: 100% 100%;  */
+    border-radius: 10px;
+    margin-left: 25px;
+    /* margin-left: 0px;
+    overflow: scroll;
+    overflow-x: hidden; */
+}
+
+.information .titles {
+    font-size: 14px;
+    font-family: Source Han Sans CN;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 26px;
+    padding: 10px 40px;
+    border-bottom: 1px solid #010715;
+}
+
+.information ul .li1 {
+    color: #7C7D83;
+    /* list-style-type: disc; */
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 20px;
+}
+
+.information .ul {
+    margin-left: 0px;
+    height: 330px;
+}
+
+
+/* .platform .information ul */
+
+.information .ul::-webkit-scrollbar {
+    width: 2px;
+    height: 5px;
+    /**/
+}
+
+.information .ul::-webkit-scrollbar-track {
+    background: rgb(239, 239, 239);
+    border-radius: 2px;
+}
+
+.information .ul::-webkit-scrollbar-thumb {
+    background: #bfbfbf;
+    border-radius: 10px;
+}
+
+.information .ul::-webkit-scrollbar-thumb:hover {
+    background: #333;
+}
+
+.information .ul::-webkit-scrollbar-corner {
+    background: #8a8a8a;
+}

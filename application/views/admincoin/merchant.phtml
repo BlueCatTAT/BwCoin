@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>龙链 - 后台管理系统</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="/public/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/public/layuiadmin/style/admin.css" media="all">
+</head>
+<style>
+    .pagination-large {
+        overflow: hidden;
+    }
+</style>
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+            <div class="layui-form-item">
+                <div style="float: left;">
+                    <div class="layui-inline">
+                        <button class="layui-btn layuiadmin-btn-admin" data-type="add">添加</button>
+                    </div>
+                </div>
+                <div style="float: right">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">币种</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="designation" placeholder="请输入币种" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <!--<div class="layui-inline">
+                        <label class="layui-form-label">创建时间</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" id="test-laydate-start" placeholder="开始日期">
+                        </div>
+                        <div class="layui-form-mid">
+                            -
+                        </div>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" id="test-laydate-end" placeholder="结束日期">
+                        </div>
+                    </div>-->
+                    <div class="layui-inline">
+                        <button class="layui-btn layuiadmin-btn-admin" lay-submit lay-filter="LAY-user-back-search">
+                            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-card-body">
+            <table id="LAY-user-back-manage" lay-filter="LAY-user-back-manage"></table>
+            <script type="text/html" id="statusTemp">
+                {{#  if(d.status==1){ }}
+                <div>已收盘</div>
+                {{#  } else { }}
+                <div>出售中</div>
+                {{#  } }}
+            </script>
+            <script type="text/html" id="statusTemps">
+                {{#  if(d.type==1){ }}
+                <div>出售</div>
+                {{#  } else { }}
+                <div>购买</div>
+                {{#  } }}
+            </script>
+            <script type="text/html" id="creat_time">
+                {{#  if(d.ctime!=null){ }}
+                <div>{{ layui.util.toDateString(d.ctime*1000,"yyyy-MM-dd HH:mm:ss")}}</div>
+                {{#  } }}
+            </script>
+            <script type="text/html" id="statusTemp1">
+                <button class="layui-btn layuiadmin-btn-admin bianji" data-type="edit" value="{{d.id}}">编辑</button>
+                <input type="hidden" name="page" value="{{d.id}}">
+                <a title="删除" data-id="{{d.id}}" class="layui-btn  layui-btn-danger">删除</a>
+            </script>
+        </div>
+    </div>
+</div>
+
+<script src="/public/layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({base: '/public/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'table', "layedit",'laydate'], function () {
+        var $ = layui.$
+            , form = layui.form
+            , table = layui.table;
+        // var field = "a.*,b.type as name,c.type as x_name";
+        // var condition = "a.currency_id,a.x_currency_id,a.ctime";//sql条件字段
+        // var operation = "=,=,>";//sql条件判断类型
+        var condition = "designation";//sql条件字段
+        var operation = "=";//sql条件判断类型s
+        table.render({
+            elem: "#LAY-user-back-manage",
+            url: "/ajax/list?table=merchant&condition="+condition+"&operation="+operation,
+            page: true,
+            cols: [[
+                {field: "id", width: 80, title: "ID", sort: !0},
+                {field: "name", width: 160,title: "商家名称"},
+                {field: "designation", title: "币种"},
+                {field: "number", title: "出售数量"},
+                {field: "y_number",width: 160, title: "剩余数量"},
+                {field: "min_price", title: "最低额"},
+                {field: "max_price", title: "最高额"},
+                {field: "price", title: "行情价格"},
+                {field: "ctime", width: 180, title: "创建时间", toolbar: '#creat_time'},
+                {field: "status", title: "状态", toolbar: '#statusTemp'},
+                {field: "type", width: 180, title: "操作", toolbar: '#statusTemps'},
+            ]],
+            text: "对不起，加载出现异常！"
+        });
+        //事件
+        var active = {
+            add: function () {
+                layer.open({type: 2, title: '添加', content: '/adminactivity/addvote', area: ['800px', '520px']})
+            }
+        }
+        $('.layui-btn.layuiadmin-btn-admin').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
+        //编辑
+        $(".layui-card-body").on('click', '.bianji', function () {
+            var id = $(this).context.value;
+            var page = $(".layui-laypage-curr").find("em:eq(1)").html()
+            layer.open({
+                type: 2,
+                title: '编辑',
+                content: '/adminactivity/editvote?id=' + id + '&page=' + page + '&callbackname=aa',
+                area: ['1200px', '800px']
+            })
+        })
+
+        //删除
+        $(".layui-card-body").on('click', '.layui-btn-danger', function () {
+            var id = $(this).attr("data-id");
+            var page = $(".layui-laypage-curr").find("em:eq(1)").html()
+            layer.confirm('确认要删除吗？', function (index) {
+                $.post("/ajax/del", {id: id, table: 'activity'}, function (msg) {
+                    if (msg == 1) {
+                        layer.msg("已删除", {time: 800}, function () {
+                            layui.table.reload('LAY-user-back-manage', {page: {curr: page}});
+                        });
+                    } else {
+                        layer.msg("操作失败");
+                    }
+                });
+            });
+        })
+
+        //修改状态
+        $(".layui-card-body").on('click', '.layui-unselect', function () {
+            var that = $(this);
+            var status = $(this).find("em").html();//状态：OFF或ON
+            var id = $(this).attr("data-id");//对应id
+            $.post("/ajax/isstate", {id: id, status: status, table: 'activity'}, function (msg) {
+                if (msg == 1) {
+                    layer.msg("操作成功", {time: 800});
+                    if (status == "OFF") {
+                        that.addClass("layui-form-onswitch")
+                        that.find("em").html("ON")
+                    } else {
+                        that.removeClass("layui-form-onswitch")
+                        that.find("em").html("OFF")
+                    }
+                } else {
+                    layer.msg("操作失败", {time: 1000});
+                }
+            });
+        })
+
+        //监听搜索
+        form.on('submit(LAY-user-back-search)', function (data) {
+            var ctimes =data.field.start_time//获取开始时间
+            var etimes =data.field.end_time//获取结束时间
+            var key = "ctime";
+            if(ctimes != "" && etimes != ""){//拼接时间选择
+                var ctimes = Date.parse(ctimes+" 00:00:00");
+                var etimes = Date.parse(etimes+" 23:59:59");
+                var ctimes =ctimes/1000;
+                var etimes =etimes/1000;
+                var val = ctimes+" and "+"a.ctime <= "+etimes
+                data.field[key] = val//往对象里面赋值
+            }else{
+                data.field[key] = ""
+            }
+            delete data.field.start_time//删除对象的值
+            delete data.field.end_time
+            var field = data.field;
+            table.reload('LAY-user-back-manage', {
+                where: field
+            });
+        });
+
+        //日期选择
+        var laydate = layui.laydate;
+        //常规用法
+        laydate.render({
+            elem: '#test-laydate-normal-cn'
+        });
+        laydate.render({
+            elem: '#test-laydate-normal-cn1'
+        });
+
+    });
+</script>
+</body>
+<style>
+    .layui-table-cell {
+        height: 38px;
+        line-height: 38px;
+    }
+</style
+</html>
+

@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta data-n-head="true" data-hid="format-detection" name="format-detection" content="telephone=no">
+    <meta data-n-head="true" http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta data-n-head="true" name="renderer" content="webkit">
+    <title><?=$system['system']?>-合约交易</title>
+    <link href="/public/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="/public/css/commonHead.css">
+    <link rel="stylesheet" href="/public/css/transactionIndex.css">
+</head>
+
+<body class="scroll">
+<div id="app" style="background-color: #000000;">
+    <?php load_view("inc/nav");?>
+    <div class="w100 baselight" style="margin-top: 10px;">
+        <div class="flex alcenter mt5 vh80" style="min-height: 710px; margin: 10px 10px 0px 10px;">
+            <!-- 侧边栏币种 -->
+            <div class="wt240 bd mr5 bgpart radius2 h100 " style="margin-right: 10px;border-radius: 6px 6px 0 0;">
+                <div class="flex alcenter">
+                    <div class="ht25 lh25 tl ft12 baselight2 radius2 txtwhite" style="border-radius: 6px 6px 0 0;padding-left: 20px;font-size: 16px;background: #1D2436;height: 45px;line-height: 45px;width: 100%;">USDT</div>
+                </div>
+                <div class="flex alcenter mt10 mb10">
+                    <span class="flex1 pl10">币种</span>
+                    <span class="flex1 tr">最新价</span>
+                    <span class="flex1 tr pr10">涨幅</span>
+                </div>
+                <!-- 币种类型 class="overyscroll"-->
+                <div >
+                    <div style="height: 688px;overflow: hidden">
+                        <?php foreach ($huobi_usdt as $k=>$v): ?>
+                            <div class="flex alcenter ptb5 markethover bgshadow" style="line-height: 40px">
+                                <div class="flex1 pl10 baselight2" style="cursor: pointer" onclick="location.href='/trade/heyue?type=trade&market=<?=strtolower($v["name"])?>_usdt&lang=zh'"><?=$v["name"]?></div>
+                                <div class="flex1 tr baselight2"><?= $v["current_price_usd"]?></div>
+                                <?php if($v["change_percent"] < 0): ?>
+                                    <div class="flex1 tr pr10  red"><?=$v["change_percent"]?>00%</div>
+                                <?php else: ?>
+                                    <div class="flex1 tr pr10  green"><?=$v["change_percent"]?>00%</div>
+                                <?php endif; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+            <!-- 右边内容 -->
+            <div class="flex1 flex column h100">
+                <div class="flex h100">
+                    <div class="flex2 flex column">
+                        <div class="flex2">
+                            <div class="bgheader bdbheader flex alcenter plr10 ht45" style="background: #1D2436;height: 45px;text-align: center;border-radius: 6px 6px 0 0;">
+                                <div class="baselight2 ft16 bold mr20"><?=strtoupper(str_replace("_","/",get("market")))?></div>
+                                <div id="yuecoin">
+                                    <div class="ft16 green">1</div><div class="ft12">≈7.15CNY</div>
+                                </div>
+                                <div class="flex1 ft12  flex ml30">
+                                    <div class="mr30" style="flex: 1;">
+                                        <div class="flex1">涨幅</div>
+                                        <div class="flex1" id="klinecoin">0</div>
+                                    </div>
+                                    <div class="mr30" style="flex: 1;">
+                                        <div class="flex1">最高价</div>
+                                        <div class="flex1 baselight2" id="coinopen">0</div>
+                                    </div>
+                                    <div class="mr30" style="flex: 1;">
+                                        <div class="flex1">最低价</div>
+                                        <div class="flex1 baselight2" id="coinlov">0</div>
+                                    </div>
+                                    <div class="mr30" style="flex: 1;">
+                                        <div class="flex1">24H量</div>
+                                        <div class="flex1 baselight2" id="coin24">0</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- canvas画布 background: #fff; -->
+                            <div id="tv_chart_container" style="width: 100%; height: 92%;position: relative;">
+                                <div class="times clearfix">
+                                    <div class="fl bttn " data-time="1">1分钟</div>
+                                    <div class="fl bttn" data-time="5">5分钟</div>
+                                    <div class="fl bttn" data-time="15">15分钟</div>
+                                    <div class="fl bttn" data-time="30">30分钟</div>
+                                    <div class="fl bttn" data-time="60">1小时</div>
+                                    <div class="fl bttn activeClass" data-time="1440">1天</div>
+                                </div>
+                                <div id="main" style="width: 100%; height: 100%;"></div>
+                            </div>
+                        </div>
+                        <div class="flex12 bgpart" style="padding-bottom: 10px;">
+                            <div id="baselight2" class="bgheader bdbheader  alcenter plr10  baselight2" style="padding-left: 20px;font-size: 16px;background: #1D2436;height: 37px;line-height: 37px;width: 100%;">
+                                <div class="mr10 bold ft16 pointer active2px fl" style="width: 100px;text-align: center;">开仓</div>
+                                <div class="mr10 bold ft16 pointer fl" style="width: 100px;text-align: center;">平仓</div>
+                                <span class="fr">夜息费0.2%</span>
+                            </div>
+
+                            <?php $coin_type = strtoupper(substr($_GET['market'],0,-5)); ?>
+
+                                <!-- 合约交易部分-->
+                            <div class="flex12 bgpart" style="padding-top: 5px">
+                                <div id="baselight21" class="bgheader bdbheader flex alcenter plr10 baselight2">
+                                    <div class="ptb5 mr30 bold ft14 pointer active2px">市价交易</div>
+                                    <div class="ptb5 mr30 bold ft14 pointer ">限价交易</div>
+                                </div>
+                                <div class="flex alcenter mb10 plr10 ft14 pt10">可用<?=$balance?>USDT  &nbsp;&nbsp;&nbsp;&nbsp; 1手等于1<?=$coin_type?></div>
+                                <div class="flex ft12 ">
+                                    <div class="flex1 plr10">
+                                        <div class="flex alcenter mb10 posRelt mult" style="">
+                                            <span class="w15">价格</span>
+                                            <input type="number" id="inputsell" class="ht30 bdinput lh30 plr5 radius2 ml10 flex1 white">
+                                        </div>
+                                        <div class="flex alcenter mb10 posRelt mult" style="">
+                                            <span class="w15">倍数</span>
+                                            <select id="selllever" class="ht30 bdinput lh30 pl5 radius2 ml10 flex1">
+                                                <option value="0">--请选择倍数--</option>
+                                                <?php foreach ($beishu as $b): ?>
+                                                <option value="<?=$b['value']?>"><?=$b['value']?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                        <div class="flex alcenter mb10 posRelt mult" style="">
+                                            <span class="w15">手数</span>
+                                            <div id="sellnum" class="shoushu" style="margin-left: 5px;">
+                                                <ul>
+                                                    <?php foreach ($showshu as $s): ?>
+                                                    <li><?=$s['value']?></li>
+                                                    <?php endforeach; ?>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="bggreen tc ht30 lh30 white radius2" data-type="1" id="btnsell" onclick="pending_order(this,'sell')" style="background: #0AC38A;">买入开多(看涨)</div>
+                                    </div>
+                                    <div class="flex1 plr10">
+                                        <div class="flex alcenter mb10 posRelt mult" style="">
+                                            <span class="w15">价格</span>
+                                            <input type="number" id="inputbuy"  class="ht30 bdinput lh30 plr5 radius2 ml10 flex1 white">
+                                        </div>
+                                        <div class="flex alcenter mb10 posRelt mult" style="">
+                                            <span class="w15">倍数</span>
+                                            <select id="buylever" class="ht30 bdinput lh30 pl5 radius2 ml10 flex1">
+                                                <option value="0">--请选择倍数--</option>
+                                                <?php foreach ($beishu as $b): ?>
+                                                    <option value="<?=$b['value']?>"><?=$b['value']?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                        <div class="flex alcenter mb10 posRelt mult" style="">
+                                            <span class="w15">手数</span>
+                                            <div id="buynum" class="shoushu" style="margin-left: 5px;">
+                                                <ul>
+                                                    <?php foreach ($showshu as $s): ?>
+                                                        <li><?=$s['value']?></li>
+                                                    <?php endforeach; ?>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="bgred tc ht30 lh30 white radius2" data-type="2" id="btnbuy" onclick="pending_order(this,'buy')" style="background: #F65C5C;">卖出开空(看跌)</div>
+                                    </div>
+                                </div>
+                                <div class="el-dialog__wrapper" style="display: none;">
+                                    <div role="dialog" aria-modal="true" aria-label="确认下单" class="el-dialog" style="margin-top: 15vh; width: 30%;">
+                                        <div class="el-dialog__header"><span class="el-dialog__title">确认下单</span><button type="button" aria-label="Close" class="el-dialog__headerbtn"><i class="el-dialog__close el-icon el-icon-close"></i></button></div>
+                                        <!---->
+                                        <div class="el-dialog__footer"><span class="dialog-footer"><button type="button" class="el-button radius4 el-button--default"><!----><!----><span>取消</span></button> <button type="button" class="el-button radius4 el-button--primary"><!----><!----><span>确定</span></button></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="flex12 flex column overy " style="flex: 0.5;-webkit-flex: 0.5;">
+                        <div class="flex ">
+                            <div class="bgheader bdbheader flex1 plr10 ht40 lh40 baselight2 ft16 " style="padding-left: 20px;font-size: 16px;background: #1D2436;height: 45px;line-height: 45px;width: 100%; border-radius: 6px 6px 0 0;margin-left: 10px;">盘口</div>
+                        </div>
+                        <div class="flex1 flex ">
+
+                            <div class="flex column w100 flex1 bgpart " style="margin-left: 10px;">
+                                <div class="ptb10 flex1 flex column w100 ">
+                                    <div class="flex alcenter plr10 "><span class=" " style="width: 44px;">方向</span> <span class="flex1 tc ">价格(USDT)</span> <span class="flex1 tr ">成交额(<?=$coin_type?>)</span></div>
+                                    <div class="mtb10 flex1 flex column jsend asks ">
+                                        <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 27% 100%; "><span class="flex1 red ">卖10</span> <span class="flex1 tc baselight2 ">8956.3100</span> <span class="flex1 tr baselight2 ">264.039</span></div>
+                                        <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 45% 100%; "><span class="flex1 red ">卖9</span> <span class="flex1 tc baselight2 ">8956.3000</span> <span class="flex1 tr baselight2 ">426.1742</span></div>
+                                        <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 80% 100%; "><span class="flex1 red ">卖8</span> <span class="flex1 tc baselight2 ">8956.2900</span> <span class="flex1 tr baselight2 ">762.1405</span></div>
+                                        <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 97% 100%; "><span class="flex1 red ">卖7</span> <span class="flex1 tc baselight2 ">8956.2800</span> <span class="flex1 tr baselight2 ">924.1817</span></div>
+                                        <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 66% 100%; "><span class="flex1 red ">卖6</span> <span class="flex1 tc baselight2 ">8956.2700</span> <span class="flex1 tr baselight2 ">628.2446</span></div>
+                                        <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 96% 100%; "><span class="flex1 red ">卖5</span> <span class="flex1 tc baselight2 ">8956.2600</span> <span class="flex1 tr baselight2 ">912.3143</span></div>
+                                        <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 100% 100%; "><span class="flex1 red ">卖4</span> <span class="flex1 tc baselight2 ">8956.2500</span> <span class="flex1 tr baselight2 ">945.3679</span></div>
+                                        <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 76% 100%; "><span class="flex1 red ">卖3</span> <span class="flex1 tc baselight2 ">8956.2400</span> <span class="flex1 tr baselight2 ">720.7668</span></div>
+                                        <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 92% 100%; "><span class="flex1 red ">卖2</span> <span class="flex1 tc baselight2 ">8956.2300</span> <span class="flex1 tr baselight2 ">875.7526</span></div>
+                                        <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 67% 100%; "><span class="flex1 red ">卖1</span> <span class="flex1 tc baselight2 ">8956.2200</span> <span class="flex1 tr baselight2 ">637.7829</span></div>
+                                    </div>
+                                    <div class="ptb15 bdtheader bdbheader plr10 " id="pankou">0</div>
+                                    <div class="bgpart mt10 flex1 flex column bids ">
+                                        <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 100% 100%; "><span class="flex1 green ">买1</span> <span class="flex1 tc baselight2 ">8956.2000</span> <span class="flex1 tr baselight2 ">1691.6326</span></div>
+                                        <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 30% 100%; "><span class="flex1 green ">买2</span> <span class="flex1 tc baselight2 ">8956.1900</span> <span class="flex1 tr baselight2 ">524.2209</span></div>
+                                        <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 38% 100%; "><span class="flex1 green ">买3</span> <span class="flex1 tc baselight2 ">8956.1800</span> <span class="flex1 tr baselight2 ">643.6112</span></div>
+                                        <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 54% 100%; "><span class="flex1 green ">买4</span> <span class="flex1 tc baselight2 ">8956.1700</span> <span class="flex1 tr baselight2 ">917.4713</span></div>
+                                        <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 63% 100%; "><span class="flex1 green ">买5</span> <span class="flex1 tc baselight2 ">8956.1600</span> <span class="flex1 tr baselight2 ">1075.1648</span></div>
+                                        <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 20% 100%; "><span class="flex1 green ">买6</span> <span class="flex1 tc baselight2 ">8956.1500</span> <span class="flex1 tr baselight2 ">347.235</span></div>
+                                        <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 44% 100%; "><span class="flex1 green ">买7</span> <span class="flex1 tc baselight2 ">8956.1400</span> <span class="flex1 tr baselight2 ">747.9181</span></div>
+                                        <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 31% 100%; "><span class="flex1 green ">买8</span> <span class="flex1 tc baselight2 ">8956.1300</span> <span class="flex1 tr baselight2 ">530.6139</span></div>
+                                        <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 42% 100%; "><span class="flex1 green ">买9</span> <span class="flex1 tc baselight2 ">8956.1200</span> <span class="flex1 tr baselight2 ">723.4418</span></div>
+                                        <div class="ptb5 flex alcenter pointer h100 plr10 " style="background-size: 88% 100%; "><span class="flex1 green ">买10</span> <span class="flex1 tc baselight2 ">8956.1100</span> <span class="flex1 tr baselight2 ">1505.2413</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 底部 -->
+        <div class="" style="margin: 10px;">
+            <div class="mt5 bgpart ">
+            <div class="bgheader bdbheader plr15 pt10 baselight2 flex alcenter between " style="background: #171b2b;">
+                <div class="flex alcenter" id="bot_left">
+                    <p class="ft16 mr30 pointer blue activeBt"  style="padding-bottom: 10px;">当前委托</p>
+                    <p class="ft16 mr30 pointer"  style="padding-bottom: 10px;">全部委托</p>
+                </div>
+                <div class="flex alcenter" id="bot_right">
+                    <div class="plr5 tc ft12 baselight2 plr10 pb5 mr30 pointer green bdbgreen ">买入</div>
+                    <div class="plr5 tc ft12 baselight2 plr10 pb5 pointer ">卖出</div>
+                </div>
+            </div>
+            <div class="bgpart plr30 ">
+                <div class="flex alcenter ptb10 ">
+                    <span class="flex12 tc">id</span>
+                    <span class="flex12 tc">币种</span>
+                    <span class="flex12 tc">用户ID</span>
+                    <span class="flex12 tc">类型</span>
+                    <span class="flex12 tc">手数</span>
+                    <span class="flex12 tc">倍数</span>
+                    <span class="flex12 tc">价格</span>
+                    <span class="flex12 tc">状态</span>
+                    <span class="flex12 tc">挂单时间</span>
+                </div>
+                <?php
+                $strtime = strtotime(date("Y-m-d 00:00:00"));
+                $endtime = strtotime(date("Y-m-d 23:23:59"));
+                ?>
+                <?php if(count($coin_trading) != 0): ?>
+                    <?php foreach ($coin_trading as $ck=>$cv): ?>
+                        <?php
+                        if($strtime <= $cv['create_time'] && $cv['create_time'] <= $endtime){
+                            $timeclass = "timeclass";
+                        }else{
+                            $timeclass = "";
+                        }
+                        if($cv['type'] == '看涨' || $cv['type'] == '平空'){
+                            $rightstr = "rightsell";
+                            $spanstr = "<span style='color: #00A000'>".$cv['type']."</span>";
+                        }else{
+                            $rightstr = "rightbuy";
+                            $spanstr = "<span style='color: #A00000'>".$cv['type']."</span>";
+                        }
+                        ?>
+                        <div class="flex alcenter ptb10 <?=$rightstr?> <?=$timeclass?>">
+                            <span class="flex12 tc "><?=$cv['id']?></span>
+                            <span class="flex12 tc "><?=$cv['coin']?></span>
+                            <span class="flex12 tc "><?=substr_replace(get_user_name($cv['u_id']), '****',3, 4)?></span>
+                            <span class="flex12 tc "><?=$spanstr?></span>
+                            <span class="flex12 tc"><?=$cv['multiple']?></span>
+                            <span class="flex12 tc"><?=$cv['lots']?></span>
+                            <span class="flex12 tc"><?=$cv['price']?></span>
+                            <?php
+                            switch ($cv['status']){
+                                case 0 : $str = "挂单中";break;
+                                case 1 : $str = "交易中";break;
+                                case 2 : $str = "平仓中";break;
+                                case 3 : $str = "已平仓";break;
+                                case 4 : $str = "已撤单";break;
+                            }
+                            ?>
+                            <span class="flex12 tc "><?=$str?></span>
+                            <span class="flex12 tc "><?=date("Y-m-d H:i:s",$cv['create_time'])?></span>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="pb50 posRelt ">
+                        <div class="tc ">
+                            <div class="ptb40 "><img src="/public/imgae/tips.png" alt=" " class="wt70 ">
+                                <p>暂无记录</p>
+                            </div>
+                        </div>
+                        <div class="abstort w100 tc lf0 btm10 pages ">
+                            <!---->
+                        </div>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script src="/public/js/echarts.js"></script>
+<script src="/public/js/public.js"></script>
+<script type="text/javascript" src="/public/layer/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/public/layer/layer.js"></script>
+<script>
+    var coin = '<?=get("market")?>';
+    //    var myChart = echarts.init(document.getElementById('main'));
+    var myChart = echarts.init(document.getElementById('main'),{width:'88%'});
+    var rawData = [];
+    //setTimeout("char(1440)",2000)
+    setTimeout(function () {
+        char(1440);
+        senddepth();
+        onecoin();
+    });
+    $(function() {
+//        右边倍数
+        $("#twoMultiple").click(function () {
+            $("#myMultiple").show();
+            $("#multipleContent").hide();
+        });
+        $("#myMultiple .ul .li").click(function () {
+            var text = $(this).find('span').text();
+            $("#twoMultiple").val(text);
+            $("#myMultiple").hide();
+        });
+        $("#multiple").click(function () {
+            $("#multipleContent").show();
+            $("#myMultiple").hide();
+        });
+        $("#multipleContent .multipleBox .ul .li").click(function () {
+            console.log("454654465",$(this).index());
+            var text = $(this).find('span').text();
+            console.log(text,"texttexttext")
+            $("#multiple").val(text);
+            $("#multipleContent").hide();
+        });
+        $(".times .bttn").click(function() {
+            var _index = $(this).index();
+            $(".times .bttn").removeClass("activeClass");
+            $(".times .bttn").eq(_index).addClass("activeClass");
+            var time = $(this).attr("data-time");
+            char(time);
+        });
+
+        $("#baselight2 div").click(function () {
+            var index = $(this).index();
+            $(this).addClass("active2px").siblings().removeClass("active2px");
+            if($(this).text() == "开仓"){
+                $("#btnsell").html("买入开多(看涨)");
+                $("#btnsell").attr("data-id","1");
+                $("#btnbuy").html("卖出开空(看跌)");
+                $("#btnsell").attr("data-id","2");
+            }
+
+            if($(this).text() == "平仓"){
+                $("#btnsell").html("买入平空");
+                $("#btnsell").attr("data-id","3");
+                $("#btnbuy").html("卖出平多");
+                $("#btnsell").attr("data-id","4");
+            }
+        });
+
+        $("#baselight21 div").click(function () {
+            var index = $(this).html();
+            $(this).addClass("active2px").siblings().removeClass("active2px");
+            if(index == '限价交易'){
+                $("#inputsell").val("");
+                $("#inputsell").removeAttr("readonly");
+                $("#inputbuy").val("");
+                $("#inputbuy").removeAttr("readonly");
+            }else{
+                $("#inputsell").val(localStorage.getItem("sllval"));
+                $("#inputbuy").val(localStorage.getItem("buyval"));
+                $("#inputsell").attr("readonly","readonly");
+                $("#inputbuy").attr("readonly","readonly");
+            }
+        });
+
+        $("#bot_left p").click(function(){
+            $(this).addClass("blue activeBt").siblings().removeClass("blue activeBt");
+            var lVla = $(this).html();
+            if(lVla == "当前委托"){
+                $(".rightsell").hide();
+                $(".rightbuy").hide();
+                $(".timeclass").show();
+            }else{
+                $(".timeclass").hide();
+                $(".rightsell").show();
+                $(".rightbuy").show();
+            }
+        });
+        $("#bot_right div").click(function(){
+            $(this).addClass("green bdbgreen").siblings().removeClass("green bdbgreen");
+            var rVla = $(this).html();
+            if(rVla == "买入"){
+                $(".rightsell").show();
+                $(".rightbuy").hide();
+            }else{
+                $(".rightbuy").show();
+                $(".rightsell").hide();
+            }
+        });
+        $(".shoushu ul li").click(function () {
+            $(this).addClass("action").siblings().removeClass("action");
+        });
+    });
+    function char(time) {
+//       setTimeout(function() {
+        ajax_http("post","/trade/ajaxdata",{coin:coin,time:time,size:200},function (msg) {
+            rawData = msg;
+            rawData.reverse();
+            var dates = rawData.map(function(item) {
+                return item[0];
+            });
+            var data = rawData.map(function(item) {
+                return [+item[1], +item[2], +item[3], +item[4]];
+            });
+            var option = {
+                backgroundColor: '#171B2B',
+//                legend: {
+//                    data: ['日K', 'MA5', 'MA10', 'MA20', 'MA30'],
+//                    inactiveColor: '#777',
+//                    textStyle: {
+//                        color: '#fff'
+//                    }
+//                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        animation: false,
+                        type: 'cross',
+                        lineStyle: {
+                            color: '#376df4',
+                            width: 2,
+                            opacity: 1
+                        }
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    data: dates,
+                    axisLine: {
+                        lineStyle: {
+                            color: '#8392A5'
+                        }
+                    }
+                },
+                yAxis: {
+                    position:'right',
+                    scale: false,
+                    axisLine: {
+                        lineStyle: {
+                            color: '#8392A5',
+                            width: 1
+                        }
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: 'rgba(255,255,255,0.3)'
+                        },
+                        show: true
+                    }
+                },
+                grid: {
+                    bottom: 30,
+                    left:40
+                },
+                dataZoom: [
+                    // {
+                    // textStyle: {
+                    //     color: '#8392A5'
+                    // },
+                    // handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+                    // handleSize: '80%',
+                    // dataBackground: {
+                    //     areaStyle: {
+                    //         color: '#8392A5'
+                    //     },
+                    //     lineStyle: {
+                    //         opacity: 0.1,
+                    //         color: '#8392A5'
+                    //     }
+                    // },
+                    // handleStyle: {
+                    //     color: '#fff',
+                    //     shadowBlur: 3,
+                    //     shadowColor: 'rgba(0, 0, 0, 0.6)',
+                    //     shadowOffsetX: 2,
+                    //     shadowOffsetY: 2
+                    // }
+                    // },
+                    {
+                        type: 'inside'
+                    }
+                ],
+                animation: false,
+                series: [{
+                    type: 'candlestick',
+                    name: '日K',
+                    data: data,
+                    itemStyle: {
+                        color: '#FD1050',
+                        color0: '#0CF49B',
+                        borderColor: '#FD1050',
+                        borderColor0: '#0CF49B'
+                    }
+                }, {
+                    name: 'MA5',
+                    type: 'line',
+                    data: calculateMA(5, data),
+                    smooth: true,
+                    showSymbol: false,
+                    lineStyle: {
+                        width: 1
+                    }
+                }, {
+                    name: 'MA10',
+                    type: 'line',
+                    data: calculateMA(10, data),
+                    smooth: true,
+                    showSymbol: false,
+                    lineStyle: {
+                        width: 1
+                    }
+                }, {
+                    name: 'MA20',
+                    type: 'line',
+                    data: calculateMA(20, data),
+                    smooth: true,
+                    showSymbol: false,
+                    lineStyle: {
+                        width: 1
+                    }
+                }, {
+                    name: 'MA30',
+                    type: 'line',
+                    data: calculateMA(30, data),
+                    smooth: true,
+                    showSymbol: false,
+                    lineStyle: {
+                        width: 1
+                    }
+                }]
+            };
+            // 使用刚指定的配置项和数据显示图表
+            myChart.setOption(option);
+//            myChart.resize();
+        },"json");
+//       }, 2000)
+    }
+    function calculateMA(dayCount, data) {
+        var result = [];
+        for (var i = 0, len = data.length; i < len; i++) {
+            if (i < dayCount) {
+                result.push('-');
+                continue;
+            }
+            var sum = 0;
+            for (var j = 0; j < dayCount; j++) {
+                sum += data[i - j][1];
+            }
+            result.push(sum / dayCount);
+        }
+        return result;
+    }
+    function senddepth() {
+        ajax_http("post","/trade/ajaxdepth",{symbol:coin,size:10},function(msg){
+            var bids1 = "";
+            var asks1 = "";
+            $(".bids").empty();
+            for(var i = 0; i < msg.bids.length; i++){
+                var k = i+1;
+                bids1 += "<div class='ptb5 flex alcenter pointer h100 plr10' style='background-size: 27% 100%;'>";
+                bids1 += "<span class='red' style='width: 44px;'>卖"+k+"</span>";
+                bids1 += "<span class='flex1 tc baselight2'>"+msg.bids[i][0]+"</span>";
+                bids1 += "<span class='flex1 tr baselight2'>"+msg.bids[i][1]+"</span></div>";
+            }
+            $(".bids").html(bids1);
+
+            $(".asks").empty();
+            for(var j = 0; j < msg.asks.length; j++){
+                var n = j+1;
+                asks1 += "<div class='ptb5 flex alcenter pointer h100 plr10' style='background-size: 100% 100%;'>";
+                asks1 += "<span class='green' style='width: 44px;'>买"+n+"</span>";
+                asks1 += "<span class='flex1 tc baselight2'>"+msg.asks[j][0]+"</span>";
+                asks1 += "<span class='flex1 tr baselight2'>"+msg.asks[j][1]+"</span></div>";
+            }
+            $(".asks").html(asks1);
+        },"json");
+    }
+    function onecoin(){
+        ajax_http("post","/trade/onecoin",{symbol:coin},function(msg){
+            $("#inputsell").val(Number(msg[0][4]).toFixed(4));
+            var buys = msg[0][4] - (msg[0][4] * 0.001);
+            $("#inputbuy").val(Number(buys).toFixed(4));
+            window.localStorage.setItem("sllval",Number(msg[0][4]).toFixed(4));
+            window.localStorage.setItem("buyval",Number(buys).toFixed(4));
+            $("#coinopen").text(msg[0][4]);
+            $("#coinlov").text(msg[0][3]);
+            $("#coin24").text(msg[0][10]);
+            var xxx = (msg[0][4] - msg[0][1]) / msg[0][1] *100;
+            var klinecoin = xxx.toFixed(4);
+            if(klinecoin < 0){
+                $("#klinecoin").attr("class","flex1 green")
+            }else{
+                $("#klinecoin").attr("class","flex1 red")
+            }
+            $("#klinecoin").text(klinecoin+"%");
+
+            $("#yuecoin").html("<div class='ft16 green'>"+msg[0][7]+"</div><div class='ft12'>USDT≈"+msg[0][7]*7.15+"CNY</div>");
+            $("#pankou").html("<span class='red bold ft20'>"+(parseFloat(msg[0][1])).toFixed(4)+"</span><span>USDT≈"+(parseFloat(msg[0][1])*7.15).toFixed(4)+"CNY</span>");
+        },"json");
+    }
+    function pending_order(tag,type) {
+        var inputtxt = $(tag).text();
+        var margin = 0;  //保证金
+        var fee = 0;  //手续费 = 市价 * 0.008 * 手数;
+        coin = coin.split("_")[0];
+        if(coin == 'btc' || coin == 'usdt' || coin == 'eth' || coin == 'lbth'){
+            if(type == 'sell'){//买
+                var inputsell = Number($("#inputsell").val());
+                var selllever = Number($("#selllever").val());
+                var sellnum = Number($("#sellnum ul").find("li.action").text());
+                if(inputsell == 0){
+                    layer.msg("市场价格为空");
+                    return false
+                }
+                if(selllever == 0){
+                    layer.msg("请选择倍数");
+                    return false
+                }
+                if(sellnum == 0){
+                    layer.msg("请选择手数");
+                    return false
+                }
+                //保证金  = （市价 / 倍数）*  手数 * 手数比例  +   市价 * 0.0024 * 手数 / 手数比例
+                margin = ((inputsell / selllever) * sellnum  + (inputsell * sellnum * 0.0024)).toFixed(4);
+                fee = (inputsell * 0.008 * sellnum).toFixed(4);
+                var str ="<?=strtoupper(str_replace("_","/",get("market")))?><br>类型："+inputtxt+"<br>手数："+sellnum+"<br>倍数："+selllever+"<br>保证金："+margin+"USDT<br>手续费："+fee+"USDT";
+                layer.confirm(str,{btn: ['取消','确定']},function () {
+                    layer.msg('操作取消');
+                },function () {
+                    layer.prompt({title: '请输入交易密码', formType: 1},function(val, index){
+                        ajax_http("post","/trade/heyuesell",{inputtxt:inputtxt,market_price:inputsell,margin:margin,fee:fee,multiple:selllever,lots:sellnum,pass:val,symbol:coin},function(msg){
+                            layer.msg(msg.msg)
+                            setTimeout(()=>{
+                                window.location.href = location.href;
+                            },500)
+                        },"json");
+                    });
+                });
+            }else{//卖
+                var inputbuy = Number($("#inputbuy").val());
+                var buylever = Number($("#buylever").val());
+                var buynum = Number($("#buynum ul").find("li.action").text());
+                if(inputbuy == 0){
+                    layer.msg("市场价格为空");
+                    return false
+                }
+                if(buylever == 0){
+                    layer.msg("请选择倍数");
+                    return false
+                }
+                if(buynum == 0){
+                    layer.msg("请选择手数");
+                    return false
+                }
+                //保证金  = （市价 / 倍数）*  手数 * 手数比例  -   市价 * 0.0024 * 手数 / 手数比例
+                margin = ((inputbuy / buylever) * buynum  - (inputbuy * 0.0024 * buynum)).toFixed(4);
+                fee = (inputbuy * 0.008 * buynum).toFixed(4);
+                var str ="<?=strtoupper(str_replace("_","/",get("market")))?><br>类型："+inputtxt+"<br>手数："+buynum+"<br>倍数："+buylever+"<br>保证金："+margin+"USDT<br>手续费："+fee+"USDT";
+                layer.confirm(str,{btn: ['取消','确定']},function () {
+                    layer.msg('操作取消');
+                },function () {
+                    layer.prompt({title: '请输入交易密码', formType: 1},function(val, index){
+                        ajax_http("post","/trade/heyuebuy",{inputtxt:inputtxt,market_price:inputbuy,margin:margin,fee:fee,multiple:buylever,lots:buynum,pass:val,symbol:coin},function(msg){
+                            layer.msg(msg.msg)
+                            setTimeout(()=>{
+                                window.location.href = location.href;
+                            },500)
+                        },"json");
+                    });
+                });
+            }
+        }else{
+            alert("此币种没有开通交易");
+        }
+    }
+</script>
+<style>
+    .times {
+        position: absolute;
+        left: 0;
+        top: 0px;
+        color: rgba(255,255,255,0.7);
+        z-index: 999;
+        padding: 10px;
+    }
+
+    .times .bttn {
+        padding: 10px;
+        font-size: 12px;
+        margin-right: 11px;
+        cursor: pointer;
+    }
+
+    .activeClass {
+        background: #5dd5c8;
+        color: rgba(255,255,255,0.7);
+    }
+    .bdinput{
+        border: 1px solid rgba(10,136,224,0.3);
+    }
+    .active2px{
+        color: #0A88E0;
+        border-bottom: 2px solid #0A88E0;
+    }
+    input{
+        color: rgba(255,255,255,0.7);
+    }
+    #main>div:nth-of-type(1){
+        width: 100% !important;
+    }
+    canvas{
+        width: 100% !important;
+    }
+    .el-select-dropdown{
+        top:36px !important;
+    }
+    .activeBt{
+        border-bottom: 2px solid #0A88E0;
+    }
+    .baselight2{
+        color: #A8A4B5;
+    }
+    select{
+        background: none;
+        color: rgba(255,255,255,0.7);
+    }
+    option{
+        background: #171b2b no-repeat scroll right center !important;
+        color: rgba(255,255,255,0.7) !important;
+        font-size: 12pt;
+    }
+    .shoushu{width: 100%;}
+    .shoushu ul{
+        display: flex;
+        /*width: 95%;*/
+        margin-left: 18px;
+    }
+    .shoushu ul li{
+        flex: 1;
+        border: solid;
+        text-align: center;
+        border: 1px solid rgba(10,136,224,0.3);
+        height:30px;
+        line-height: 30px;
+        color: rgba(255,255,255,0.5);
+    }
+    .shoushu .action{
+        background : #008cf8;
+    }
+</style>

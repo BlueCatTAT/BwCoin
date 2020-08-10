@@ -1,0 +1,277 @@
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+input,
+select,
+textarea {
+    font-size: 12px;
+    line-height: 16px;
+    background-color: #17193f;
+    color: white;
+    border: 1px solid #666;
+    border-radius: 5px;
+    padding: 3px;
+}
+
+.SettingRight {
+    padding: 1%;
+    /* width: 78%; */
+    min-height: 600px;
+    height: 100%;
+    background-color: #11122f;
+    border: 1px solid #e8e8e800;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.SettingRight .titles {
+    margin: 20px 7px;
+    height: 20px;
+    line-height: 20px;
+    text-align: left;
+}
+
+.SettingRight .titles h3 {
+    min-width: 100px;
+    padding-left: 10px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #f9f0f0;
+    border-left: 4px solid #00E2b6;
+}
+
+.SettingRight .titles h3 span {
+    text-transform: uppercase;
+}
+
+.SettingRight .select {
+    margin-top: -12px;
+    margin-right: 15px;
+    display: inline-block;
+    width: 200px;
+    padding-left: 10px;
+    height: 38px;
+    line-height: 38px;
+    border: 1px solid #283046;
+    border-radius: 10px;
+    position: relative;
+}
+
+.SettingRight .select img {
+    width: 22px;
+    vertical-align: middle;
+}
+
+.SettingRight .selul {
+    width: 160px;
+    height: 38px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    color: white;
+    background: #11122f;
+    line-height: 16px;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+
+/* 内容 */
+
+.Column_Coins {
+    margin: 0 7px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.Column_Coins .AssetInfo {
+    line-height: 60px;
+}
+
+.Column_Coins .AssetInfo div {
+    display: inline-block;
+    margin-right: 15px;
+    font-size: 16px;
+    color: #fff;
+}
+
+.Column_Coins .AssetInfo div .span1 {
+    margin-left: 10px;
+    font-weight: 500;
+    color: rgb(0, 226, 181);
+    text-transform: uppercase;
+}
+
+
+/* 内容 */
+
+.Column_Coins .rech_bd {
+    width: 100%;
+    padding: 0 19px;
+    height: auto;
+    overflow: hidden;
+    border: 1px solid #eee0;
+    box-sizing: border-box;
+    padding-bottom: 30px;
+    background: rgb(23, 25, 63);
+    border-radius: 10px
+}
+
+.group {
+    display: flex;
+    margin-top: 16px;
+}
+
+.group label {
+    margin-top: 10px;
+    height: 36px;
+    padding-right: 8px;
+    flex: 2;
+    font-size: 14px;
+    text-align: right;
+    line-height: 36px;
+    color: #7d80ba;
+    text-transform: uppercase;
+}
+
+.group input {
+    flex: 8;
+}
+
+.Column_Coins .shiftto {
+    width: 890px;
+    height: auto;
+    overflow: hidden;
+    padding: 30px 0;
+    text-align: center;
+}
+
+.item_title {
+    text-align: center;
+    color: white;
+    font-size: 22px;
+    padding-bottom: 20px;
+}
+
+.btn-primary {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    padding: 15px 0;
+    color: #333333;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background: linear-gradient(to right, #E1CD64, #E1CD64);
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    color: aliceblue;
+    margin: 0 auto;
+    padding: 20px;
+    background: rgb(0, 226, 181);
+}
+
+.Column_Coins .recharge_atten_text {
+    margin-top: 10px;
+    height: auto;
+    line-height: 20px;
+    overflow: hidden;
+    padding: 20px 30px;
+    font-size: 14px;
+    color: #8ca1b7;
+    text-transform: uppercase;
+}
+
+.Column_Coins .recharge_atten_text p {
+    line-height: 25px;
+}
+
+.Column_Coins .recharge_atten_text h5 {
+    font-size: 15px;
+    font-weight: 600 !important;
+    color: #545c70;
+    margin-bottom: 10px;
+}
+
+
+/* .SettingRight .Column_Coins_LIST {
+    margin: 0 7px;
+    margin-bottom: 60px;
+    overflow: hidden;
+}
+
+.SettingRight .Column_Coins_LIST table {
+    width: 100%;
+    border-bottom: none;
+    font-size: 13px;
+    color: white;
+}
+
+.SettingRight .Column_Coins_LIST table .title {
+    background-color: #17193f;
+    color: white;
+}
+
+.SettingRight .Column_Coins_LIST table th {
+    height: 38px;
+}
+
+.SettingRight .Column_Coins_LIST table th,
+.SettingRight .Column_Coins_LIST table td {
+    border-bottom: 1px solid #283046;
+    text-align: center;
+} */
+
+
+/* 
+<div class="titles">
+<h3>
+    <span style="vertical-align: inherit;">
+        <span style="vertical-align: inherit;">转移到记录</span>
+    </span>
+</h3>
+</div> -->
+<!-- <div class="Column_Coins_LIST">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tbody>
+        <tr class="title">
+            <th width="130px">
+                <span style="vertical-align: inherit;">
+                    <span style="vertical-align: inherit;">入金时间</span>
+                </span>
+            </th>
+            <th width="100px">
+                <span style="vertical-align: inherit;">
+                    <span style="vertical-align: inherit;">货币种类</span>
+                </span>
+            </th>
+            <th width="260px">
+                <span style="vertical-align: inherit;">
+                    <span style="vertical-align: inherit;">地址</span>
+                </span>
+            </th>
+            <th width="120px">
+                <span style="vertical-align: inherit;">
+                    <span style="vertical-align: inherit;">存款数量</span>
+                </span>
+            </th>
+            <th width="120px">
+                <span style="vertical-align: inherit;">
+                    <span style="vertical-align: inherit;">量</span>
+                </span>
+            </th>
+            <th>
+                <span style="vertical-align: inherit;">
+                    <span style="vertical-align: inherit;">州</span>
+                </span>
+            </th>
+        </tr>
+    </tbody>
+</table>
+<div class="pages"></div>
+</div>  */

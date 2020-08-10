@@ -1,0 +1,100 @@
+.fColor1 {
+    color: #c7cce6
+}
+
+.ft20 {
+    font-size: 20px
+}
+
+.clear:after {
+    content: "";
+    display: block;
+    clear: both
+}
+
+.clear {
+    zoom: 1
+}
+
+.fl {
+    float: left
+}
+
+.fr {
+    float: right
+}
+
+.tl {
+    text-align: left
+}
+
+.tc {
+    text-align: center
+}
+
+.tr {
+    text-align: right
+}
+
+.mt40 {
+    margin-top: 40px
+}
+
+.fColor2 {
+    color: #637085
+}
+
+.ft18 {
+    font-size: 18px
+}
+
+.curPer {
+    cursor: pointer
+}
+
+.notice .account-wrap .account {
+    margin: 20px auto;
+    overflow: hidden;
+    padding-top: 0
+}
+
+
+/* .notice .account-wrap .account .back-nav {
+    height: 40px;
+    font-size: 16px;
+    line-height: 40px
+} */
+
+.notice .account-wrap .account .back-nav {
+    height: 40px;
+    font-size: 16px;
+    line-height: 40px;
+}
+
+.notice .account-content {
+    width: 100%;
+    min-height: 750px;
+    background-color: #181b2a
+}
+
+.hide {
+    display: none
+}
+
+.notice .account-wrap .account .account-content ul {
+    padding: 0 20px;
+    font-size: 14px;
+}
+
+.notice .account-wrap .account .account-content ul li {
+    border-bottom: 1px dashed #303b4b;
+    height: 72px;
+    padding: 10px 0 7px;
+    color: #cdd6e4;
+    font-size: 12px;
+}
+
+.notice .account-wrap .account .account-content ul li>div>div {
+    height: 36px;
+    line-height: 36px;
+}

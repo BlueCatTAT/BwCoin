@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta data-n-head="true" data-hid="format-detection" name="format-detection" content="telephone=no">
+    <meta data-n-head="true" http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta data-n-head="true" name="renderer" content="webkit">
+    <title><?=$system['system']?>-我的资产</title>
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/public/css/commonHead.css">
+    <link rel="stylesheet" href="/public/css/index1.css">
+    <!-- 当前页面内容样式 -->
+    <link rel="stylesheet" href="/public/css/assetsIndex.css">
+    <link rel="stylesheet" href="/public/css/btbitransaction.css">
+    <script type="text/javascript" src="/public/js/jquery-3.1.1.min.js"></script>
+    <style>
+        select {
+            padding: 0;
+        }
+
+        input {
+            opacity: 0.3;
+        }
+
+        /*.content-vu{*/
+        /*    margin: 0px 20px 0px 20px;*/
+        /*}*/
+    </style>
+</head>
+
+<body class="scroll">
+<div id="app">
+    <div class="box">
+        <?php load_view("inc/nav");?>
+
+        <div class="account " style="margin-top: 20px">
+            <!-- 交易说明 -->
+            <div class="leftcontent contentBK " style="border-radius:6px;">
+                <div class="jy jy-text" style="">交易说明</div>
+                <div class="explain">
+                    <ul class="explain-ul">
+                        <li class="explain-li">
+                            1. 订单有效期为20分钟，请您及时在有效期内付款并点击「标记付款已完成」按钮，我才可以释放数字币给您
+                        </li>
+                        <li class="explain-li">2. 开始交易后数字币由系统锁定托管，请安心下单。</li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 主体内容 -->
+            <div class="rightcontent contentBK">
+                <div class="jy jy-text" style="">当前单价（CNY）：<?= $result["price"]*7 ?><span class="pp">您不需要支付任何手续费，交易手续费将由广告发布者承担</span>
+                </div>
+                <div class="explain">
+                    <div class="explain-a ">
+                        <div class="w360 paddlet19" style="float: left;">您想购买多少CNY</div>
+                        <div class="w360" style="float: left; padding-left: 30px">换取<?= $result["designation"] ?></div>
+
+                    </div>
+                </div>
+                <div class="content-vu">
+                    <p style="color: red;display: block" id="tishi"></p>
+                    <input type="number" class="content-inp" onkeyup="rup()" id="rey" value=""/>
+                    <img src="/public/imgae/exchange2x.png" class="content-img" alt="">
+                    <input type="number" class="content-inp" onkeyup="mup()" id="myy" value=""/>
+                </div>
+
+                <div class="whole" style="">全部</div>
+
+                <div class="">
+
+                    <div class="pay">
+
+                        <div class="pay-mode">支付方式:</div>
+                        <div style="float: left;" class="com-sel">
+                            <select class="com-opt" id="lipay">
+                                <option value="支付宝">支付宝</option>
+                                <option value="微信">微信</option>
+                                <option value="银联卡">银联卡</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <!-- 表格 -->
+                    <div class="pay-info " style="height: 140px;display: block;">
+
+                        <table style="width: 100%">
+
+                            <tr class="title tr79  ">
+                                <th class="bor-but1 paddlet19" width="">用户名：<span class="tab-color"><?= $result["name"] ?><span></th>
+                                <th class="bor-but1" width="">交易次数: <span><?= $result["transactions"] ?></span></th>
+                                <th class="bor-but1" width="">成交:<span><?= $result["degree"] ?></span></th>
+                                <th class="bor-but1" width="">成交率: <span><?= $result["number"]/$result["y_number"] ?>%</span></th>
+                            <tr class="title tr79">
+                                <th class="bor-but1 paddlet19" width="">单价</th>
+                                <th class="bor-but1" width="">交易额</th>
+                                <th class="bor-but1" width="">交易方式</th>
+                                <th class="bor-but1" width="">
+                                    <div class="bt">付款期限</div>
+                                </th>
+                            </tr>
+                            <tr class="title tr79">
+                                <th class="bor-but1 paddlet19" width=""><?= $result["price"]*7 ?>CNY / <?= $result["designation"] ?></th>
+                                <th class="bor-but1" width=""><?= $result["min_price"] ?>~<?= $result["max_price"] ?><?= $result["designation"] ?>
+                                </th>
+                                <th class="bor-but1" width="">
+                                    <div>
+                                        <img id="payimg" src="/public/imgae/zhifubao1x.png" class="th-img" style="width: 59px;height: 21px;background: rgba(255,255,255,0.1);">
+                                        <!--                                        <img src="/public/imgae/weixinpay.png" class="th-img hide">-->
+                                        <!--                                        <img src="/public/imgae/yinlianpay.png" class="th-img">-->
+                                    </div>
+                                </th>
+                                <th class="bor-but1" width="">
+                                    <div class="bt">20分钟</div>
+                                </th>
+                            </tr>
+
+                        </table>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- 交易数额 -->
+                <div class="transaction num" style="width: 100% ; float: left;">
+                    <div class=" csah " style="float: left;">交易数额</div>
+
+                    <div style="float: left; padding-left: 20px">
+                        <div class="cash-transaction" style="float: left;"><span id="rcn"></span> CNY</div>
+                        <div style="float: left;"><img src="/public/imgae/exchange2x.png" class="cash-img" alt=""></div>
+                        <div class="cash-transaction"><span id="ucn"></span> <?= $result["designation"] ?></div>
+                    </div>
+
+
+                </div>
+
+                <div>
+                    <button type="submit" class="buttn"  style="cursor: pointer"><?=($result["type"]==0)?"立即购买":"立即出售"?></button>
+                    <input name="chekbox" type="checkbox" class="chekbox" id="chekbox" onclick="chk()"/>
+                    <span class="chekbox-sp">我已阅读并确认以上交易信息</span>
+                </div>
+
+                <div class="treaty paddlet19">
+                    <ul>
+                        <li>1. 交易发起前，请您确认已读并同意卖家提出的条款，并再次确认交易内容无误后，再点击购买按钮</li>
+                        <li>2. 交易发起后，请您于付款期限截止前转账至指定账户，并标记已付款完毕，逾期系统将自动取消交易</li>
+                        <li>3. 交易发起后，系统会自动将卖家的数字货币锁定，待卖家确认收到您的转账后，将会释放数字货币至您的账户中建议您在交易前先查看卖家信息，检视相关交易记录及评价，以減少交易纠纷。</li>
+                        <li>4. 交易过程请使用平台的聊天系统进行沟通，平台外的对话记录将无法作为交易纠纷的依据。</li>
+                        <li><span class="reminder">温馨提示：</span>超过一笔取消订单，将会冻结当天下单权限</li>
+                        <li>下单后请履行契约精神，恶意抬价或者是反悔，被投诉将冻结账户3-14天不等。</li>
+                        <li></li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript" src="/public/layer/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/public/layer/layer.js"></script>
+<script>
+    function chk() {
+        if ($('#chekbox').is(':checked')){
+            $("#chekbox").attr("checked","checked");
+
+        }else{
+            $("#chekbox").attr("checked",false);
+        }
+    }
+
+    //输入CNY
+    function rup() {
+        var numprice = "<?php echo $result['price'];?>";
+        var min_price = "<?php echo $result['min_price'];?>";
+        var max_price = "<?php echo $result['max_price'];?>";
+        var number = $("#rey").val();
+        if (number == '') {
+            number = null
+            var num = null
+            $("#tishi").text(null);
+            $(".content-vu").css("margin", "21px 20px 0px 20px");
+        } else {
+            number = parseInt(number);
+            var price = parseInt(numprice);
+            var num = (number / price).toFixed(5)
+            if (number < min_price) {
+                $("#tishi").text("最小下单金额为" + min_price + "CNY");
+                $(".content-vu").css("margin", "0px 20px 0px 20px");
+            } else {
+                if (number > max_price) {
+                    $("#tishi").text("最大下单金额为" + max_price + "CNY");
+                    $(".content-vu").css("margin", "0px 20px 0px 20px");
+                } else {
+                    $("#tishi").text(null);
+                    $(".content-vu").css("margin", "21px 20px 0px 20px");
+                }
+            }
+        }
+        $("#myy").val(num)
+        $("#rcn").text(number)
+        $("#ucn").text(num)
+    }
+
+    //输入USDT
+    function mup() {
+        var numprice = "<?php echo $result['price'];?>";
+        var min_price = "<?php echo $result['min_price'];?>";
+        var max_price = "<?php echo $result['max_price'];?>";
+        var number = $("#myy").val();
+        if (number == '') {
+            number = null
+            var num = null
+            $("#tishi").text(null);
+            $(".content-vu").css("margin", "21px 20px 0px 20px");
+        } else {
+            number = parseFloat(number);
+            var price = parseFloat(numprice);
+            var num = (number * price).toFixed(5)
+            min_price = parseFloat(min_price);
+            max_price = parseFloat(max_price);
+            console.log(num)
+            if (num < min_price) {
+                $("#tishi").text("最小下单金额为" + min_price + "CNY");
+                $(".content-vu").css("margin", "0px 20px 0px 20px");
+            } else {
+                if (num > max_price) {
+                    console.log(111)
+                    $("#tishi").text("最大下单金额为" + max_price + "CNY");
+                    $(".content-vu").css("margin", "0px 20px 0px 20px");
+                } else {
+                    console.log(222)
+                    $("#tishi").text(null);
+                    $(".content-vu").css("margin", "21px 20px 0px 20px");
+                }
+            }
+        }
+        $("#rey").val(num)
+        $("#rcn").text(num)
+        $("#ucn").text(number)
+    }
+
+    $(".buttn").on("click", function () {
+        if ($('#chekbox').is(':checked')){
+            var id="<?php echo $result['id'];?>";
+            var min_price = "<?php echo $result['min_price'];?>";
+            var max_price = "<?php echo $result['max_price'];?>";
+            var yuan=$("#rcn").text();
+            var num=$("#ucn").text();
+            yuan=parseFloat(yuan);
+            min_price=parseFloat(min_price);
+            max_price=parseFloat(max_price);
+            if(yuan<min_price){
+                layer.msg("最小下单金额为" + min_price + "CNY")
+                return false;
+            }
+            if(yuan>max_price){
+                layer.msg("最大下单金额为" + min_price + "CNY")
+                return false;
+            }
+           $.ajax({
+               url:"/index/buy2?type=btbi",
+               type:"post",
+               dataType:"json",
+               data:{
+                   num:num,
+                   id:id,
+                   yuan:yuan
+               },
+               success:function (msg) {
+                   if(msg.code==200){
+                       console.log(11)
+                       layer.msg(msg.msg)
+                       window.location.href="/index/btbi?type=btbi&lang=zh"
+                   }else{
+                       console.log(222)
+                       // layer.msg(msg.msg)
+                   }
+                   // var url=htmlspecialchars_decode(msg)
+                   // console.log(url);
+                   // window.open(msg,"支付","height=800, width=800, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no")
+                   // window.location.href="/index/htmls?msg="+msg
+               }
+           })
+            // window.location.href='/index/buy?type=btbi&num=0.00637&id=4230&yuan=444&lang=zh'
+        }else{
+            layer.msg("请先勾选确认信息")
+        }
+    })
+
+    $("#lipay").on("change",function () {
+        var selVal = $(this).val();
+        if(selVal == "支付宝"){
+            $("#payimg").attr("src","/public/imgae/zhifubao1x.png");
+        }else if(selVal == "微信"){
+            $("#payimg").attr("src","/public/imgae/weipay.png");
+        }else{
+            $("#payimg").attr("src","/public/imgae/yinlianpay.png");
+        }
+    });
+
+    //$(".buttn").on("click", function () {
+    //    if ($('#chekbox').is(':checked')){
+    //        var id="<?php //echo $data['id'];?>//";
+    //        var min_price = "<?php //echo $data['min_price'];?>//";
+    //        var max_price = "<?php //echo $data['max_price'];?>//";
+    //        var yuan=$("#rcn").text();
+    //        var num=$("#ucn").text();
+    //        yuan=parseFloat(yuan);
+    //        min_price=parseFloat(min_price);
+    //        max_price=parseFloat(max_price);
+    //        if(yuan<min_price){
+    //            layer.msg("最小下单金额为" + min_price + "CNY")
+    //            return false;
+    //        }
+    //        if(yuan>max_price){
+    //            layer.msg("最大下单金额为" + min_price + "CNY")
+    //            return false;
+    //        }
+    //        $.ajax({
+    //            url:"/index/buy?type=btbi",
+    //            type:"post",
+    //            data:{
+    //                num:num,
+    //                id:id,
+    //                yuan:yuan
+    //            },
+    //            success:function (msg) {
+    //                console.log(msg)
+    //                // var url=htmlspecialchars_decode(msg)
+    //                // console.log(url);
+    //                // window.open(msg,"支付","height=800, width=800, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no")
+    //                // window.location.href="/index/htmls?msg="+msg+"&lang=zh"
+    //            }
+    //        })
+    //    }else{
+    //        layer.msg("请先勾选确认信息")
+    //    }
+    //})
+    function htmlspecialchars_decode(str){
+        str = str.replace(/&amp;/g, '&');
+        str = str.replace(/&lt;/g, '<');
+        str = str.replace(/&gt;/g, '>');
+        str = str.replace(/&quot;/g, "''");
+        str = str.replace(/&#039;/g, "'");
+        return str;
+    }
+</script>
+</html>

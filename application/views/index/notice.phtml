@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta data-n-head="true" data-hid="format-detection" name="format-detection" content="telephone=no">
+    <meta data-n-head="true" http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta data-n-head="true" name="renderer" content="webkit">
+    <title><?=$system['system']?>-帮助</title>
+    <link href="/public/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="/public/css/commonHead.css">
+    <link rel="stylesheet" href="/public/css/noticeIndex.css">
+</head>
+
+<body class="scroll">
+    <div id="app">
+        <div class="notice" style="background: #000107;">
+            <?php load_view("inc/nav");?>
+            <div style="background:#010715;">
+                <!-- 帮助中心列表项 -->
+                <div class="account-wrap account-wrap-box">
+                    <div class="account" style="margin: 15px auto 40px auto;">
+                        <div>
+                            <div class="back-nav fColor1 ft20 clear" style="padding: 10px 20px 0px;"> 帮助中心
+                            </div>
+                        </div>
+                        <div class="account-content">
+                            <!-- /hide/ -->
+                            <!-- 空提示 -->
+                            <?php if($result): ?>
+                                <!-- 点击列表 -->
+                                <div>
+                                    <ul class="noticeList">
+                                        <?php foreach($result as $k=>$v): ?>
+                                            <li class="clear curPer" data-id="<?=$v['id']?>">
+                                                <div><div><?=$v['title']?></div> <span class="fr"></span></div>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                            <?php else: ?>
+                                <div class="tc hide" style="padding-top: 150px;">
+                                    <img src="/public/imgae/empty.png" alt="">
+                                    <p class="fColor2 ft18">暂无数据</p>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+                <!-- 帮助中心显示项 -->
+                <div class="account-wrap account-wrap1" style="display: none;">
+                    <div class="account">
+                        <div style="height: 72px;margin-bottom:10px; line-height: 72px;padding: 0 30px;border-radius: 3px;" class="back-nav fColor1 ft20">
+                            <span class="fr fColor2 curPer bunReturn">&lt;&lt;返回</span>
+                        </div>
+                        <div class="account-content">
+                            <div class="conetentBox">
+                                <!-- 收款设置 -->
+                                <div class="detailBig" style="padding: 48px 46px 20px;line-height: 27px;">
+                                    <div style="margin-bottom: 30px;color: #c7cce6;text-align: center;" id="title_notice">收款设置</div>
+                                    <div style="line-height: 26px;color: #c7cce6;" id="content_notice"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-layer-move"></div>
+</body>
+
+</html>
+
+<script type="text/javascript" src="/public/js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="/public/js/public.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $(".noticeList li").click(function() {
+            console.log("454564")
+            var id = $(this).attr("data-id");
+            $(".account-wrap-box").hide(); //隐藏指示模块
+            $(".account-content .account-wrap").show();
+            ajax_http("post","/index/ajaxnotice",{id:id},function (msg) {
+                $("#title_notice").html(msg.title);
+                $("#content_notice").html(msg.content);
+            },"json");
+            $(".account-wrap1").css("display","block");
+
+        });
+        $(".bunReturn").click(function() {
+            console.log("11111")
+            var _index = $(this).index();
+            console.log("4111", _index);
+            $(".account-wrap-box").show();
+            $(".account-wrap1").hide();
+        });
+    })
+
+    function copyUrl2() {
+        var Url2 = document.getElementById("biao1");
+        Url2.select();
+        document.execCommand("Copy");
+        alert("复制成功");
+    }
+</script>

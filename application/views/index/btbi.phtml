@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html style="background: #010715; height: 100%;">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta data-n-head="true" data-hid="format-detection" name="format-detection" content="telephone=no">
+    <meta data-n-head="true" http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta data-n-head="true" name="renderer" content="webkit">
+    <title><?=$system['system']?>-法币交易</title>
+    <link rel="stylesheet" href="/public/css/font-awesome.min.css">
+    <link href="/public/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="/public/css/commonHead.css">
+    <link rel="stylesheet" href="/public/css/btbi.css">
+    <link rel="stylesheet" href="/public/css/style-cartoon.css">
+
+</head>
+
+<body class="scroll h100">
+    <div id="app">
+        <div class="notice backg107">
+            <?php load_view("inc/nav");?>
+            <div class="backg10715">
+                <div class="box">
+                <!-- 底部 -->
+                    <div class="SettingRight " style="background:#010715">
+                    <!-- 一 -->
+                        <div class="pod-top ">
+                            <div class="titles" id="box" style="background:rgba(29,36,54,1); border-radius:6px 6px 0px 0px;">
+                                <div class="fl maleft23 active2px" style="cursor: pointer">购买</div>
+                                <div class="fl maleft23" style="cursor: pointer" ><a href="/index/btbi1?type=btbi&coin=BTC&lang=zh">出售</a></div>
+                                <div class="fr" id="userPpply" style="cursor: pointer;color: #fff;margin-right: 18px;" ><?=($is_otc == 0)?"申请OTC":""?></div>
+                            </div>
+                             <div class="titles" style=" background:rgba(19,22,37,1); border-radius: 0 0 6px 6px;">
+                             <div style="float: left;">
+                                 <?php foreach ($result as $k=>$v): ?>
+                                     <?php if($con == $v["type"]):?>
+                                         <div class="fl bold1 ft16 pointer blue maleft23" style="color: rgba(0, 191, 244, 1);cursor: pointer"><?=$v["type"]?></div>
+                                    <?php else:?>
+                                         <div class="fl bold1 ft16 pointer blue maleft23" style="cursor: pointer" onclick="location.href='/index/coin?type=btbi&cls=<?=$v["type"]?>&lang=zh'"><?=$v["type"]?></div>
+                                    <?php endif; ?>
+                                 <?php endforeach; ?>
+                             </div>
+                            </div>
+                        </div>
+                         <div style="padding: 10px 0;">
+                            <div class="titles" style="background:rgba(29,36,54,1);border-radius:6px 6px 6px 6px;">
+                                
+                                <div style="float:left;line-height: 35px;">
+                                    <div class="fl maleft23" style="color: #C7C7C7;">一键买币</div> 
+                                    <span style="font-size:12px;color:rgba(110,108,123,1);padding-left: 14px">小额快速交易，0手续费</span> 
+                                </div>
+                                <div style="float: right;">
+                                  <div style="float: left;" class="com-sel" >
+                                    <select class="com-opt" style="width: 120px">
+                                      <option value="支付宝">按数量购买</option>
+                                      <!--<option value="微信">微信</option>
+                                      <option value="网银">网银</option>-->
+                                    </select>
+                                </div>
+                                  <div class="search d4 " style="float: left;">
+                                      <form>
+                                        <input type="text" placeholder="请输入购买数量">
+                                        <button type="submit"></button>
+                                      </form>
+                                    </div>
+                                  <!-- <div class="btt" style="float: left; margin-left: 10px; margin-right: 15px; width:114px;font-size: 14px">购买USDT</div> -->
+
+                                  <div class="container_even " style="float: left; width:114px; font-size: 14px;margin-left: 10px; margin-right: 15px;">
+                                  <div class="set_container">
+                                  <div class="set_4_button1 raised hoverable">
+                                  <div class="anim"></div>
+                                  <span id="addBox">购买USDT</span> </div>
+                                  </div>
+                                  </div>
+                                </div>
+
+                              </div>
+                        </div>
+                        <!-- 底部三 -->
+                         <div class="" style="padding-top: -2px">
+                             <div class="titles" style="background:rgba(29,36,54,1);border-radius:6px 6px 0px 0px; ">
+                                <div style="float:left;" class="userBox">
+                                    <div class="fl maleft23 txt activeTitle">自选交易</div>
+                                    <div class="fl maleft23 txt">OTC交易</div>
+                                    <span style="font-size:12px;color:rgba(110,108,123,1);padding-left: 14px">更多选择,自由交易</span>
+                                </div>
+
+                                <!-- 右边 -->
+                                <div class="flex alcenter " style="float: right;" >
+                                    <div class="plr5 tc ft12 baselight2 plr10 pb5  " style="width:340px;color:rgba(110,108,123,1);margin-right: 0px">专业的OTC交易让你更加事半功倍，法币交易区交易规则</div>
+                                </div>
+                            </div>
+                            <div class="Column_LogonLog SettingRight">
+                                <table  id="gmai" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tbody>
+                                        <tr class="title" style="height: 45px;line-height: 45px;background: #131625;color: hsla(0,0%,100%,.3);">
+                                            <th class="bor-but" width="">商家名称|成交率</th>
+                                            <th class="bor-but" width="">数量</th>
+                                            <th class="bor-but" width="">限额</th>
+                                            <th class="bor-but" width="">单价</th>
+                                            <th class="bor-but" width="">支付方式</th>
+                                            <th class="bor-but bor-center" width="">操作</th>
+                                        </tr>
+                                        <?php foreach ($data as $k=>$v): ?>
+                                        <tr class="title tr79">
+                                            <th class="bor-but1" width="">
+                                                <div>
+                                                    <span style="padding-left: 12px"><?=$v['name1']?> | <?=$v['rate']?></span>
+                                                </div>
+                                            </th>
+                                            <th class="bor-but1" width=""><?=$v['y_number']?> <?=$v['designation']?></th>
+                                            <th class="bor-but1" width=""><?=$v['min_price']?>-<?=$v['max_price']?> CNY</th>
+                                            <th class="bor-but1" width="" style="color:rgba(10,195,138,1);"><?=$v['price']?> CNY</th>
+                                            <th class="bor-but1" width="" ><div class="bt">支付宝</div></th>
+                                            <th class="bor-but1" width="">
+                                                <div class="container_even " style="float: left; width:89px; ">
+                                                <div class="set_container" >
+                                                <div class="set_4_button1 raised hoverable">
+                                                <div class="anim"></div>
+                                                <span onclick="window.location.href='/index/btbitransaction?type=btbi&id=<?=$v["id"]?>&lang=zh'">购买<?=$v['designation']?></span> </div>
+                                                </div>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                                <!-- 分页 -->
+                                <div style="text-align: center; padding:50px 0">
+                                    <ul class="pagination">
+                                        <li><a href="#"><</a></li>
+                                        <li><a class="active" href="#">1</a></li>
+                                        <li><a href="#">2</a></li>
+                                        <li><a href="#">3</a></li>
+                                        <li><a href="#">4</a></li>
+                                        <li><a href="#">5</a></li>
+                                        <li><a href="#">6</a></li>
+                                        <li><a href="#">7</a></li>
+                                        <li><a href="#">></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--        -->
+        <!-- 快捷买币-->
+        <div class="addBox" style="display: none;">
+            <!-- 弹窗展示 -->
+            <div class="tipsPosi"></div>
+            <!-- 弹窗内容 -->
+            <div class="tipsCon">
+                <div class="title">购买 <img class="img error" src="/public/imgae/err.png" alt=""></div>
+                <div class="boxPosi">
+                    <div class="texts" style="color: #434352;">单价: <span style="color: #0AC38A;">10000000</span></div>
+                    <div class="inpBox">
+                        <input type="number" class="ipt" placeholder="请输入购买数量">
+                        <span class="coin">BTC</span>
+                        <div class="quanbu">全部</div>
+                    </div>
+                    <div class="texts" style="color: #434352;padding-top: 10px;">限额: <span style="color: #0AC38A;">10000000TWC</span> </div>
+                    <div class="texts" style="color: #434352;padding-top: 10px;">交易总额: <span style="color: #0AC38A;">10000000TWC</span> </div>
+                    <div class="texts" style="color: #434352;padding-top: 10px;overflow:hidden;">
+                        <div style="float: left">支付方式:</div>
+                        <div class="textBox">
+                            <img class="selectLeft" src="/public/imgae/userSelect1.png" alt="">
+                            <img class="img" src="/public/imgae/yinlianpay.png" alt="">
+                        </div>
+                        <div class="textBox">
+                            <img class="selectLeft" src="/public/imgae/userSelect1.png" alt="">
+                            <img class="img" src="/public/imgae/zhifubao1x.png" alt="">
+                        </div>
+                        <div class="textBox">
+                            <img class="selectLeft" src="/public/imgae/userSelect1.png" alt="">
+                            <img class="img" src="/public/imgae/zhifubao1x.png" alt="">
+                        </div>
+
+                    </div>
+                    <div class="userBut">
+                        <div class="but cancel" style="margin-right: 10px;">下载</div>
+                        <div class="but cancel" style="background: #6E7480">取消</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- otc交易-->
+        <div class="otcBox" style="display: none;">
+            <!-- 弹窗展示 -->
+            <div class="tipsPosi" ></div>
+            <!-- 弹窗内容 -->
+            <div class="tipsCon">
+                <div class="title">购买 <img class="img error" src="/public/imgae/err.png" alt=""></div>
+                <div class="boxPosi">
+                    <div class="texts" style="color: #434352;">
+                        认证等级: 申请OTC需要&nbsp;&nbsp;
+                        <span style="color: #0AC38A;">高级认证</span>,
+                        &nbsp;&nbsp;您当前
+                        <span><a id="authenticate" href="/uc/account?uc=account&lang=zh" style="color: #FF0000;"><?=$authenticate?></a></span>
+                    </div>
+                    <div class="texts" style="color: #434352;">
+                        余额: 申请OTC需要&nbsp;&nbsp;
+                        <span style="color: #0AC38A;">1000U</span>,
+                        &nbsp;&nbsp;您当前余额
+                        <span><a id="usdtnum" href="/uc/assets?uc=assets&lang=zh" style="color: #FF0000;"><?=$usdt_num?>USDT</a></span>
+                    </div>
+                    <div class="inpBox">
+                        <input id="mercname" type="text" class="ipt" style="border: none;" placeholder="请填写商家名称">
+                    </div>
+                    <div class="userBut">
+                        <div class="but" style="margin-right: 10px;" onclick="send()">申请</div>
+                        <div class="but cancel" style="background: #6E7480">取消</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   <div class="footer" style="display: block; text-align: center ;height: 40px">
+      <p class="fcopyright">©2014-2018 CAC,All Rights Reserved  <a href="">隐私政策</a> 京ICP证080268号 <a href="http://beian.miit.gov.cn">京ICP备10005211号</a> </p>
+    </div>
+</body>
+
+</html>
+<style>
+    .active2px{
+        color: rgba(0, 191, 244, 1);
+        cursor: pointer;
+    }
+    .activeTitle{
+        color: rgba(0, 191, 244, 1) !important;
+    }
+    .userBox .txt{
+        cursor: pointer;
+    }
+    /*弹窗开始*/
+    .tipsPosi{
+        opacity: 0.7;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        left:0;
+        top:0;
+        background: #000000;
+        z-index:99;
+    }
+    .tipsCon {
+        position: fixed;
+        left: 50%;
+        top:50%;
+        width: 500px;
+        height: 340px;
+        margin-left: -250px;
+        margin-top: -170px;
+        z-index:100;
+    }
+    .tipsCon .title{
+        height: 45px;
+        background: #1D2436;
+        line-height: 45px;
+        text-indent: 25px;
+        font-size: 16px;
+        color: #FFCFCFCF;
+        position: relative;
+        border-radius:10px 10px 0 0;
+    }
+    .tipsCon .title .img{
+        position: absolute;
+        right:25px;
+        top:10px;
+    }
+    .tipsCon .boxPosi{
+        padding: 0 20px;
+        background: #131625;
+        border-radius: 0 0 8px 8px;
+    }
+    .tipsCon .texts{
+        line-height: 30px;
+        font-size: 14px;
+        padding-top: 20px;
+    }
+    .boxPosi .inpBox{
+        border:1px solid #0A88E0;
+        position: relative;
+        overflow: hidden;
+        border-right: 1px solid #0D4D80;
+        text-indent: 30px;
+        padding-left: 20px;
+        margin-top: 20px;
+    }
+    .boxPosi .inpBox .ipt{
+        float: left;
+        height:33px;
+        /*width:80%;*/
+        width: 85%;
+        border-right: 1px solid #0D4D80;
+    }
+    .boxPosi .inpBox .coin{
+        position: absolute;
+        right:80px;
+        top:5px;
+        font-size: 16px;
+        color: #363745;
+    }
+    .quanbu{
+        font-size:14px;
+        line-height:33px;
+        text-align: center;
+        color: rgba(255,255,255,0.7);
+        position: absolute;
+        right:20px;
+        top:0px;
+        /*color: #FFA7A4B5;*/
+    }
+    .texts .textBox{
+        float: left;
+        margin: 0 0 0 20px;
+    }
+    .texts .textBox .selectLeft{
+        width: 21px;
+        height:21px;
+        margin-right: 10px;
+    }
+    .texts .textBox .img{
+        width: 60px;
+        height:21px;
+    }
+    .userBut {
+        display: flex;
+        text-align: center;
+        margin-top: 20px;
+        padding-bottom: 30px;
+    }
+    .userBut .but {
+        flex: 1;
+        background: #0AC38A;
+        height: 33px;
+        color: white;
+        line-height: 33px;
+        border-radius: 6px;
+    }
+
+</style>
+<script type="text/javascript" src="/public/layer/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/public/layer/layer.js"></script>
+<script>
+    $(function () {
+//        $('.userBox .txt').click(function () {
+//            $(this).addClass("activeTitle").siblings().removeClass("activeTitle");
+//        });
+        $('#userPpply').click(function(){
+            $('.otcBox').show();
+//            $('.tipsCon').show()
+        });
+        $('#addBox').click(function(){
+            $('.addBox').show();
+//            $('.tipsCon').show()
+        });
+        $('.tipsPosi, .tipsCon .error, .userBut .cancel').click(function(){
+            $('.otcBox').hide();
+            $('.addBox').hide();
+        });
+        $('.texts .textBox').click(function () {
+            var index = $(this).index();
+            $('.texts .textBox .selectLeft').attr("src","/public/imgae/userSelect1.png");
+            $(this).find('.selectLeft').attr("src","/public/imgae/userSelect2.png");
+        })
+
+        $(".userBox div").click(function () {
+            $(".userBox div").removeClass("activeTitle");
+            $(this).addClass("activeTitle");
+            var tag = $("#box .active2px").text();
+            var index = $(this).text();
+            if(index == 'OTC交易'){
+                $.post("/index/otclist",{tag:tag},function(msg){
+                    $("#gmai tbody .tr79").remove();
+                    var str = "";
+                    for(i in msg){
+                        str += '<tr class="title tr79">';
+                        var x = msg[i].number / msg[i].y_number;
+                        str += '<th class="bor-but1" width=""><div><span style="padding-left: 12px">'+msg[i].name+' | '+x+'%</span></div></th>';
+                        str += '<th class="bor-but1" width="">'+msg[i].number+' '+msg[i].designation+'</th>';
+                        str += '<th class="bor-but1" width="">'+msg[i].min_price+'-'+msg[i].max_price+'</th>';
+                        str += '<th class="bor-but1" width="" style="color:rgba(10,195,138,1);">'+ msg[i].price*7 +'CNY</th>';
+                        str += '<th class="bor-but1" width=""><div class="bt">'+msg[i].paytype+'</div></th>';
+                        str += '<th class="bor-but1" width="">';
+                        str += '<div class="container_even " style="float: left; width:89px; ">';
+                        str += '<div class="set_container">';
+                        str += '<div class="set_4_button1 raised hoverable">';
+                        str += '<div class="anim"></div>';
+                        var y = (msg[i].type == 0)?"购买":"出售";
+                        str += '<a href="/index/otctransaction?type=btbi&id='+msg[i].id+'&lang=zh">'+y+' '+msg[i].designation+'</a>';
+                        str += '</div></div></div></th></tr>';
+                    }
+                    $("#gmai tbody").append(str);
+                },"json");
+            }
+        });
+    })
+    
+    function send() {
+        var authenticate = $("#authenticate").text();
+        var usdtnum = parseFloat($("#usdtnum").text());
+        var mercname = $("#mercname").val();
+        if(authenticate != "高级认证通过"){
+            layer.msg("请先提高认证等级");
+            return;
+        }
+
+        if(usdtnum < 1000){
+            layer.msg("请先充值usdt");
+            return;
+        }
+
+        if(mercname == ""){
+            layer.msg("添加商户名称");
+            return;
+        }
+
+        $.post("/index/otc",{mercname:mercname},function (msg) {
+            if(msg.code == 1){
+                layer.msg(msg.msg);
+                setTimeout(function () {
+                    location.href = location.href;
+                },500);
+            }else{
+                layer.msg(msg.msg);
+            };
+        },"json");
+    }
+</script>

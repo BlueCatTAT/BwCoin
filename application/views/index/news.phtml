@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html style="height: 100%;background: #010715;">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta data-n-head="true" data-hid="format-detection" name="format-detection" content="telephone=no">
+    <meta data-n-head="true" http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta data-n-head="true" name="renderer" content="webkit">
+    <title><?=$system['system']?>-<?=$result['title']?></title>
+    <link rel="icon" type="image/x-icon" href="/public/imgae/anzhuo.png">
+    <link href="/public/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="/public/css/commonHead.css">
+    <link rel="stylesheet" href="/public/css/news.css">
+</head>
+
+<body class="scroll" style="height: 100%;background: #010715;">
+    <div id="app" style="height: 100%;background: #010715;">
+        <div class="notice" style="background: #010715;">
+            <?php load_view("inc/nav");?>
+            <div style="background:#010715;">
+                <!-- 帮助中心列表项 -->
+                <div class="account-wrap">
+                    <div class="account clear contentBox" style="margin: 20px auto 40px auto;">
+                        <!-- 左边 -->
+                        <div class="fl left">
+                            <!-- 标题部分 -->
+                            <div class="back-nav clear">
+
+                                <div class="userInfo clear">
+                                    <div class="fl" style="color: #6A6877;"> 发布人:龙链 </div>
+                                    <div class="title fl" style="text-align: center;width: 70%;"><?=$result['title']?></div>
+                                    <div class="fr" style="color: #696775;"> <?=date("Y-m-d",$result['create_time'])?> </div>
+                                </div>
+                            </div>
+                            <!--  -->
+                            <div style="height: 20px;background-color:#0D101F;"></div>
+                            <!-- content 新闻内容 -->
+                            <div class="news-content-box">
+                                <div class="content">
+                                    <?=$result['content']?>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 右边 style="background-color: #181b2a;" -->
+                        <div class="fr right">
+                            <div class="hade"> |&nbsp;&nbsp;推荐阅读</div>
+                            <div class="list">
+                                <ul>
+                                    <li>
+                                        <div style="color: #9B999A; overflow: hidden;
+                                        text-overflow: ellipsis;
+                                        white-space: nowrap;">第二次减半以来比特币---</div>
+                                        <div style="color: #696775;">阅读次数：20</div>
+                                    </li>
+                                    <li>
+                                        <div style="color: #9B999A; overflow: hidden;
+                                        text-overflow: ellipsis;
+                                        white-space: nowrap;">第二次减半以来比特币---</div>
+                                        <div style="color: #696775;">阅读次数：20</div>
+                                    </li>
+                                    <li>
+                                        <div style="color: #9B999A; overflow: hidden;
+                                        text-overflow: ellipsis;
+                                        white-space: nowrap;">第二次减半以来比特币---</div>
+                                        <div style="color: #696775;">阅读次数：20</div>
+                                    </li>
+                                </ul>
+                                <img src="../imgae/banner01.jpg" alt="">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="layui-layer-move"></div>
+</body>
+
+</html>
+
+<script type="text/javascript" src="/public/js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+
+    })
+</script>

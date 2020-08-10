@@ -1,0 +1,426 @@
+ul {
+    list-style: none;
+}
+
+.box {
+    margin: 0 auto;
+    width: 1200px;
+}
+
+.list_financing li:nth-of-type(n+1) {
+    margin-right: 5%;
+}
+
+.list_financing li:nth-of-type(3n) {
+    margin-right: 0;
+}
+
+.fr {
+    float: right;
+}
+
+.fl {
+    float: left;
+}
+
+.list_issue {
+    padding: 30px 0;
+    overflow: hidden;
+}
+
+.list_issue li {
+    float: left;
+    position: relative;
+    margin-bottom: 20px;
+    /* width: 20%;
+    height: 270px; */
+    width: 225px;
+    height: 280px;
+    /* background-color: rgb(36, 40, 103); */
+    background-color: #131625;
+    box-sizing: border-box;
+    text-align: center;
+    border-radius: 10px;
+    transition: All 0.2s ease-in-out;
+    -webkit-transition: All 0.2s ease-in-out;
+    -moz-transition: All 0.2s ease-in-out;
+    -o-transition: All 0.2s ease-in-out;
+}
+
+.list_issue li:nth-of-type(-n+5) {
+    margin-bottom: 40px;
+}
+
+.list_issue li:not(:nth-of-type(5n)) {
+    /* margin-right: 80px; */
+    margin-right: 18.75px;
+}
+
+.list_issue li a {
+    display: block;
+    padding: 15px 17px;
+    width: 100%;
+    height: 280px;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+.list_issue li .is-state {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 16px;
+}
+
+.list_issue li .is-state .yjs {
+    color: #d9d9d9;
+}
+
+.list_issue li .coinimg {
+    margin-bottom: 20px;
+    position: relative;
+    top: 0;
+    transition: All 0.2s ease-in-out;
+    -webkit-transition: All 0.2s ease-in-out;
+    -moz-transition: All 0.2s ease-in-out;
+    -o-transition: All 0.2s ease-in-out;
+    /*  */
+    width: 126px;
+    height: 101px;
+}
+
+.list_issue li .title {
+    line-height: 35px;
+    font-size: 18px;
+    /* font-weight: 550; */
+    color: #333;
+}
+
+.list_issue li p {
+    font-size: 14px;
+    color: #333;
+}
+
+.bs {
+    color: white !important;
+}
+
+.tc {
+    text-align: center;
+}
+
+.list_issue .process-bar {
+    margin: 15px 0 10px;
+    width: 100%;
+    height: 6px;
+    background-color: rgb(23, 25, 63);
+    border-radius: 10px;
+}
+
+.list_issue .process-bar .process-bar-hover {
+    border-radius: 10px;
+    height: 6px;
+    background: linear-gradient(to right, #1fb6c7, #02d5a8);
+    transition: width 3s;
+    /* box-shadow: 1px 1px 5px rgb(0, 226, 181), -1px 1px 5px rgb(0, 226, 181), -1px -1px 5px rgb(0, 226, 181), 1px -1px 5px rgb(0, 226, 181); */
+}
+
+
+/* 统一弹出背景 */
+
+.contentBack {
+    /* filter: alpha(opacity=30); */
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 88;
+    background-color: #000;
+    opacity: 0.3;
+}
+
+
+/* 弹出层 */
+
+.box-back {
+    background: 0 0;
+    width: 400px;
+    height: 465px;
+    position: fixed;
+    z-index: 99;
+    left: 50%;
+    top: 50%;
+    margin-left: -200px;
+    margin-top: -232.5px;
+}
+
+.box-page .box-content {
+    position: relative;
+    overflow: auto;
+}
+
+.float_win_pay {
+    margin: 0 auto;
+    min-height: 200px;
+    padding-bottom: 15px;
+    background: #fff;
+    border-radius: 10px;
+}
+
+.white_style .tan_title {
+    padding: 0 25px;
+    background-color: #fff;
+    height: 60px;
+    border-radius: 10px 10px 0 0;
+}
+
+.float_win_pay .tan_title h4 {
+    font-weight: normal;
+    color: #333;
+    font-size: 20px;
+    line-height: 60px;
+    float: left;
+}
+
+.float_win_pay .tan_title .close-btn {
+    display: block;
+    float: right;
+    line-height: 60px;
+    color: #a5adb8;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 1rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.float_win_pay .payment_content ul li {
+    margin-bottom: 17px;
+    text-align: center;
+    list-style: none;
+}
+
+.white_style .imgname img {
+    vertical-align: middle;
+}
+
+.white_style .payment_content {
+    margin-top: 10px;
+    padding: 0 40px;
+    min-width: 400px;
+    box-sizing: border-box;
+    margin: 30px 0 0 0;
+}
+
+.white_style .imgname div h3 {
+    display: inline-block;
+    margin-right: 5px;
+    font-size: 16px;
+    color: #333;
+    vertical-align: middle;
+    text-transform: uppercase;
+}
+
+.white_style .imgname div span {
+    font-size: 12px;
+    color: #8a9099;
+    vertical-align: middle;
+}
+
+.white_style .xzbank {
+    padding-left: 20px;
+    width: 100%;
+    height: 42px;
+    line-height: 42px;
+    font-size: 16px;
+    color: #333;
+    border: 1px solid #D4D4D4;
+    border-radius: 3px;
+    transition: all, .3s;
+    box-sizing: border-box;
+    text-align: center;
+    text-align-last: center;
+}
+
+.xzbank {
+    letter-spacing: 8px;
+}
+
+.white_style .input100 {
+    position: relative;
+}
+
+.white_style .input100 label {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    z-index: 1;
+    padding-left: 5px;
+    font-size: 16px;
+    color: #999;
+    background-color: #fff;
+    pointer-events: none;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.float_win_pay .payment_content ul li .input-1 {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 65.5%;
+    height: 42px;
+    line-height: 42px;
+    font-size: 16px;
+    color: #333;
+    border: 1px solid #D4D4D4;
+    border-radius: 3px;
+    transition: all, .3s;
+    box-sizing: border-box;
+}
+
+.white_style .input100 .input-1 {
+    width: 100%!important;
+    text-align: center;
+}
+
+.float_win_pay .payment_content ul li .label-1 {
+    display: inline-block;
+    padding-right: 15px;
+    width: 30%;
+    height: 42px;
+    line-height: 42px;
+    font-size: 14px;
+    text-align: right;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+.float_win_pay .payment_content ul li .input-1 {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 67.8%;
+    height: 42px;
+    line-height: 42px;
+    font-size: 16px;
+    color: #333;
+    border: 1px solid #D4D4D4;
+    border-radius: 3px;
+    transition: all, .3s;
+    box-sizing: border-box;
+}
+
+.explain {
+    font-size: 12px;
+}
+
+.white_style .explain p {
+    color: #8a9099;
+    text-transform: uppercase;
+    text-align: left;
+}
+
+.white_style .explain p b {
+    font-size: 13px;
+    color: #000;
+    margin-right: 5px;
+}
+
+.white_style .explain p b.bx {
+    color: rgb(0, 226, 182);
+}
+
+.white_style .explain p b {
+    font-size: 13px;
+    color: #000;
+    margin-right: 5px;
+}
+
+.float_win_pay .payment_content ul li .btns {
+    margin: 0 auto;
+    display: block;
+    width: 200px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 16px;
+    color: #fff;
+    background-color: rgb(0, 226, 182);
+    border-radius: 1000px;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    cursor: pointer;
+}
+
+.topcontent {
+    height: 50px;
+    line-height: 50px;
+    padding: 0 30px;
+    margin: 20px 0 0 0;
+    font-size: 17px;
+    color: #c7cce6;
+    background-color: #1a2330;
+    border-radius: 5px;
+}
+
+
+/* 投票规则 */
+
+.SettingRight {
+    width: 100%;
+    min-height: 600px;
+    height: 100%;
+    background-color: #11122f;
+    border: 1px solid #e8e8e800;
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: 10px;
+}
+
+.SettingRight .titles {
+    padding: 10px 7px;
+    line-height: 25px;
+    text-align: left;
+    overflow: auto;
+    /* background-color: #242867; */
+}
+
+.SettingRight .titles h3 {
+    min-width: 100px;
+    padding-left: 10px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #f9f0f0;
+    font-size: 16px;
+}
+
+.SettingRight .Column_LogonLog {
+    margin-bottom: 20px;
+}
+
+.SettingRight .Column_LogonLog table {
+    width: 100%;
+    border-bottom: none;
+    font-size: 13px;
+    color: #7d80ba;
+    /* padding: 0 30px; */
+    padding-top: 7px;
+}
+
+.SettingRight .Column_LogonLog table tr:nth-of-type(2n-1) {
+    background: #171c2c;
+    height: 45px;
+}
+.SettingRight .Column_LogonLog table tr:nth-of-type(2n) {
+    background: #191E35;
+    height: 45px;
+}
+
+.bor-but {
+    /*border-bottom: 2px solid #7d80ba;*/
+}
+
+.SettingRight .Column_LogonLog table th {
+    height: 35px;
+    font-size: 13px;
+    text-align: center;
+}

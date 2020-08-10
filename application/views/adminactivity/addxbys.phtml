@@ -1,0 +1,229 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>龙链 - 后台管理系统</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="/public/layuiadmin/layui/css/layui.css" media="all">
+    <style>.x-red{color: red;}</style>
+</head>
+<body>
+
+<div class="layui-form" lay-filter="layuiadmin-form-role" id="layuiadmin-form-role" style="padding: 20px 30px 0 0;">
+    <div class="layui-form-item">
+        <label class="layui-form-label">预购标题：</label>
+        <div class="layui-inline">
+            <input type="text" name="title" lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-inline"><span class="x-red">* </span></div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">认购币种：</label>
+        <div class="layui-inline">
+            <select name="currency_id">
+                <?php foreach ($currency as $k=>$v): ?>
+                    <option value="<?=$v['id']?>"><?=$v['type']?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <div class="layui-inline"><span class="x-red">* 用户购买后得到的</span></div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">发行总量 ：</label>
+        <div class="layui-inline">
+            <input type="number" name="total_num" lay-verify="required" placeholder="请输入总量" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-inline"><span class="x-red">* 认购的发行量</span></div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">已认购量 ：</label>
+        <div class="layui-inline">
+            <input type="number" name="deal" lay-verify="required" placeholder="请输入已认购量" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">支付币种：</label>
+        <div class="layui-inline">
+            <select name="x_currency_id">
+                <?php foreach ($currency as $k=>$v): ?>
+                    <option value="<?=$v['id']?>"><?=$v['type']?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <div class="layui-inline"><span class="x-red">* 用户购买使用的</span></div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">认购价格 ：</label>
+        <div class="layui-inline">
+            <input type="text" name="price" lay-verify="required" placeholder="请输入认购价格" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-inline"><span class="x-red">*</span></div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">认购限量 ：</label>
+        <div class="layui-inline">
+            <input type="number" name="user_max_mun" lay-verify="required" placeholder="请输入认购限量" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-inline"><span class="x-red">* 每个用户认购上限</span></div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">开启时间 ：</label>
+        <div class="layui-inline">
+            <input type="date" name="start_time" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-inline"><span class="x-red">*</span></div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">认购周期：</label>
+        <div class="layui-inline">
+            <input type="text" name="cycle" lay-verify="required" placeholder="请输入认购周期" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-inline"><span class="x-red">天 *</span></div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">解冻次数：</label>
+        <div class="layui-inline">
+            <input type="text" name="unfreeze" lay-verify="required" placeholder="请输入认购周期" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-inline"><span class="x-red">次 *</span></div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">解冻间隔：</label>
+        <div class="layui-inline">
+            <input type="text" name="financial_cycle" lay-verify="required" placeholder="请输入解冻间隔" autocomplete="off" class="layui-input">
+            <select name="time_type">
+                <option value="分">分</option>
+                <option value="时">时</option>
+                <option value="日">日</option>
+                <option value="月">月</option>
+                <option value="年">年</option>
+            </select>
+        </div>
+        <div class="layui-inline"><span class="x-red">* 分钟的理财奖励周期 1天 = 1440分钟 | 一个月 = 43200 分钟</span></div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">单次最小数量：</label>
+        <div class="layui-inline">
+            <input type="number" name="min" lay-verify="required" placeholder="请输入最小数量" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-inline"><span class="x-red">* 每次购买最小数量</span></div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">单次最大数量：</label>
+        <div class="layui-inline">
+            <input type="number" name="max" lay-verify="required" placeholder="请输入最大数量" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-inline"><span class="x-red">* 每次购买最大数量</span></div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">推荐赠送币种：</label>
+        <div class="layui-inline">
+            <select name="in_coin">
+                <?php foreach ($currency as $k=>$v): ?>
+                    <option value="<?=$v['id']?>"><?=$v['type']?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <div class="layui-inline"><span class="x-red">* 推荐人赠送的</span></div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">项目缩略图：</label>
+        <div class="layui-input-block">
+            <button type="button" class="layui-btn" id="test1"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+            <img id="img" src="" width="50" height="50" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">认购说明：</label>
+        <div class="layui-input-block">
+            <textarea id="content" style="display: none;" name="content"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">状态</label>
+        <div class="layui-inline">
+            <select name="status">
+                <option value="1">启用</option>
+                <option value="0">禁用</option>
+
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item" style="float: right;">
+        <button class="layui-btn" lay-submit lay-filter="LAY-user-role-submit" id="LAY-user-role-submit">提交</button>
+        <button class="layui-btn" lay-reset lay-filter="LAY-user-role-close" id="LAY-user-role-close">取消</button>
+    </div>
+</div>
+
+<script src="/public/layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({base: '/public/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'form','upload','layedit'], function(){
+        var $ = layui.$,form = layui.form;
+        var upload = layui.upload;
+        var fileurl;
+        var layedit = layui.layedit;
+        layedit.set({uploadImage:{url:'/upload/edit',type:'post'}});
+        var index = layedit.build('content',{hideTool:['face'], height: 350}); //建立编辑器
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#test1' //绑定元素
+            ,url: '/upload/index' //上传接口
+            ,done: function(res){
+                fileurl = res.data;
+                $("#img").attr("src",fileurl);
+            }
+            ,error: function(){
+                fileurl = null;
+                $("#img").attr("src",fileurl);
+            }
+        });
+        form.on("submit(LAY-user-role-submit)",function (data) {
+            let jsonstr = {
+                title:data.field.title,
+                currency_id:data.field.currency_id,
+                total_num:data.field.total_num,
+                deal:data.field.deal,
+                x_currency_id:data.field.x_currency_id,
+                price:data.field.price,
+                user_max_mun:data.field.user_max_mun,
+                start_time:data.field.start_time,
+                cycle:data.field.cycle,
+                unfreeze:data.field.unfreeze,
+                financial_cycle:data.field.financial_cycle,
+                time_type:data.field.time_type,
+                min:data.field.min,
+                max:data.field.max,
+                in_coin:data.field.in_coin,
+                pic:fileurl,
+                content:layedit.getContent(index),
+                status:data.field.status
+            };
+            var index2 = parent.layer.getFrameIndex(window.name); //获取窗口索引
+            $.post("/adminactivity/addxbys",jsonstr,function (msg) {
+                if(msg == 1){
+                    //发异步，把数据提交给php
+                    layer.alert("添加新币预售成功", {icon: 6}, function() {
+                        //关闭当前frame
+                        parent.layer.close(index2);
+                        // 可以对父窗口进行刷新
+                        parent.location.reload();
+                    });
+                }else if(msg == 2){
+                    layer.alert("该新币预售活动已存在，请重新输入")
+                }else{
+                    layer.alert("添加新币预售失败")
+                }
+            });
+        });
+
+        $("#LAY-user-role-close").on("click",function (data) {
+            parent.layer.close(index2);
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta data-n-head="true" data-hid="format-detection" name="format-detection" content="telephone=no">
+    <meta data-n-head="true" http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta data-n-head="true" name="renderer" content="webkit">
+    <title><?=$system['system']?>-我的资产</title>
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/public/css/commonHead.css">
+    <link rel="stylesheet" href="/public/css/index1.css">
+    <!-- 当前页面内容样式 -->
+    <link rel="stylesheet" href="/public/css/auktion.css">
+    <link rel="stylesheet" href="/public/css/timeTo.css">
+</head>
+
+<body class="scroll">
+    <div id="app">
+        <div class="box">
+            <?php load_view("inc/nav");?>
+            <!-- 合约账户 -->
+            <div class="account contractAccount">
+                <!-- 头部部分 -->
+                <div class="contentBox">
+                    <div class="titleBox">
+                        <div class="title"> 第<?=conversion($fomodata['f_id'])?>期 LBTH 拍卖 </div>
+                        <div class="describe">预计开启时间</div>
+                        <div class="time"><?=empty($fomodata['start_time'])?"暂无数据":date("Y-m-d H:i:s",$fomodata['start_time'])?></div>
+                        <div class="jiantou">
+                        </div>
+                        <div class="time">本期标的竞拍品：<?=empty($fomodata['start_time'])?"暂无数据":$fomodata['award']?></div>
+                    </div>
+
+                    <!--  活动结束时显示  -->
+                    <div class="warp-1200 count-down" style="margin-bottom: 80px;display: none">
+                        <p class="count-text">第十期拍卖活动已结束</p>
+                        <p class="count-d-icon" style="margin-bottom: 0"><i></i></p>
+                        <p class="first" style="margin-bottom: 6px">最终拍卖资金</p>
+                        <p class="first" style="font-size: 14px;margin-top: 4px;color: #666;">（第二名的出价资金）</p>
+                        <div class="w-count">
+                            <div class="big-conut">
+                                <div class="small-count"><?=($fomodata['fomo_price'] == 0)?"暂无数据":"<span class='first_count'>".$fomodata['fomo_price']."</span>LBTH"?></div>
+                            </div>
+                        </div>
+                        <p class="first" style="margin-top: 50px;">获胜者(第一名)</p>
+                        <p class="balance-box">出价数量：<span class="c-b-text1">10000</span> LBTH</p>
+
+                        <p class="balance-box">锁仓地址：xjsdhskdhklshdkshdkjshdjkshdjhsjdhsjdh</p>
+                        <p class="first" style="margin-top: 50px;">买单者(第二名)</p>
+                        <p class="balance-box">出价数量：<span class="c-b-text2">1000</span> LBTH</p>
+                        <p class="balance-box">锁仓地址：xjsdhskdhklshdkshdkjshdjkshdjhsjdhsjdh</p>
+                    </div>
+
+                    <!-- 拍卖规则 -->
+                    <div class="auctionBox" style="height: 200px;">
+                        <div class="titleImg">拍卖规则</div>
+                        <div class="textBOX">
+                            <p class="p">
+                                <span class="text">1.</span> 出价最高者为获胜者(第<?=$fomodata['winner']?>名),第<?=$fomodata['payer']?>名为买单者
+                            </p>
+                            <p class="p">
+                                <span class="text">2.</span> 本期获胜者第<?=$fomodata['winner']?>名获得<?=$fomodata['award']?>代币,拍卖的LBTH锁定三个月取回
+                            </p>
+                            <p class="p">
+                                <span class="text">3.</span> 本期买单者:第<?=$fomodata['payer']?>名获得900USDT代币,参与拍卖的LBTH用于打赏置换获得代币
+                            </p>
+                            <p class="p">
+                                <span class="text">4.</span> 倒计时24小时内,用户可以自由出价,出家并不会延长时间
+                            </p>
+                            <p class="p">
+                                <span class="text">5.</span> 倒时24小时结束后,将再倒计时10分钟,在这10分钟内无人出价,则拍卖结束,有人继续出价,将再延长10分钟的倒计时
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- 活动时间 -->
+                <div class="timeBox">
+                    <div class="activityTime">
+                        活动倒计时
+                        <div class="left"></div>
+                        <div class="right"></div>
+                    </div>
+                    <div class="jiantou">
+                    </div>
+                    <!-- s时分秒 -->
+                    <div id="remainTime" style="height: 100px !important;"></div>
+                    <!-- .......... -->
+                    <div class="one">当前第一名出价</div>
+                    <div class="PriceBox">
+                        <div class="PriceBut"><?=($fomodata['fomo_price'] == 0)?"暂无数据":"<span class='first_count'>".$fomodata['fomo_price']."</span>LBTH"?></div>
+                    </div>
+                </div>
+                <!-- 拍卖价格 -->
+                <div class="auctionOptions">
+                    <div class="title">起拍价：<span id="dyx_price">1000</span> LBTH</div>
+                    <div class="navList">
+                        <ul class="ul" id="add">
+                            <li style="margin-left: 0px;" class="acrtiveColor c-num"> + <span class="c-num">5000</span> LBTH</li>
+                            <li> + <span class="c-num">10000</span> LBTH</li>
+                            <li> + <span class="c-num">50000</span> LBTH</li>
+                            <li>翻2倍报价</li>
+                            <li>最大可报价</li>
+                            <li style="background: #d1c132;" class="c-sure-btn">确认出价</li>
+                        </ul>
+                    </div>
+                    <!-- 账户余额 排名 出价 -->
+                    <div class="accountBox">
+                        <div class="con" style="text-align: left;">
+                            您的账户可用余额：
+                            <span style="font-size: 18px;color: #0AC38A;" class="c-b-text"><?=$userdata['lbth_available_balance']?> LBTH</span>
+                        </div>
+                        <div class="con" style="text-align: center;">
+                            您的当前出价：
+                            <span style="font-size: 18px;color: #E15656;"><?=empty($userext['price'])?"暂无数据":$userext['price']."LBTH"?></span>
+                        </div>
+                        <div class="con" style="text-align: right;">
+                            您的当前排名：
+                            <span style="font-size: 18px;color: #E15656;"><?=empty($userext['level'])?"暂无数据":"第".$userext['level']."名"?></span>
+                        </div>
+                    </div>
+                    <!-- 箭头 -->
+                    <div class="jiantou">
+                    </div>
+                    <!-- 拍卖规则 -->
+                    <div class="auctionBox">
+                        <div class="titleImg">拍卖排行榜</div>
+                        <div class="rec-box boxCon">
+                            <div class="rec-con">
+                                <div class="rec-title" style="display: flex;">
+                                    <span>名次</span>
+                                    <span>地址</span>
+                                    <span>出价金额</span>
+                                    <span>获奖者/买单者</span>
+                                    <span>奖品</span>
+                                    <span>时间</span>
+                                </div>
+                                <ul class="rec-list">
+                                    <li>
+                                        <span>1</span>
+                                        <span><?=empty($userfomo[0]['address'])?"暂无数据":$userfomo[0]['address']?></span>
+                                        <span><?=empty($userfomo[0]['price'])?"暂无数据":$userfomo[0]['price']?></span>
+                                        <span><?php if($fomodata['winner'] == 1){echo "获奖者";}?><?php if($fomodata['payer'] == 1){echo "买单者";}?></span>
+                                        <span><?php if($fomodata['winner'] == 1){echo "LBTH三个月，获：".$fomodata['award'];}?><?php if($fomodata['payer'] == 1){echo "获得900USDT代币";}?></span>
+                                        <span><?=empty($userfomo[0]['create_time'])?"暂无数据":date("Y-m-d H:i:s",$userfomo[0]['create_time'])?></span>
+                                    </li>
+                                    <li>
+                                        <span>2</span>
+                                        <span><?=empty($userfomo[1]['address'])?"暂无数据":$userfomo[1]['address']?></span>
+                                        <span><?=empty($userfomo[1]['price'])?"暂无数据":$userfomo[1]['price']?></span>
+                                        <span><?php if($fomodata['winner'] == 2){echo "获奖者";}?><?php if($fomodata['payer'] == 2){echo "买单者";}?></span>
+                                        <span><?php if($fomodata['winner'] == 2){echo "LBTH三个月，获：".$fomodata['award'];}?><?php if($fomodata['payer'] == 2){echo "获得900USDT代币";}?></span>
+                                        <span><?=empty($userfomo[1]['create_time'])?"暂无数据":date("Y-m-d H:i:s",$userfomo[1]['create_time'])?></span>
+                                    </li>
+                                    <li>
+                                        <span>3</span>
+                                        <span><?=empty($userfomo[2]['address'])?"暂无数据":$userfomo[2]['address']?></span>
+                                        <span><?=empty($userfomo[2]['price'])?"暂无数据":$userfomo[2]['price']?></span>
+                                        <span><?php if($fomodata['winner'] == 3){echo "获奖者";}?><?php if($fomodata['payer'] == 3){echo "买单者";}?></span>
+                                        <span><?php if($fomodata['winner'] == 3){echo "LBTH三个月，获：".$fomodata['award'];}?><?php if($fomodata['payer'] == 3){echo "获得900USDT代币";}?></span>
+                                        <span><?=empty($userfomo[2]['create_time'])?"暂无数据":date("Y-m-d H:i:s",$userfomo[2]['create_time'])?></span>
+                                    </li>
+                                    <li>
+                                        <span>4</span>
+                                        <span><?=empty($userfomo[3]['address'])?"暂无数据":$userfomo[3]['address']?></span>
+                                        <span><?=empty($userfomo[3]['price'])?"暂无数据":$userfomo[3]['price']?></span>
+                                        <span><?php if($fomodata['winner'] == 4){echo "获奖者";}?><?php if($fomodata['payer'] == 4){echo "买单者";}?></span>
+                                        <span><?php if($fomodata['winner'] == 4){echo "LBTH三个月，获：".$fomodata['award'];}?><?php if($fomodata['payer'] == 4){echo "获得900USDT代币";}?></span>
+                                        <span><?=empty($userfomo[3]['create_time'])?"暂无数据":date("Y-m-d H:i:s",$userfomo[3]['create_time'])?></span>
+                                    </li>
+                                    <li>
+                                        <span>5</span>
+                                        <span><?=empty($userfomo[4]['address'])?"暂无数据":$userfomo[4]['address']?></span>
+                                        <span><?=empty($userfomo[4]['price'])?"暂无数据":$userfomo[4]['price']?></span>
+                                        <span><?php if($fomodata['winner'] == 5){echo "获奖者";}?><?php if($fomodata['payer'] == 5){echo "买单者";}?></span>
+                                        <span><?php if($fomodata['winner'] == 5){echo "LBTH三个月，获：".$fomodata['award'];}?><?php if($fomodata['payer'] == 5){echo "获得900RNTC代币";}?></span>
+                                        <span><?=empty($userfomo[4]['create_time'])?"暂无数据":date("Y-m-d H:i:s",$userfomo[4]['create_time'])?></span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 点击历史 -->
+                    <div class="butHistory">查看历史竞拍数据 ></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="layui-layer-move">
+<!--        <div class="popup-box" id="popup-box">-->
+<!--            <div class="popup-title"><span>更多历史竞拍数据</span><i class="cancel"></i></div>-->
+<!--            <div class="popup-body">-->
+<!--                <table class="more-num">-->
+<!--                    <tbody>-->
+<!--                    <tr class="th">-->
+<!--                        <th>时间</th>-->
+<!--                        <th>场次</th>-->
+<!--                        <th>奖品</th>-->
+<!--                        <th>获胜者出价</th>-->
+<!--                        <th>买单者出价</th>-->
+<!--                        <th>发放新代币</th>-->
+<!--                        <th>发放分红股</th>-->
+<!--                        <th>冻结获胜者币数量</th>-->
+<!--                        <th>锁仓地址</th>-->
+<!--                        <th>解锁时间</th>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td>1</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td>2</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td>3</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td>4</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td>5</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                        <td>暂无数据</td>-->
+<!--                    </tr>-->
+<!--                    </tbody>-->
+<!--                </table>-->
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="/public/layer/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/public/js/jquery.time-to.js"></script>
+<script type="text/javascript" src="/public/layer/layer.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $(".navList ul li").click(function() {
+            var _index = $(this).index();
+            if (_index == 5) {
+                return
+            }
+            $(".navList ul li").removeClass("acrtiveColor");
+            $(this).addClass("acrtiveColor");
+        });
+
+        var SysSecond; //这里获取倒计时的起始时间
+//        var InterValObj;
+        $(document).ready(function() {
+            var end_time = '<?=$fomodata['end_time']?>';
+            var lock_time = '<?=time()?>';
+            SysSecond = end_time - lock_time;
+//            InterValObj = window.setInterval(SetRemainTime, 1000);
+            $('#remainTime').timeTo(SysSecond, {
+                // time: time,
+                displayDays: 2,
+                theme: "black",
+                displayCaptions: true,
+                fontSize: 48,
+                captionSize: 14,
+                lang: 'zh'
+            });
+
+            $("#pop-btn").click(function(){
+                $("#popup-box").fadeIn();
+            });
+            $(".cancel").click(function(){
+                $("#popup-box").fadeOut();
+            });
+            $("#add li").click(function(){
+                var index = $(this).index();
+                if(index < 3){
+                    var data = parseInt($(this).find(".c-num").text());
+                    var purpose = parseInt($("#dyx_price").text());
+                    var add_price = data + purpose;
+                    $("#dyx_price").text(add_price);
+                }else if(index == 3){
+                    var purpose = parseInt($("#dyx_price").text());
+                    var add_price = purpose * 2;
+                    $("#dyx_price").text(add_price);
+                }else if(index == 4){
+                    var rootdata = parseFloat($(".c-b-text").text()).toFixed(3);
+                    var add_price = rootdata;
+                    $("#dyx_price").text(add_price);
+                }
+            });
+            $(".c-sure-btn").click(function(){
+                var purpose = parseInt($("#dyx_price").val());
+                var rootdata = parseFloat($(".c-b-text").text()).toFixed(3);
+                var firstcount = parseFloat($(".first_count").text()).toFixed(3);
+                var f_id = '<?=$fomodata['f_id']?>';
+                var time1 = '<?=time()?>';
+                var time2 = '<?=$fomodata['end_time']?>';
+                if(time2 - time1 <=0){
+                    layer.msg("不在活动时间内");
+//                    $(".count-down").show();
+                    return false;
+                }
+                if(purpose > rootdata){
+                    layer.msg("出价金额大于账户可用余额");
+                    return false;
+                }
+                if(purpose < firstcount){
+                    layer.msg("出价金额小于第一名出价金额");
+                    return false;
+                }
+                $.post("/activity/fomo",{p:purpose,f:f_id},function(msg){
+                    if(msg.code == 1){
+                        layer.msg(msg.message);
+                        setTimeout(function () {
+                            window.location.href = location.href
+                        },1000);
+                    }else{
+                        layer.msg(msg.message);
+                    }
+                },"json");
+            });
+        });
+
+//        function SetRemainTime() {
+//            if (SysSecond > 0) {
+//                SysSecond = SysSecond - 1;
+//                var second = Math.floor(SysSecond % 60); // 计算秒
+//                var minite = Math.floor((SysSecond / 60) % 60); //计算分
+//                var hour = Math.floor((SysSecond / 3600) % 24); //计算小时
+//                var day = Math.floor((SysSecond / 3600) / 24); //计算天
+//                var hourDiv = "<span id='hourSpan'>" + hour + "小时" + " " + "</span>";
+//                var dayDiv = "<span id='daySpan'>" + day + "天" + " " + "</span>";
+//                $("#remainTime").html(dayDiv + hourDiv + minite + "分" + " " + second + "秒");
+//            } else {
+//                window.clearInterval(InterValObj);
+//                layer.msg("时间为0");
+//            }
+//        }
+    });
+</script>

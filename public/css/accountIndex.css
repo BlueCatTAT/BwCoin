@@ -1,0 +1,264 @@
+.fl {
+    float: left;
+}
+
+.SettingRight {
+    padding: 1%;
+    /* width: 78%; */
+    min-height: 700px;
+    height: 100%;
+    background-color: #191E35;
+    border: 1px solid #e8e8e800;
+    box-sizing: border-box;
+}
+
+.SettingRight .titles {
+    margin: 20px 7px;
+    /* padding: 10px; */
+    height: 20px;
+    line-height: 20px;
+    text-align: left;
+}
+
+.SettingRight .titles .h3 {
+    min-width: 100px;
+    padding-left: 10px;
+    font-size: 18px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.7);
+    border-left: 4px solid #00E2b6;
+}
+
+
+/* 中间 */
+
+.SettingRight .Column_Security {
+    margin-bottom: 15px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.SettingRight .Column_Security .sc_status {
+    margin: 10px 7px;
+    padding: 30px 0;
+    width: 31.5%;
+    border-radius: 6px;
+    background-color: #12172B;
+}
+
+.SettingRight .Column_Security .sc_status img {
+    width: 50px;
+    height:50px;
+}
+
+.SettingRight .Column_Security .sc_status h3 {
+    line-height: 35px;
+    font-size: 16px;
+    color: rgba(255,255,255,0.7);
+}
+
+.SettingRight .Column_Security .sc_status p:nth-of-type(1) {
+    height: 50px;
+}
+
+.SettingRight .Column_Security .sc_status p {
+    line-height: 25px;
+    font-size: 13px;
+    color: #7d80ba;
+}
+
+.SettingRight .Column_Security .sc_status .btns {
+    width: auto;
+    display: inline-block;
+    padding: 0 23px;
+    margin: 0 auto;
+    margin-top: 15px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 15px;
+    color: #fff;
+    background-color: #00E2b6;
+    border: 1px solid #00E2b6;
+    border-radius: 1000px;
+    text-transform: uppercase;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    cursor: pointer;
+}
+
+.SettingRight .Column_Security .sc_status .btnson {
+    width: auto;
+    display: inline-block;
+    padding: 0 23px;
+    margin: 0 auto;
+    margin-top: 15px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 15px;
+    color: #fff;
+    /*background-color: #00E2b6;*/
+    /*border: 1px solid #00E2b6;*/
+    border-radius: 1000px;
+    text-transform: uppercase;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    cursor: pointer;
+    font-size: 15px !important;
+    font-weight: bold !important;
+    color: rgba(255,255,255,0.7) !important;
+    background: linear-gradient(90deg, rgba(0, 159, 241, 1), rgba(0, 232, 207, 1)) !important;
+}
+
+
+/* 统一弹出背景 */
+
+.contentBack {
+    /* filter: alpha(opacity=30); */
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 88;
+    background-color: #000;
+    opacity: 0.3;
+}
+
+
+/* 弹出层 */
+
+.box-back {
+    background: 0 0;
+    width: 530px;
+    height: 386px;
+    position: fixed;
+    z-index: 99;
+    /* top: 231.5px; */
+    /* left: 399px; */
+    left: 50%;
+    top: 50%;
+    margin-left: -265px;
+    margin-top: -193px;
+}
+
+.box-page .box-content {
+    position: relative;
+    overflow: auto;
+}
+
+.float_win_pay {
+    margin: 0 auto;
+    min-width: 450px;
+    min-height: 200px;
+    padding-bottom: 15px;
+    background: #fff;
+    border-radius: 10px;
+}
+
+.float_win_pay .tan_title {
+    padding: 0 40px;
+    height: 60px;
+    border-radius: 10px 10px 0 0;
+    font-size: 15px !important;
+    font-weight: bold !important;
+    color: rgba(255,255,255,0.7) !important;
+    background: linear-gradient(90deg, rgba(0, 159, 241, 1), rgba(0, 232, 207, 1)) !important;
+}
+
+.float_win_pay .tan_title h4 {
+    font-weight: normal;
+    color: #fff;
+    font-size: 20px;
+    line-height: 60px;
+    float: left;
+}
+
+.float_win_pay .tan_title .close-btn {
+    display: block;
+    float: right;
+    line-height: 60px;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 1rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.float_win_pay .payment_content {
+    min-width: 450px;
+    margin: 30px 0 0 0;
+    padding: 0 40px;
+}
+
+ul {
+    list-style: none;
+}
+
+.float_win_pay .payment_content ul li {
+    margin-bottom: 17px;
+}
+
+.float_win_pay .payment_content ul li .label-1 {
+    display: inline-block;
+    padding-right: 15px;
+    width: 22%;
+    height: 42px;
+    line-height: 42px;
+    font-size: 14px;
+    text-align: right;
+    box-sizing: border-box;
+}
+
+.float_win_pay .payment_content ul li .input-1 {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 65.5%;
+    height: 42px;
+    line-height: 42px;
+    font-size: 16px;
+    color: #fff;
+    border: 1px solid #D4D4D4;
+    border-radius: 3px;
+    transition: all, .3s;
+}
+
+.float_win_pay .payment_content ul li input {
+    padding: 3px;
+    background-color: #17193f;
+    color: #fff;
+}
+
+.float_win_pay .payment_content ul li .btns {
+    margin: 0 auto;
+    display: block;
+    width: 200px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 16px;
+    color: #fff;
+    background-color: rgb(0, 226, 181);
+    border: none;
+    border-radius: 1000px;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    cursor: pointer;
+}
+
+.float_win_pay .payment_content ul li p.forget a {
+    color: #0093ff;
+}
+
+.SettingRight .Column_Security .sc_status .btnjz {
+    margin: 0 auto;
+    margin-top: 15px;
+    display: block;
+    width: 112px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 15px;
+    color: white;
+    background-color: #242867;
+    border: 1px solid #242867;
+    border-radius: 1000px;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    cursor: not-allowed;
+}

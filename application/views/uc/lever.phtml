@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta data-n-head="true" data-hid="format-detection" name="format-detection" content="telephone=no">
+    <meta data-n-head="true" http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta data-n-head="true" name="renderer" content="webkit">
+    <title><?=$system['system']?>-我的资产</title>
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/public/css/commonHead.css">
+    <link rel="stylesheet" href="/public/css/index1.css">
+    <!-- 当前页面内容样式 -->
+    <link rel="stylesheet" href="/public/css/assetsIndex.css">
+</head>
+
+<body class="scroll">
+    <div id="app">
+        <div class="box">
+            <?php load_view("inc/nav");?>
+            <!-- 合约账户 -->
+            <div class="account contractAccount">
+                <div class="topcontent ft20 fColor1"><span>合约账户</span></div>
+                <?php load_view("inc/uc");?>
+                <div class="rightcontent contentBK">
+                    <div>
+                        <div class="content fColor1 ft12">
+                            <div class="content_top flex alcenter fColor2">
+                                <p class="flex1 tc">USDT余额<i></i></p>
+                                <p class="flex1 tc">BTC余额</p>
+                                <p class="flex1 tc">ETH余额</p>
+                                <p class="flex1 tc">LBTH余额</p>
+                            </div>
+                            <ul class="content_ul">
+                                <li class="li">
+                                    <div class="content_li flex alcenter between">
+                                        <p class="flex1 tc"><?=$data['balance']?> USDT1</p>
+                                        <p class="flex1 tc"><?=$data['BTC_balance']?> BTC2</p>
+                                        <p class="flex1 tc"><?=$data['ETH_balance']?> ETH3</p>
+                                        <p class="flex1 tc"><?=$data['LBTH_balance']?> LBTH4</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="layui-layer-move"></div>
+</body>
+
+</html>
+<script type="text/javascript" src="/public/js/public.js"></script>
+<script type="text/javascript" src="/public/layer/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/public/layer/layer.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $(".content_ul").on("click", "li div .operation span", function() {
+            var id = Number($(this).parent().attr("data-id"));
+            var _index = $(this).index();
+            $(".content_ul .li .hide_div").hide();
+            $(".content_ul .li .hide_div .boxCon").hide();
+            $(".content_ul .li").eq(id).children(".hide_div").show();
+            $(this).parent().parent().next('div').find(".boxCon").eq(_index).show();
+        });
+        $(".mt10").on("click", ".alcenter .delete", function() {
+            var _index = $(this).attr("data-index");
+            var that = $(this);
+            ajax_http("post","/uc/deladdress",jsonstr,function (msg) {
+                if(msg == 1){
+                    layer.msg("删除成功");
+                    that.parent().remove();
+                }else{
+                    layer.msg("删除失败");
+                }
+            });
+        });
+        $(".rightBut").click(function() {
+            $(".contractAccount").hide();
+            $(".withdrawalAddress").show();
+        });
+        $(".butReturn").click(function() {
+            $(".contractAccount").show();
+            $(".withdrawalAddress").hide();
+        });
+        $(".baseBtn").click(function () {
+            var currency = $("#currency").val();
+            if(currency == '币种'){
+                layer.msg("请选择对应币种");
+                return false;
+            }
+            var address = $("#address").val();
+            if(address == '' || address.slice(0,2) != '0x'){
+                layer.msg("请填写提币地址");
+                return false;
+            }
+            var remarks = $("#remarks").val();
+            var jsonstr = {
+                currency:currency,
+                address:address,
+                remarks:remarks
+            };
+            ajax_http("post","/uc/editaddress",jsonstr,function (msg) {
+                if(msg == 1){
+                    layer.msg("添加成功");
+                }else{
+                    layer.msg("添加失败");
+                }
+            });
+        });
+    })
+
+
+    function copyUrl2() {
+        var Url2 = document.getElementById("biao1");
+        Url2.select();
+        document.execCommand("Copy");
+        alert("复制成功");
+    }
+
+    function linkage(tag) {
+        var input_num = parseFloat(tag.value);
+        var totalNode = parseFloat(tag.parentNode.previousSibling.previousSibling.childNodes[3].childNodes[1].innerText);
+        if(input_num > totalNode){
+            alert('当前提现金额大于可用余额！');
+        }else if(input_num <= 0){
+            alert('当前提现金额需要大于0！');
+        }else{
+            var feeNode = input_num * 0.003;
+            tag.parentNode.nextSibling.nextSibling.childNodes[1].childNodes[3].childNodes[0].innerText = feeNode;
+            var numNode = input_num - feeNode;
+            tag.parentNode.nextSibling.nextSibling.childNodes[3].childNodes[3].childNodes[0].innerText = numNode;
+        }
+    }
+    
+    function send(tag,type) {
+        var numNode = tag.parentNode.parentNode.previousSibling.previousSibling.childNodes[1].childNodes[3].childNodes[0].innerText;
+        var input_num = tag.parentNode.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.childNodes[1].value;
+        var address = tag.parentNode.parentNode.parentNode.childNodes[3].value;
+        var pass = prompt("请输入交易密码");
+        var str = {
+            pass:pass,
+            input_num:input_num,
+            numNode:numNode,
+            type:type,
+            address:address
+        };
+        ajax_http("post","/uc/withdraw",str,function (msg) {
+             if(msg == 2){
+                 alert("请设置交易密码");
+             }else if(msg == 0){
+                 alert("交易密码错误");
+             }else{
+                 alert("交易成功");
+             }
+        });
+    }
+</script>

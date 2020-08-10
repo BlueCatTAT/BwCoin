@@ -1,0 +1,127 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>龙链 - 后台管理系统</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="/public/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/public/layuiadmin/style/admin.css" media="all">
+</head>
+<body>
+<style>
+    .layadmin-carousel{
+        height: 100px!important;
+    }
+    select{
+        width: 200px; height: 37px; border: 1px solid #e6e6e6;
+    }
+    #coin{
+        width: 30px;
+        padding: 9px 2px;
+    }
+    #coinSelect{
+        margin-left: 50px;
+    }
+</style>
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-card-body">
+            <div class="layui-inline">
+                <label class="layui-form-label" id="coin">币种</label>
+                <div class="layui-input-block" id="coinSelect">
+                    <select name="currency_id" lay-filter="rating"  style="">
+                        <option value="0">--请选择--</option>
+                        <?php foreach($coinlist as $k=>$v): ?>
+                            <option value="<?=$v['id']?>"><?=$v['type']?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">用户ID</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="x_currency_id" placeholder="请输入用户ID" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">用户账号</label>
+                <div class="layui-input-block">
+                    <input type="text" name="x_currency_id" placeholder="请输入用户账号" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <button class="layui-btn layuiadmin-btn-admin" data-type="add">搜索</button>
+            </div>
+        </div>
+    </div>
+    <div class="layui-card">
+        <div class="layui-card-body">
+            <table id="LAY-user-back-manage" lay-filter="LAY-user-back-manage"></table>
+            <div class="layui-card-body">
+                <table class="layui-table  layui-form" lay-filter="layuiadmin-form-role" id="layuiadmin-form-role">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>用户ID</th>
+                        <th>类型</th>
+                        <th>日志描述</th>
+                        <th>币种</th>
+                        <th>数量</th>
+                        <th>操作时间</th>
+                    </tr>
+                    </thead>
+                    <tbody id="coin">
+                    <?php foreach($result as $key=>$value): ?>
+                        <tr>
+                            <td><?=$value['id']?></td>
+                            <td style="color: #16a085;"><?=$value['u_id']?></td>
+                            <?php
+                                $str = "";
+                                switch ($value['type']){
+                                    case  1 : $str = "法币入金";break;
+                                    case  2 : $str = "法币出金";break;
+                                    case  3 : $str = "充币";break;
+                                    case  4 : $str = "提币";break;
+                                    case  5 : $str = "申购";break;
+                                    default : $str = "手续费";break;
+                                }
+                            ?>
+                            <td><?=$str?></td>
+                            <td><?=$value['info']?></td>
+                            <td><?=$value['cointype']?></td>
+                            <td><?=$value['num']?></td>
+                            <td><?=$value['create_time']?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/public/layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({base: '/public/layuiadmin/'}).extend({index: 'lib/index'}).use(['index','console2'], function(){
+        var $ = layui.$;
+        //事件
+        var active = {
+            edit: function(){
+                var id = $(this).context.value;
+                layer.open({type: 2,title:'修改代理商' ,content: '/adminmerc/edit?id='+id, area: ['500px', '320px']})
+            }
+        };
+        $('.layui-btn.layuiadmin-btn-admin').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+
+</script>
+</body>
+</html>
+

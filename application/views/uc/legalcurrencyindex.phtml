@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta data-n-head="true" data-hid="format-detection" name="format-detection" content="telephone=no">
+    <meta data-n-head="true" http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta data-n-head="true" name="renderer" content="webkit">
+    <title><?=$system['system']?>-我的资产</title>
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/public/css/commonHead.css">
+    <link rel="stylesheet" href="/public/css/index1.css">
+    <!-- 当前页面内容样式 -->
+    <link rel="stylesheet" href="/public/css/assetsIndex.css">
+    <link rel="stylesheet" href="/public/css/legalCurrencyIndex.css">
+    <style>
+        .contentBox {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="scroll">
+    <div id="app">
+        <div class="box">
+            <?php load_view("inc/nav");?>
+            <!-- 合约账户 -->
+            <div class="account">
+                <div class="topcontent ft20 fColor1"><span>资产</span></div>
+                <?php load_view("inc/uc");?>
+                <div class="rightcontent contentBK">
+                    <!-- 主体循环部分 -->
+                    <div class="ccc">
+                        <div class="top">
+                            <p>法币账户 总资产折合：68524.00CNY</p>
+                        </div>
+                        <ul class="list">
+                            <?php foreach ($coin as $k=>$v): ?>
+                                <li class="curPer">
+<!--                                    <p class="legal_name">--><?//=$v['type']?><!--</p>-->
+                                    <div class="balance_detail">
+                                        <div class="use_balance flex1">
+                                            <p class="ft12 mincny">币种</p>
+                                            <img src="<?=$v['icon']?>" width="25" height="25" style="float: left;margin: 12px 10px 0 0;" />
+                                            <p class="use_balance_num"><?=$v['type']?></p>
+                                        </div>
+                                        <div class="flex1">
+                                            <p class="ft12 mincny">总数</p><p class="lock_balance_num"><?=$v['num']?></p>
+                                        </div>
+                                        <div class="flex1">
+                                            <p class="ft12 mincny">可用</p><p class="lock_balance_num"><?=$v['available_balance']?></p>
+                                        </div>
+                                        <div class="convert flex1">
+                                            <p class="ft12 mincny">冻结</p><p class="lock_balance_num"><?=$v['freeze_balance']?></p>
+                                        </div>
+                                        <div class="convert flex1">
+                                            <p class="ft12 mincny">折合</p><p class="lock_balance_num">0.00 (CNY)</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                    <!-- 点击对应展示部分 -->
+                    <div class="main">
+                        <div class="contentBox">
+                            <p class="legal_name legal_name1" style="text-align: right;color: #fff;"> &lt;&lt;返回 </p>
+                            <p class="legal_name">USDT</p>
+                            <div class="legalAccount_msg flex between">
+                                <div>
+                                    <p class="ft12 msg_title">可用0</p>
+                                    <p>10000.00</p>
+                                </div>
+                                <div>
+                                    <p class="ft12 msg_title">冻结</p>
+                                    <p>0.00</p>
+                                </div>
+                                <div>
+                                    <p class="ft12 msg_title">折合（CNY）</p>
+                                    <p>68524.00</p>
+                                </div>
+                            </div>
+                            <div class="rec_wrap">
+                                <p class="rec_title flex between"><span>财务记录</span> <span class="all">全部</span></p>
+                                <p class="list_title flex"><span class="ft14">数量</span> <span class="ft14 tc">记录</span> <span class="ft14 tr">时间</span></p>
+                                <ul class="log_list">
+                                    <li class="flex arround ft12 flex around"><span>10000.00141110</span>
+                                        <span class="tc">后台调节合约账户余额:SASAS</span> <span class="tr">2020-04-08 13:46:44</span></li>
+                                    <li class="flex arround ft12 flex around"><span>10000.00</span>
+                                        <span class="tc">后台调节合约账户余额:</span> <span class="tr">2020-04-08
+                    13:46:12</span></li>
+                                    <li class="flex arround ft12 flex around"><span>10000.00</span>
+                                        <span class="tc">后台调节合约账户余额:</span> <span class="tr">2020-04-08
+                    13:45:26</span></li>
+                                    <li class="flex arround ft12 flex around"><span>10000.00</span>
+                                        <span class="tc">后台调节法币账户余额:</span> <span class="tr">2020-04-08
+                    13:45:02</span></li>
+                                </ul>
+                                <p class="tc ft12 curPer mt20">加载更多</p>
+                            </div>
+                        </div>
+
+                        <div class="contentBox">
+                            <p class="legal_name legal_name1" style="text-align: right;color: #fff;"> &lt;&lt;返回 </p>
+                            <p class="legal_name">USDT</p>
+                            <div class="legalAccount_msg flex between">
+                                <div>
+                                    <p class="ft12 msg_title">可用1</p>
+                                    <p>10000.00</p>
+                                </div>
+                                <div>
+                                    <p class="ft12 msg_title">冻结</p>
+                                    <p>0.00</p>
+                                </div>
+                                <div>
+                                    <p class="ft12 msg_title">折合（CNY）</p>
+                                    <p>68524.00</p>
+                                </div>
+                            </div>
+                            <div class="rec_wrap">
+                                <p class="rec_title flex between"><span>财务记录</span> <span class="all">全部</span></p>
+                                <p class="list_title flex"><span class="ft14">数量</span> <span class="ft14 tc">记录</span> <span class="ft14 tr">时间</span></p>
+                                <ul class="log_list">
+                                    <li class="flex arround ft12 flex around"><span>10000.00141110</span>
+                                        <span class="tc">后台调节合约账户余额:SASAS</span> <span class="tr">2020-04-08 13:46:44</span></li>
+                                    <li class="flex arround ft12 flex around"><span>10000.00</span>
+                                        <span class="tc">后台调节合约账户余额:</span> <span class="tr">2020-04-08
+                  13:46:12</span></li>
+                                    <li class="flex arround ft12 flex around"><span>10000.00</span>
+                                        <span class="tc">后台调节合约账户余额:</span> <span class="tr">2020-04-08
+                  13:45:26</span></li>
+                                    <li class="flex arround ft12 flex around"><span>10000.00</span>
+                                        <span class="tc">后台调节法币账户余额:</span> <span class="tr">2020-04-08
+                  13:45:02</span></li>
+                                </ul>
+                                <p class="tc ft12 curPer mt20">加载更多</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="layui-layer-move"></div>
+</body>
+
+</html>
+<script type="text/javascript" src="/public/layer/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/public/layer/layer.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $(".list").on("click", ".curPer", function() {
+            var _index = $(this).index();
+            $(".main .contentBox").hide();
+            $(".ccc").hide();
+            $(".main .contentBox").eq(_index).show().siblings().hide();
+        });
+        $('.legal_name1').click(function() {
+            $(".ccc").show();
+            $(".main .contentBox").hide();
+        })
+    })
+</script>

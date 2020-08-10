@@ -1,0 +1,96 @@
+<!-- 侧边菜单 -->
+<div class="layui-side layui-side-menu">
+    <div class="layui-side-scroll">
+        <div class="layui-logo" lay-href="/adminhome/console">
+            <span>龙链</span>
+        </div>
+
+        <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
+            <li data-name="home" class="layui-nav-item layui-nav-itemed">
+                <a href="javascript:;" lay-tips="系统" lay-direction="2">
+                    <i class="layui-icon layui-icon-set"></i>
+                    <cite>系统</cite>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd data-name="console"><a lay-href="/adminhome/system">系统设置</a></dd>
+                    <dd data-name="console"><a lay-href="/adminhome/newslist">新闻列表</a></dd>
+                    <dd data-name="console"><a lay-href="/adminhome/authentication">用户审核</a></dd>
+                    <dd data-name="console"><a lay-href="/adminhome/notice">帮助中心</a></dd>
+                </dl>
+            </li>
+            <li data-name="component" class="layui-nav-item">
+                <a href="javascript:;" lay-tips="钱包管理" lay-direction="2">
+                    <i class="layui-icon layui-icon-component"></i>
+                    <cite>钱包管理</cite>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd data-name="console"><a lay-href="/admincoin/currency">币种管理</a></dd>
+                    <dd data-name="console"><a lay-href="/admincoin/deposit">充值记录</a></dd>
+                    <dd data-name="console"><a lay-href="/admincoin/withdraw">提现记录</a></dd>
+                    <dd data-name="console"><a lay-href="/admincoin/fiatcoin">法币交易挂单</a></dd>
+                    <dd data-name="console"><a lay-href="/admincoin/merchant">法币交易自选商家</a></dd>
+                    <dd data-name="console"><a lay-href="/admincoin/multiple">合约倍数设置</a></dd>
+                    <dd data-name="console"><a lay-href="/admincoin/heyue">合约挂单记录</a></dd>
+                </dl>
+            </li>
+            <li data-name="template" class="layui-nav-item">
+                <a href="javascript:;" lay-tips="活动" lay-direction="2">
+                    <i class="layui-icon layui-icon-template"></i>
+                    <cite>活动</cite>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd data-name="console"><a lay-href="/adminactivity/vote">投票上币</a></dd>
+                    <dd data-name="console"><a lay-href="/adminactivity/votelist">投票上币列表</a></dd>
+                    <dd data-name="console"><a lay-href="/adminactivity/cbsx">持币生息</a></dd>
+                    <dd data-name="console"><a lay-href="/adminactivity/cbsxlist">持币生息列表</a></dd>
+                    <dd data-name="console"><a lay-href="/adminactivity/xbys">新币预售</a></dd>
+                    <dd data-name="console"><a lay-href="/adminactivity/xbyslist">新币预售列表</a></dd>
+                    <dd data-name="console"><a lay-href="/adminactivity/fomo">代币拍卖</a></dd>
+                    <dd data-name="console"><a lay-href="/adminactivity/fomolist">代币拍卖列表</a></dd>
+                </dl>
+            </li>
+            <li data-name="app" class="layui-nav-item">
+                <a href="javascript:;" lay-tips="用户" lay-direction="2">
+                    <i class="layui-icon layui-icon-user"></i>
+                    <cite>用户</cite>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd data-name="workorder"><a lay-href="/adminuser/system">管理员</a></dd>
+                    <dd data-name="workorder"><a lay-href="/adminuser/userlist">用户列表</a></dd>
+                    <dd data-name="workorder"><a lay-href="/adminuser/userlog">用户日志</a></dd>
+                </dl>
+            </li>
+<!--            <li data-name="senior" class="layui-nav-item">-->
+<!--                <a href="javascript:;" lay-tips="高级" lay-direction="2">-->
+<!--                    <i class="layui-icon layui-icon-senior"></i>-->
+<!--                    <cite>高级</cite>-->
+<!--                </a>-->
+<!--                <dl class="layui-nav-child">-->
+<!--                    <dd data-name="console" class="layui-this"><a lay-href="javascript:void(0)">矿机列表</a></dd>-->
+<!--                </dl>-->
+<!--            </li>-->
+            <li data-name="senior" class="layui-nav-item">
+                <a href="javascript:;" lay-tips="代理商" lay-direction="2">
+                    <i class="layui-icon layui-icon-auz"></i>
+                    <cite>代理商</cite>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd data-name="console" class="layui-this"><a lay-href="/adminmerc/list">代理商列表</a></dd>
+                    <dd data-name="console" class="layui-this"><a lay-href="/adminmerc/reward123">奖励设置</a></dd>
+                </dl>
+            </li>
+            <li data-name="senior" class="layui-nav-item">
+                <a href="javascript:;" lay-tips="手机端" lay-direction="2">
+                    <i class="layui-icon layui-icon-auz"></i>
+                    <cite>手机端</cite>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd data-name="console" class="layui-this"><a lay-href="/adminwap/banner">首页BANNER</a></dd>
+                    <dd data-name="console" class="layui-this"><a lay-href="/adminwap/icon">首页ICON列表</a></dd>
+                    <dd data-name="console" class="layui-this"><a lay-href="/adminwap/clue">公告列表</a></dd>
+                    <dd data-name="console" class="layui-this"><a lay-href="/adminwap/feedback">意见反馈</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+</div>

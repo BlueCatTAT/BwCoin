@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html style="background: #010715; height: 100%;">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta data-n-head="true" data-hid="format-detection" name="format-detection" content="telephone=no">
+    <meta data-n-head="true" http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta data-n-head="true" name="renderer" content="webkit">
+    <title><?=$system['system']?>-持币生息</title>
+    <link href="/public/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="/public/css/commonHead.css">
+    <link rel="stylesheet" href="/public/css/currencyInterest.css">
+</head>
+
+<body class="scroll" style="height: 100%;">
+    <div id="app">
+        <div class="notice" style="background: #000107;">
+            <?php load_view("inc/nav");?>
+            <div style="background:#010715;">
+
+                <div class="box">
+                    <!-- 投票列表 -->
+                    <div class="list">
+
+                        <ul class="list_financing">
+                            <?php foreach($result as $k=>$v): ?>
+                            <li class="li">
+                                <div class="fin-box">
+                                    <div class="fin-title-li">
+                                        <div style="margin-bottom: 10px;">
+                                            <img src="<?=$v['icon']?>" style="border-radius: 50px;">
+                                        </div>
+                                        <div>
+                                            <h3 style="color:#CFCFCF;font-size: 14px;">第<?=$v['period']?>期</h3>
+                                        </div>
+                                    </div>
+                                    <div class="fin-title-li-r" style="font-size: 12px;">
+                                        <div class=" fin-info-box">
+                                            <div class="clearfix">
+                                                <span class="fl" style="color:#6A6877">存入币种</span>
+                                                <span class="fr" style="color:#CFCFCF"><?=$v['type']?></span>
+                                            </div>
+                                            <div class="clearfix">
+                                                <span class="fl" style="color:#6A6877">周期性利率</span>
+                                                <span class="fr" style="color:#CFCFCF"><?=$v['cycle_fee']?>%</span>
+                                            </div>
+                                            <div class="clearfix">
+                                                <span class="fl" style="color:#6A6877">存入期限</span>
+                                                <span class="fr" style="color:#CFCFCF"><?=$v['financial_cycle']?> <?=$v['time_type']?></span>
+                                            </div>
+                                            <div class="clearfix">
+                                                <span class="fl" style="color:#6A6877">起存数量</span>
+                                                <span class="fr" style="color:#CFCFCF"><?=$v['start_buy_mun']?> <?=$v['type']?></span>
+                                            </div>
+                                            <div class="clearfix">
+                                                <span class="fl" style="color:#6A6877">剩余额度</span>
+                                                <span class="fr" style="color:#CFCFCF"><?=$v['total']-$v['start_mun']?> <?=$v['type']?></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="fin-btn">
+                                    <a href="#" class="opens activeTap" data-index="<?=$v['id']?>">存币</a>
+                                </div>
+                            </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                    <!-- 我的投票记录 -->
+                    <div class="SettingRight">
+                        <div class="titles">
+                            <h3 class="fl">存比明细</h3>
+                        </div>
+                        <div class="Column_LogonLog">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tbody>
+                                    <tr class="title" style="height: 45px;line-height: 45px;background: #202641;color: hsla(0,0%,100%,.3);">
+                                        <th class="bor-but" width="">项目标题</th>
+                                        <th class="bor-but" width="">存币模式</th>
+                                        <th class="bor-but" width="">存币类型</th>
+                                        <th class="bor-but" width="">存币数量</th>
+                                        <th class="bor-but" width="">利率</th>
+                                        <th class="bor-but" width="">存入期限</th>
+                                        <th class="bor-but" width="">累计次数</th>
+                                        <th class="bor-but" width="">累计获利</th>
+                                        <th class="bor-but" width="">存币时间</th>
+                                        <th class="bor-but" width="">状态</th>
+                                        <th class="bor-but" width="">操作</th>
+                                    </tr>
+                                    <?php foreach($user_log as $k=>$v): ?>
+                                    <tr class="title">
+                                        <th class="bor-but1" width=""><?=$v['period']?></th>
+                                        <th class="bor-but1" width=""><?=$v['ac_method']?></th>
+                                        <th class="bor-but1" width=""><?=$v['currency_name']?></th>
+                                        <th class="bor-but1" width=""><?=$v['num']?></th>
+                                        <th class="bor-but1" width=""><?=$v['cycle_fee']?>%</th>
+                                        <th class="bor-but1" width=""><?=$v['financial_cycle']?> <?=$v['time_type']?></th>
+                                        <th class="bor-but1" width=""><?=$v['count']?></th>
+                                        <th class="bor-but1" width=""><?=$v['profit']?></th>
+                                        <th class="bor-but1" width=""><?=date("Y-m-d",$v['ctime'])?></th>
+                                        <?php
+                                        $str = "";
+                                        if($v['order_status'] == 1){
+                                             $str = "<span style='color: green;'>涨息中</span>";
+                                        }else if($v['order_status'] == 2){
+                                            $str = "<span style='color: #6A6877;'>中途提现</span>";
+                                        }else{
+                                            $str = "已完成";
+                                        }
+                                        ?>
+                                        <th class="bor-but1" width=""><?=$str?></th>
+                                        <th class="bor-but1" width=""><?=($v['order_status'] == 1 && $v['ac_method'] == '活期模式')?"提币":""?></th>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- 弹出层统一背景 -->
+                <div class="contentBack" style="display: none;"></div>
+                <!-- 弹出层 -->
+                <div class="box-back box-page" style="display: none;">
+                    <div class="box-content">
+                        <div class="float_win_pay layui-layer-wrap" id="licai_mask">
+                            <div class="tan_title">
+                                <h4 id="licai_title"></h4>
+                                <span class="close-btn closeCharge">x</span>
+                            </div>
+                            <div class="payment_content">
+                                <ul>
+                                    <li>
+                                        <span class="label-1">理财模式</span>
+                                        <input type="text" id="ac_method" class="input-2" readonly value="月理财">
+                                    </li>
+                                    <li>
+                                        <span class="label-1">存入数量</span>
+                                        <input type="text" id="num" class="input-1">
+                                    </li>
+                                    <li style="margin:-10px 0 10px 0;font-size:14px;text-transform:uppercase;color:#097DF7;">
+                                        <span class="label-1">&nbsp;</span>
+                                        <span>可用</span>
+                                        <span id="licai_yue">9800.0000</span>
+                                        <span id="licai_coinname">cnc</span>
+                                    </li>
+                                    <li>
+                                        <span class="label-1">交易密码</span>
+                                        <input type="password" id="paypass" class="input-1">
+                                    </li>
+                                    <li style="margin-top:30px;">
+                                        <a href="#" class="btns Update activeTap" id="btn" data-id="">立即存币</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-layer-move"></div>
+</body>
+</html>
+<script type="text/javascript" src="/public/js/public.js"></script>
+<script type="text/javascript" src="/public/layer/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/public/layer/layer.js"></script>
+<script type="text/javascript">
+    $(function() {
+        // 点击背景关闭
+        $(".contentBack").click(function() {
+            $(".box-back").hide();
+            $(".contentBack").hide();
+        });
+        // 点击投票
+        $(".opens").click(function() {
+            var index = $(this).attr("data-index");
+            $(".box-back").show();
+            $(".contentBack").show();
+            ajax_http("post","/activity/iscbsx",{id:index},function (msg) {
+                $("#ac_method").val(msg.ac_method);
+                var num = $("#num").val();
+                var paypass = $("#paypass").val();
+                $("#licai_yue").text(msg.available_balance);
+                $("#licai_coinname").text(msg.currency_id);
+                $("#btn").attr("data-id",index);
+            },"json")
+        });
+        // 点击xx
+        $(".closeCharge").click(function() {
+            $(".box-back").hide();
+            $(".contentBack").hide();
+        });
+        $("#btn").click(function() {
+            var id = $("#btn").attr("data-id");
+            var num = parseInt($("#num").val());
+            var paypass = $("#paypass").val();
+            var licai_yue = parseFloat($("#licai_yue").val());
+            if (num == '') {
+                layer.msg("存入数量不能为空");
+                return
+            }
+            if (paypass == '') {
+                layer.msg("交易密码不能为空");
+                return
+            }
+            if (licai_yue - num < 0 ) {
+                layer.msg("可用余额不足");
+                return
+            }
+            var jsonstr = {
+                id:id,
+                num:num,
+                paypass:paypass
+            };
+            ajax_http("post","/activity/ajaxcbsx",jsonstr,function (msg) {
+                if(msg.code == 1){
+                    layer.msg(msg.msg);
+                    setTimeout(()=> location.reload(),1000);
+                }else{
+                    layer.msg(msg.msg);
+                }
+            },"json");
+        });
+        // 显示详情
+        $(".isVote").click(function() {
+            $(".list").hide();
+            $(".SettingRight").show();
+        });
+    });
+</script>

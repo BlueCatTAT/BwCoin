@@ -1,0 +1,130 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>龙链 - 后台管理系统</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="/public/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/public/layuiadmin/style/admin.css" media="all">
+</head>
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+            <div class="layui-form-item">
+                <div style="float: left;">
+                    <div class="layui-inline">
+                        <button class="layui-btn layuiadmin-btn-admin" data-type="add">添加</button>
+                    </div>
+                </div>
+                <div style="float: right">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-card-body">
+            <table id="LAY-user-back-manage" lay-filter="LAY-user-back-manage"></table>
+            <div class="layui-card-body">
+                <table class="layui-table  layui-form" lay-filter="layuiadmin-form-role" id="layuiadmin-form-role">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>理财期次</th>
+                        <th>理财币种</th>
+                        <th>利息币种</th>
+                        <th>理财模式</th>
+                        <th>理财总量</th>
+                        <th>已理财量</th>
+                        <th>理财周期</th>
+                        <th>周期利息</th>
+                        <th>开启时间</th>
+                        <th>结束时间</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="coin">
+                    <?php foreach($result as $key=>$value): ?>
+                        <tr>
+                            <th><?=$value['id']?></th>
+                            <th><?=$value['period']?></th>
+                            <th><?=get_currency_name($value['currency_id'])?></th>
+                            <th><?=get_currency_name($value['x_currency_id'])?></th>
+                            <th style="width: 60px;"><?=$value['ac_method']?></th>
+                            <th><?=$value['total']?></th>
+                            <th><?=$value['start_mun']?></th>
+                            <th><?=$value['financial_cycle']?> <?=$value['time_type']?></th>
+                            <th><?=$value['cycle_fee']?>%</th>
+                            <th><?=date("Y-m-d H:i:s",$value['start_time'])?></th>
+                            <th><?=date("Y-m-d H:i:s",$value['end_time'])?></th>
+                            <th class="sw">
+                                <?php if($value['status']==1){$class1 = "layui-form-onswitch";$text = "ON";}else{$class1 = "";$text = "OFF";} ?>
+                                <div class="layui-unselect layui-form-switch <?=$class1?>" lay-skin="_switch" data-id="<?=$value['id']?>"><em class="em"><?=$text?></em><i></i></div>
+                            </th>
+                            <th class="td-manage" style="width:120px">
+                                <button class="layui-btn layui-btn layui-btn-sm layuiadmin-btn-admin" data-type="edit" value="<?=$value['id']?>">编辑</button>
+                                <a title="删除" data-id="<?=$value['id']?>" class="layui-btn layui-btn layui-btn-sm  layui-btn-danger del">删除</a>
+                            </th>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/public/layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({base: '/public/layuiadmin/'}).extend({index: 'lib/index'}).use(['index'], function(){
+        var $ = layui.$;
+        //事件
+        var active = {
+            add: function(){
+                layer.open({type: 2,title:'添加币种' ,content: '/adminactivity/addcbsx', area: ['800px', '520px']})
+            },
+            edit: function(){
+                var id = $(this).context.value;
+                layer.open({type: 2,title:'修改币种' ,content: '/adminactivity/editcbsx?id='+id, area: ['800px', '520px']})
+            }
+        };
+        $('.layui-btn.layuiadmin-btn-admin').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+//        $('#coin').on('click','tr .sw',function () {
+//            var status = $(this).find("em").html();
+//            var id = $(this).find("div").attr("data-id");
+//            $.post("/ajax/isswitch",{id:id,status:status},function (msg) {
+//                if(msg == 1){
+//                    layer.msg("操作成功");
+//                    setTimeout(()=> location.reload(),1000)
+//                }else{
+//                    layer.msg("操作失败");
+//                }
+//            });
+//        });
+//        $('#coin').on('click','tr .td-manage .del',function () {
+//            var id = $(this).attr("data-id");
+//            layer.confirm('确认要删除吗？',function(index){
+//                $.post("/ajax/del",{id:id,table:'currency'},function (msg) {
+//                    if(msg == 1){
+//                        layer.msg("已删除");
+//                        setTimeout(()=> location.reload(),1000)
+//                    }else{
+//                        layer.msg("操作失败");
+//                    }
+//                });
+//            });
+//        });
+    });
+</script>
+</body>
+</html>
+

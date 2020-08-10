@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta data-n-head="true" data-hid="format-detection" name="format-detection" content="telephone=no">
+    <meta data-n-head="true" http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta data-n-head="true" name="renderer" content="webkit">
+    <title><?=$system['system']?>-我的资产</title>
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/public/css/commonHead.css">
+    <link rel="stylesheet" href="/public/css/index1.css">
+    <!-- 当前页面内容样式 -->
+    <link rel="stylesheet" href="/public/css/assetsIndex.css">
+    <link rel="stylesheet" href="/public/css/accountIndex.css">
+    <link rel="stylesheet" href="/public/css/authenticationIndex.css">
+    <style>
+        .contentBox {
+            display: none;
+        }
+    </style>
+</head>
+<!-- 身份认证 -->
+
+<body class="scroll">
+    <div id="app">
+        <div class="box">
+            <?php load_view("inc/nav");?>
+            <!-- 合约账户 -->
+            <div class="account">
+                <div class="topcontent ft20 fColor1"><span>资产</span></div>
+                <?php load_view("inc/uc");?>
+                <div class="rightcontent contentBK">
+                    <!-- 主体选择认证 -->
+                    <div class="SettingRight SettingList">
+                        <div class="titles">
+                            <h3 class="h3">账户信息 > 实名认证 </h3>
+                        </div>
+                        <div class="Column_Security">
+                            <?php if($user['authenticate'] == 0): ?>
+                                <div class="fl sc_status">
+                                    <img src="/public/imgae/userInfo.png" style="width: 45px;height: 45px;">
+                                    <h3>初级认证</h3>
+                                    <p style="color:#7d80ba;"><b>未认证</b></p>
+                                    <p><a class="btnson primary" href="#">立即认证</a></p>
+                                </div>
+                                <div class="fl sc_status">
+                                    <img src="/public/imgae/userInfo.png" style="width: 45px;height: 45px;">
+                                    <h3>高级认证</h3>
+                                    <p>未认证</p>
+                                    <a class="btnson" href="#" style="background: #7d80ba !important; cursor: not-allowed; ">立即认证</a>
+                                </div>
+                            <?php elseif($user['authenticate'] == 1): ?>
+                                <div class="fl sc_status">
+                                    <img src="/public/imgae/userInfo.png" style="width: 45px;height: 45px;">
+                                    <h3>初级认证</h3>
+                                    <p style="color:#7d80ba;"><b>等待审核</b></p>
+                                    <a class="btnson" href="#" style="background: #7d80ba;border:solid 1px #7d80ba; cursor: not-allowed; ">立即认证</a>
+                                </div>
+                                <div class="fl sc_status">
+                                    <img src="/public/imgae/userInfo.png" style="width: 45px;height: 45px;">
+                                    <h3>高级认证</h3>
+                                    <p>未认证</p>
+                                    <a class="btnson" href="#" style="background: #7d80ba !important; cursor: not-allowed; ">立即认证</a>
+                                </div>
+                            <?php elseif($user['authenticate'] == 2): ?>
+                                <div class="fl sc_status">
+                                    <img src="/public/imgae/userInfo.png" style="width: 45px;height: 45px;">
+                                    <h3>初级认证</h3>
+                                    <p style="color:#24D328;"><b>已通过</b></p>
+                                </div>
+                                <div class="fl sc_status">
+                                    <img src="/public/imgae/userInfo.png" style="width: 45px;height: 45px;">
+                                    <h3>高级认证</h3>
+                                    <p>未认证</p>
+                                    <a class="btnson senior" href="#">立即认证</a>
+                                </div>
+                            <?php elseif($user['authenticate'] == 3): ?>
+                                <div class="fl sc_status">
+                                    <img src="/public/imgae/userInfo.png" style="width: 45px;height: 45px;">
+                                    <h3>初级认证</h3>
+                                    <p style="color:#24D328;"><b>已通过</b></p>
+                                </div>
+                                <div class="fl sc_status">
+                                    <img src="/public/imgae/userInfo.png" style="width: 45px;height: 45px;">
+                                    <h3>高级认证</h3>
+                                    <p style="color:#7d80ba;"><b>等待审核</b></p>
+                                </div>
+                            <?php elseif($user['authenticate'] == 4): ?>
+                                <div class="fl sc_status">
+                                    <img src="/public/imgae/userInfo.png" style="width: 45px;height: 45px;">
+                                    <h3>初级认证</h3>
+                                    <p style="color:#24D328;"><b>已通过</b></p>
+                                </div>
+                                <div class="fl sc_status">
+                                    <img src="/public/imgae/userInfo.png" style="width: 45px;height: 45px;">
+                                    <h3>高级认证</h3>
+                                    <p style="color:#24D328;"><b>已通过</b></p>
+                                </div>
+                            <?php elseif($user['authenticate'] == 5): ?>
+                                <div class="fl sc_status">
+                                    <img src="/public/imgae/userInfo.png" style="width: 45px;height: 45px;">
+                                    <h3>初级认证</h3>
+                                    <p style="color:#FF0000;"><b>初级-审核失败</b></p>
+                                    <p><a class="btnson primary" href="#">立即认证</a></p>
+                                </div>
+                                <div class="fl sc_status">
+                                    <img src="/public/imgae/userInfo.png" style="width: 45px;height: 45px;">
+                                    <h3>高级认证</h3>
+                                    <p style="color:#7d80ba;"><b>等待审核</b></p>
+                                    <a class="btnson" href="#" style="background: #7d80ba !important; cursor: not-allowed;">立即认证</a>
+                                </div>
+                            <?php else: ?>
+                                <div class="fl sc_status">
+                                    <img src="/public/imgae/userInfo.png" style="width: 45px;height: 45px;">
+                                    <h3>初级认证</h3>
+                                    <p style="color:#24D328;"><b>已通过</b></p>
+                                </div>
+                                <div class="fl sc_status">
+                                    <img src="/public/imgae/userInfo.png" style="width: 45px;height: 45px;">
+                                    <h3>高级认证</h3>
+                                    <p style="color:#FF0000;"><b>高级-审核失败</b></p>
+                                    <p><a class="btnson senior" href="#">立即认证</a></p>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <!-- 显示认证部分 -->
+                    <div class="SettingRight SettingContent" style="display: none;">
+                        <div class="titles">
+                            <h3 class="h3 titleH3">账户信息 > 实名认证 > 高级认证 </h3>
+                            <span class="fr isReturn" style="font-size: 18px;font-weight: 500;color: #f9f0f0; margin: -20px 20px;">&lt;&lt;返回</span>
+                            <div class="Column_identity">
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tbody>
+                                        <tr>
+                                            <th>国籍</th>
+                                            <td>
+                                                <input type="text" id="regidnationality" class="select-1" value="<?=$authentication['country']?>">
+                                            </td>
+                                            <th>姓名</th>
+                                            <td><input type="text" id="regtruename" class="select-1" value="<?=$authentication['name']?>"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>证件类型</th>
+                                            <td>
+                                                <select name="type" id="regidtype" class="select-1">
+                                                    <option value="身份证" <?php if($authentication['ctype'] == '身份证'){ echo "selected"; } ?> >身份证</option>
+                                                    <option value="护照" <?php if($authentication['ctype'] == '护照'){ echo "selected"; } ?> >护照</option>
+                                                </select>
+                                            </td>
+                                            <th>证件ID</th>
+                                            <td><input type="text" id="regidcard" class="select-1" value="<?=$authentication['cid']?>"></td>
+                                        </tr>
+                                        <tr class="pictureUpload">
+                                            <th>证件照片</th>
+                                            <td colspan="3" style="padding:20px 0;">
+
+                                                <div class="upload-img">
+                                                    <div class="upload-box">
+                                                        <div class="imgs">
+                                                            <!-- onChange={this.handleFileChange} -->
+                                                            <img id="tipsImg1" src="<?=(!empty($authentication['front_photo'])?$authentication['front_photo']:"/public/imgae/authentication1.jpg")?>" title="点击添加图片" alt="点击添加图片"> </div>
+                                                        <input type="file" id="file_idimg1" accept="image/gif, image/jpeg, image/jpg, image/png" value="">
+                                                    </div>
+                                                    <p class="title">证件正面</p>
+                                                </div>
+                                                <div class="upload-img">
+                                                    <div class="upload-box">
+                                                        <div class="imgs">
+                                                            <img id="tipsImg2" src="<?=(!empty($authentication['reverse_photo'])?$authentication['reverse_photo']:"/public/imgae/authentication2.jpg")?>" title="点击添加图片" alt="点击添加图片"> </div>
+                                                        <input type="file" id="file_idimg2" accept="image/gif, image/jpeg, image/jpg, image/png" value="">
+                                                    </div>
+                                                    <p class="title">证件反面</p>
+                                                </div>
+                                                <div class="upload-img">
+                                                    <div class="upload-box">
+                                                        <div class="imgs">
+                                                            <img id="tipsImg3" src="<?=(!empty($authentication['handheld_photo'])?$authentication['handheld_photo']:"/public/imgae/authentication3.jpg")?>" title="点击添加图片" alt="点击添加图片"> </div>
+                                                        <input type="file" id="file_idimg3" accept="image/gif, image/jpeg, image/jpg, image/png" value="">
+                                                    </div>
+                                                    <p class="title">手持证件照片+个人签名</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                            <td colspan="3" style="padding-top:20px;">
+                                                <div class="Tips isTips">
+                                                    <div class="icons">
+                                                        <h3>重要提示：</h3>
+                                                    </div>
+                                                    <div class="TextContent">
+                                                        <p>1. 请上传清晰的证件照片</p>
+                                                        <p>2. 图片支持JPG/PNG/JPEG格式，大小不超过1M</p>
+                                                        <p>3. 手持证件照通过标准，护照信息清晰</p>
+                                                        <p>4. 遇到问题联系客服 <b style="color: #4f64dc;">13714247474746512</b></p>
+                                                    </div>
+                                                </div>
+                                                <p><a class="btns Update activeTap" href="javascript:void(0)">提交</a></p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="layui-layer-move"></div>
+</body>
+
+</html>
+<script type="text/javascript" src="/public/js/public.js"></script>
+<script type="text/javascript" src="/public/layer/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/public/layer/layer.js"></script>
+<script type="text/javascript">
+    $(function() {
+        var type = 1; //判断是那个认证类型
+        // 第一个图片上传
+        $("#file_idimg1").change(function() {
+            var fil = this.files;
+            var fd = new FormData();
+            fd.append("file", fil[0]);
+            ajax_file("/upload/index", fd, function(msg) {
+                $("#tipsImg1").attr("src", msg.data)
+            },"json")
+        });
+        // 第二个图片上传
+        $("#file_idimg2").change(function() {
+            var fil = this.files;
+            var fd = new FormData();
+            fd.append("file", fil[0]);
+            ajax_file("/upload/index", fd, function(msg) {
+                $("#tipsImg2").attr("src", msg.data)
+            },"json")
+        });
+        // 第三个图片上传
+        $("#file_idimg3").change(function() {
+            var fil = this.files;
+            var fd = new FormData();
+            fd.append("file", fil[0]);
+            ajax_file("/upload/index", fd, function(msg) {
+                $("#tipsImg3").attr("src", msg.data)
+            },"json")
+        });
+        // 初级认证
+        $(".primary").click(function() {
+            type = 1;
+            $(".SettingList").hide();
+            $(".SettingContent").show();
+            $(".isTips").hide();
+            $(".pictureUpload").hide();
+            $(".titleH3").text("账户信息 > 实名认证 > 低级认证");
+        });
+        $(".isReturn").click(function() {
+            $(".SettingList").show();
+            $(".SettingContent").hide();
+        });
+        // 高级认证
+        $(".senior").click(function() {
+            type = 2
+            $(".SettingList").hide();
+            $(".isTips").show();
+            $(".SettingContent").show();
+            $(".pictureUpload").show();
+            $(".titleH3").text("账户信息 > 实名认证 > 高级认证");
+        });
+        $(".Update").click(function() {
+            var regidnationality = $("#regidnationality").val(); //国籍
+            var regtruename = $("#regtruename").val(); //姓名
+            var regidtype = $("#regidtype").val(); //证件类型
+            var regidcard = $("#regidcard").val(); //证件id
+            var tipsImg1 = $("#tipsImg1")[0].src; //上传图片路径1
+            var tipsImg2 = $("#tipsImg2")[0].src; //上传图片路径2
+            var tipsImg3 = $("#tipsImg3")[0].src; //上传图片路径3
+            if (type == 1) {
+                if (regidnationality == '') {
+                    layer.msg("国籍不能空");
+                    return
+                } else if (regtruename == '') {
+                    layer.msg("姓名不能空");
+                    return
+                } else if (regidtype == '') {
+                    layer.msg("证件类型不能空");
+                    return
+                } else if (regidcard == '') {
+                    layer.msg("证件id不能空");
+                    return
+                }
+                var sendstr = {
+                    country:regidnationality,
+                    name:regtruename,
+                    ctype:regidtype,
+                    cid:regidcard,
+                    authenticate:1
+                };
+                ajax_http("post","/uc/userauthenticat",sendstr,function (msg) {
+                    if(msg == 1){
+                        layer.msg("申请成功");
+                        setTimeout(()=> location.reload(),1000);
+                    }else{
+                        layer.msg("申请失败");
+                    }
+                });
+            } else if (type == 2) {
+                if (tipsImg1 == '') {
+                    layer.msg("证件正面不能空");
+                    return
+                } else if (tipsImg2 == '') {
+                    layer.msg("证件正面不能空");
+                    return
+                } else if (tipsImg3 == '') {
+                    layer.msg("证件正面不能空");
+                    return
+                }
+                var sendstr = {
+                    front_photo:tipsImg1,
+                    reverse_photo:tipsImg2,
+                    handheld_photo:tipsImg3,
+                    authenticate:3
+                };
+                ajax_http("post","/uc/userauthenticat",sendstr,function (msg) {
+                    if(msg == 1){
+                        layer.msg("申请成功");
+                        setTimeout(()=> location.reload(),1000);
+                    }else{
+                        layer.msg("申请失败");
+                    }
+                });
+            }
+        })
+
+    })
+</script>

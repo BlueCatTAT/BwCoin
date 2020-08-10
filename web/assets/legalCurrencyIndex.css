@@ -1,0 +1,94 @@
+.tc {
+    text-align: center
+}
+.tr {
+    text-align: right
+}
+.top{
+    background: #1b1e2e;
+    color: #fff;
+    padding: 15px 30px
+}
+.list{
+    padding: 15px 30px;
+}
+.list li {
+    border-bottom: 1px solid #1b2a3e;
+}
+.curPer {
+    cursor: pointer
+}
+.legal_name{
+    color: #61688a;
+    padding: 10px 0
+}
+
+.balance_detail {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -ms-flex-align: center;
+    align-items: center;
+    color: #61688a
+}
+
+.lock_balance_num,
+.use_balance_num {
+    color: #fff;
+    padding: 10px 0;
+    margin-top: 5px
+}
+.lever .lever-head .mincny {
+    color: #61688a
+}
+.convert{
+    padding: 10px 0
+}
+/* 内容显示部分 */
+.main{
+    color: #fff;
+    padding: 30px
+}
+.main .legal_name {
+    background: #1b1e2e;
+    padding: 5px 10px
+}
+.main .legalAccount_msg {
+    background: #1b1e2e;
+    padding: 6px 10px
+}
+.main .legalAccount_msg div p:first-child {
+    margin-bottom: 10px
+}
+.main .msg_title {
+    color: #61688a;
+}
+.main .rec_wrap {
+    margin-top: 30px;
+    margin-bottom: 30px
+}
+.main .rec_title{
+    margin-bottom: 10px
+}
+
+.main .all{
+    color: #61688a
+}
+.main .list_title{
+    padding: 10px;
+    background: #1b1e2e
+}
+
+.main .list_title span {
+    -ms-flex: 1;
+    flex: 1
+}
+.main .log_list li{
+    padding: 10px
+}
+
+.main .log_list li span{
+    -ms-flex: 1;
+    flex: 1
+}

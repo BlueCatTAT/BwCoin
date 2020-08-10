@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html style="background: #010715;height: 100%;">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta data-n-head="true" data-hid="format-detection" name="format-detection" content="telephone=no">
+    <meta data-n-head="true" http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta data-n-head="true" name="renderer" content="webkit">
+    <title><?=$system['system']?>-法币交易</title>
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/public/css/commonHead.css">
+    <link rel="stylesheet" href="/public/css/index1.css">
+    <!-- 当前页面内容样式 -->
+    <link rel="stylesheet" href="/public/css/legalCurrency.css">
+    <style>
+        .contentBox {
+            display: none;
+        }
+    </style>
+</head>
+<!-- 账户入口 -->
+
+<body class="scroll" style="background: #010715;height: 100%;">
+    <div id="app">
+        <div class="box">
+            <?php load_view("inc/nav");?>
+            <!-- 合约账户 -->
+            <div class="account">
+                <div class="topcontent ft20 fColor1"><span>C2C交易</span></div>
+
+                <div class="content-box C2C_mian_box">
+                    <div class="clear">
+                        <!-- 左边 -->
+                        <div class="buy-box sell-box">
+                            <p class="buy-title">可用 usdt：<span>0.00</span></p>
+
+                            <p id="sell_price" class="prohibit">
+                                <span style="color: #6A6877;">卖出价:</span><span style="margin-left:20px;font-size: 14px;">6.93</span></p>
+                            <div style="padding: 10px 0 10px 0;">
+                                <span style="color: #6A6877;margin-top: 7px;display: block;float: left;">付款货币:</span>
+                                <div class="layui-input-block" style="margin-left: 102px;">
+                                    <select name="payment_currency" id="payment_currency" style="width: 270px;height: 38px;border-radius: 12px;border: 1px solid #F2F2F2;font-size: 16px;padding: 0 8px;" lay-ignore="" class="opt" lay-filter="payment_currency" lay-verify="required">
+                                            <option value="">
+                                                付款货币
+                                            </option>
+                                            <option value="JPY" selected>
+                                                韩元
+                                            </option><option value="AUD">
+                                                澳币
+                                            </option>
+                                        </select>
+                                </div>
+                            </div>
+                            <div class="input-box">
+                                <span style="color: #6A6877;margin-top: 17px;display: block;float: left;">汇率:</span>
+                                <input class="input" type="text" name="num" id="sell_num" autocomplete="off" maxlength="11" value="4444" disabled>
+                            </div>
+                            <div class="input-box">
+                                <span style="color: #6A6877;margin-top: 17px;display: block;float: left;">量:</span>
+                                <input class="input" type="text" name="num" id="textNumber" autocomplete="off" maxlength="11">
+                            </div>
+                            <div class="input-box" id="input-box">
+                                <span style="color: #6A6877;margin-top: 17px;display: block;float: left;">付款方式:</span>
+                                <div class="clearfix buttBox" style="color: #fff;padding: 10px;display: block;margin: 10px 0 0 100px">
+                                    <div class="clearfix fl butt" style="margin-right: 20px; cursor: pointer;">
+                                        <img class="fl img" style="width: 20px;height: 20px;vertical-align: middle;margin-right: 10px;" src="/public/imgae/xuanzhong1.png" alt="">
+                                        <span class="fl" style="display: block;">支付宝</span>
+                                    </div>
+                                    <div class="clearfix fl butt" style="cursor: pointer;">
+                                        <img class="fl img" style="width: 20px;height: 20px;vertical-align: middle;margin-right: 10px;" src="/public/imgae/xuanzhong1.png" alt="">
+                                        <span class="fl" style="display: block;">银行</span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <p class="buy-count">
+                                <span style="color: #6A6877 !important;text-transform:uppercase;">总价值：
+                                    <b id="sell_mum" style="color: rgb(0, 226, 182);">0.00</b> usdt</span>
+                                <span></span>
+                                <button type="button" class="btn-buy" id="sellerbutton">立即充币</button>
+                            </p>
+                            <div style="height: 20px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 提示 -->
+                <div class="tips">
+                    <div class="C2C_hint">
+                        <h3 class="title">
+                            提醒
+                        </h3>
+                        <p>
+                            为了迅速收到您的购买，交易前请仔细阅读以下注意事项：
+                        </p>
+                        <p>
+                            1.充电时间
+                            <b style="color:#00e2b6">
+                                <font style="vertical-align: inherit;">
+                                    <font style="vertical-align: inherit;">9:00-15:00</font>
+                                </font>
+                            </b>当天抵达。其余时间，24小时到账，不到账请联系客服！
+                        </p>
+                        <p>
+                            2.单笔充值限额200usdt~ 2000000usdt 丨 单笔提现限额200usdt~ 1000000usdt
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="layui-layer-move"></div>
+</body>
+
+</html>
+<script type="text/javascript" src="/public/js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript">
+    var selectIndex = '';
+    $(function() {
+        $("#input-box .buttBox .butt").click(function() {
+            console.log($(this).index());
+            var index = $(this).index();
+            selectIndex = index; // 复制给选中的下标判断
+            $("#input-box .buttBox .butt").children(".img").attr("src", "../imgae/xuanzhong1.png");
+            $("#input-box .buttBox .butt").eq(index).children(".img").attr("src", "../imgae/xuanzhong2.png");
+        });
+        // 点击提交
+        $("#sellerbutton").click(function() {
+            var textNumber = $("#textNumber").val(); //量
+            if (textNumber == '') {
+                console.log("请输入数量");
+                return
+            } else if (selectIndex == '') {
+                // selectIndex = '' 没选中  0 支付宝 1银行
+                console.log("请选择支付方式");
+                return
+            }
+            console.log("执行")
+        });
+    });
+
+    function copyUrl2() {
+        var Url2 = document.getElementById("numText");
+        Url2.select();
+        document.execCommand("Copy");
+        alert("复制成功");
+    }
+</script>

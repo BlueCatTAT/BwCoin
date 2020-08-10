@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta data-n-head="true" data-hid="format-detection" name="format-detection" content="telephone=no">
+    <meta data-n-head="true" http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta data-n-head="true" name="renderer" content="webkit">
+    <title>我的资产</title>
+    <link rel="icon" type="image/x-icon" href="../imgae/anzhuo.png">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/commonHead.css">
+    <link rel="stylesheet" href="../css/index1.css">
+    <!-- 当前页面内容样式 -->
+    <link rel="stylesheet" href="./assetsIndex.css">
+    <link rel="stylesheet" href="./legalCurrencyIndex.css">
+    <style>
+        .contentBox {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="scroll">
+    <div id="app">
+        <div class="box">
+            <div style="border-bottom: 2px solid #131625">
+                <!-- 导航栏部分 -->
+                <div class="nav_bar">
+                    <div class="content clear" style="height: 60px;">
+                        <div class="fl" style="color: #FE6600;font-weight: bold;font-size: 26px;">
+                            霸王
+                            <!-- <img src="./imgae/logo.0ef4895.png" class="navbar-logo" style="width: 150px; position: relative; top: -2px;"> -->
+                        </div>
+                        <!-- 导航栏 -->
+                        <ul class="navbar-item fl mouseDefault ml20">
+                            <!-- router-link-exact-active router-link-active -->
+                            <li class="base"><a href="../index.html" class="">首页</a></li>
+                            <li class="base"><a href="../transaction/index.html" class="">法币交易</a></li>
+                            <li class="base"><a href="javascript:;" class="">合约交易</a></li>
+                            <li class="base"><a href="../assets/index.html" class="router-link-active">我的资产</a></li>
+                            <li class="base"><a href="../notice/index.html" class="">帮助中心</a></li>
+                            <li class="base downapp">APP下载
+                                <!--  style="display: none;" -->
+                                <div class="appcode tl"><span></span>
+                                    <div class="app-left">
+                                        <p class="code">
+                                            <img src="../imgae/anzhuo.png" alt="haha"></p>
+                                        <p class="texts">扫码下载</p>
+                                    </div>
+                                    <div class="app-right">
+                                        <a href="http://heyue.longbasz.cn/dist/#">
+                                            <b><img src="../imgae/ios.png" alt=""></b>
+                                            <p class="texts"><img alt="">扫码下载</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- 用户登录状态 -->
+                        <div class="fr">
+                            <div class="account-box fl positionR curPer flex">
+                                <div class="msg_wrap">
+                                    <div class="account_login fColor1 fl">
+                                        <img src="../../public/imgae/setUp1.png" alt="" class="icon_img">
+                                        <span>136****8801</span>
+                                        <img src="../../public/imgae/setUp2.png" alt="">
+                                    </div>
+                                </div>
+                                <!--style="display: none;"-->
+                                <div class="account-choose mine ft14 fColor1">
+                                    <p class="curPer">
+                                        <img src="../../public/imgae/setUp1.png" alt="">
+                                        <img src="../../public/imgae/setUp2.png" alt="">
+                                        <span>账户设置</span></p>
+                                    <p class="curPer">
+                                        <img src="../../public/imgae/news1.png" alt="">
+                                        <img src="../../public/imgae/news2.png" alt="">
+                                        <span>交易日志</span>
+                                    </p>
+                                    <p class="curPer">
+                                        <img src="../../public/imgae/setUp1.png" alt="">
+                                        <img src="../../public/imgae/setUp2.png" alt="">
+                                        <span>收款设置</span></p>
+                                    <p class="curPer">
+                                        <img src="../../public/imgae/identity1.png" alt="">
+                                        <img src="../../public/imgae/identity2.png" alt="">
+                                        <span>身份认证</span></p>
+                                    <p class="curPer">
+                                        <img src="../../public/imgae/signIn1.png" alt="">
+                                        <img src="../../public/imgae/signIn1.png" alt="">
+                                        <span>退出登录</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 选择语法 -->
+                        <div class="fr language">
+                            <div class="account-box fl positionR curPer flex">
+                                <div class="msg_wrap">
+                                    <div class="account_login fColor1 fl">
+                                        <img src="../imgae/china.png" alt="" class="icon_img">
+                                        <span>简体中文</span>
+                                    </div>
+                                </div>
+                                <!--style="display: none;"-->
+                                <div class="account-choose mine ft14 fColor1">
+                                    <p class="curPer">
+                                        <img src="../imgae/Britain.png" alt="">
+                                        <span>English</span>
+                                    </p>
+                                    <p class="curPer">
+                                        <img src="../imgae/korea.png" alt="">
+                                        <span>韩语</span></p>
+                                    <p class="curPer">
+                                        <img src="../imgae/spain.png" alt="">
+                                        <span>西班牙</span>
+                                    </p>
+                                    <p class="curPer">
+                                        <img src="../imgae/italy.png" alt="">
+                                        <span>意大利</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 注册 登录 -->
+                        <div class="fr" style="color: #A8A4B5;font-size: 15px;margin-right: 20px;"><a href="../login/register.html" style="display: block;">&nbsp;注册</a></div>
+                        <div class="fr" style="color: #A8A4B5;font-size: 15px;"><a href="../login/login.html" style="display: block;">登录 丨 </a></div>
+                    </div>
+                </div>
+            </div>
+            <!-- 合约账户 -->
+            <div class="account">
+                <div class="topcontent ft20 fColor1"><span>资产</span></div>
+                <div class="leftcontent contentBK">
+                    <div class="leftNav ft14">
+                        <ul class="fColor1">
+                            <li class="">
+                                <a href="./index.html" style="display: block;">
+                                    <img src="../imgae/contractAccount2.png">
+                                    <span>合约账户</span>
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a href="javascript:;" style="display: block;">
+                                    <img src="../imgae/contractAccount1.png">
+                                    <span>法币账户</span>
+                                </a>
+
+                            </li>
+                            <li class="">
+                                <a href="./capitalIndex.html" style="display: block;">
+                                    <img src="../imgae/transferFunds2.png">
+                                    <span>资金划转</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="rightcontent contentBK">
+                    <!-- 主体循环部分 -->
+                    <div class="ccc">
+                        <div class="top">
+                            <p>法币账户 总资产折合：68524.00CNY</p>
+                        </div>
+                        <ul class="list">
+                            <li class="curPer">
+                                <p class="legal_name">BTC</p>
+                                <div class="balance_detail">
+                                    <div class="use_balance flex1">
+                                        <p class="ft12 mincny">币种</p>
+                                        <p class="use_balance_num">BTC</p>
+                                    </div>
+                                    <div class="flex1">
+                                        <p class="ft12 mincny">可用</p>
+                                        <p class="lock_balance_num">0.00</p>
+                                    </div>
+                                    <div class="convert flex1">
+                                        <p class="ft12 mincny">冻结</p>
+                                        <p class="lock_balance_num">
+                                            0.00
+                                        </p>
+                                    </div>
+                                    <div class="convert flex1">
+                                        <p class="ft12 mincny">折合</p>
+                                        <p class="lock_balance_num">
+                                            0.00 (CNY)
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="curPer">
+                                <p class="legal_name">BTC</p>
+                                <div class="balance_detail">
+                                    <div class="use_balance flex1">
+                                        <p class="ft12 mincny">币种</p>
+                                        <p class="use_balance_num">BTC</p>
+                                    </div>
+                                    <div class="flex1">
+                                        <p class="ft12 mincny">可用</p>
+                                        <p class="lock_balance_num">0.00</p>
+                                    </div>
+                                    <div class="convert flex1">
+                                        <p class="ft12 mincny">冻结</p>
+                                        <p class="lock_balance_num">
+                                            0.00
+                                        </p>
+                                    </div>
+                                    <div class="convert flex1">
+                                        <p class="ft12 mincny">折合</p>
+                                        <p class="lock_balance_num">
+                                            0.00 (CNY)
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 点击对应展示部分 -->
+                    <div class="main">
+                        <div class="contentBox">
+                            <p class="legal_name legal_name1" style="text-align: right;color: #fff;"> &lt;&lt;返回 </p>
+                            <p class="legal_name">USDT</p>
+                            <div class="legalAccount_msg flex between">
+                                <div>
+                                    <p class="ft12 msg_title">可用0</p>
+                                    <p>10000.00</p>
+                                </div>
+                                <div>
+                                    <p class="ft12 msg_title">冻结</p>
+                                    <p>0.00</p>
+                                </div>
+                                <div>
+                                    <p class="ft12 msg_title">折合（CNY）</p>
+                                    <p>68524.00</p>
+                                </div>
+                            </div>
+                            <div class="rec_wrap">
+                                <p class="rec_title flex between"><span>财务记录</span> <span class="all">全部</span></p>
+                                <p class="list_title flex"><span class="ft14">数量</span> <span class="ft14 tc">记录</span> <span class="ft14 tr">时间</span></p>
+                                <ul class="log_list">
+                                    <li class="flex arround ft12 flex around"><span>10000.00141110</span>
+                                        <span class="tc">后台调节合约账户余额:SASAS</span> <span class="tr">2020-04-08 13:46:44</span></li>
+                                    <li class="flex arround ft12 flex around"><span>10000.00</span>
+                                        <span class="tc">后台调节合约账户余额:</span> <span class="tr">2020-04-08
+                    13:46:12</span></li>
+                                    <li class="flex arround ft12 flex around"><span>10000.00</span>
+                                        <span class="tc">后台调节合约账户余额:</span> <span class="tr">2020-04-08
+                    13:45:26</span></li>
+                                    <li class="flex arround ft12 flex around"><span>10000.00</span>
+                                        <span class="tc">后台调节法币账户余额:</span> <span class="tr">2020-04-08
+                    13:45:02</span></li>
+                                </ul>
+                                <p class="tc ft12 curPer mt20">加载更多</p>
+                            </div>
+                        </div>
+
+                        <div class="contentBox">
+                            <p class="legal_name legal_name1" style="text-align: right;color: #fff;"> &lt;&lt;返回 </p>
+                            <p class="legal_name">USDT</p>
+                            <div class="legalAccount_msg flex between">
+                                <div>
+                                    <p class="ft12 msg_title">可用1</p>
+                                    <p>10000.00</p>
+                                </div>
+                                <div>
+                                    <p class="ft12 msg_title">冻结</p>
+                                    <p>0.00</p>
+                                </div>
+                                <div>
+                                    <p class="ft12 msg_title">折合（CNY）</p>
+                                    <p>68524.00</p>
+                                </div>
+                            </div>
+                            <div class="rec_wrap">
+                                <p class="rec_title flex between"><span>财务记录</span> <span class="all">全部</span></p>
+                                <p class="list_title flex"><span class="ft14">数量</span> <span class="ft14 tc">记录</span> <span class="ft14 tr">时间</span></p>
+                                <ul class="log_list">
+                                    <li class="flex arround ft12 flex around"><span>10000.00141110</span>
+                                        <span class="tc">后台调节合约账户余额:SASAS</span> <span class="tr">2020-04-08 13:46:44</span></li>
+                                    <li class="flex arround ft12 flex around"><span>10000.00</span>
+                                        <span class="tc">后台调节合约账户余额:</span> <span class="tr">2020-04-08
+                  13:46:12</span></li>
+                                    <li class="flex arround ft12 flex around"><span>10000.00</span>
+                                        <span class="tc">后台调节合约账户余额:</span> <span class="tr">2020-04-08
+                  13:45:26</span></li>
+                                    <li class="flex arround ft12 flex around"><span>10000.00</span>
+                                        <span class="tc">后台调节法币账户余额:</span> <span class="tr">2020-04-08
+                  13:45:02</span></li>
+                                </ul>
+                                <p class="tc ft12 curPer mt20">加载更多</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="layui-layer-move"></div>
+</body>
+
+</html>
+<script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $(".list").on("click", ".curPer", function() {
+            var _index = $(this).index();
+            console.log(_index);
+            $(".main .contentBox").hide();
+            $(".ccc").hide();
+            $(".main .contentBox").eq(_index).show().siblings().hide();
+        });
+        $('.legal_name1').click(function() {
+            // console.log("111")
+            $(".ccc").show();
+            $(".main .contentBox").hide();
+        })
+    })
+</script>

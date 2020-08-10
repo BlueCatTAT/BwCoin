@@ -1,0 +1,90 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>龙链 - 后台管理系统</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="/public/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/public/layuiadmin/style/admin.css" media="all">
+</head>
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+            <div class="layui-form-item">
+                <div style="float: left;">
+                    <div class="layui-inline">
+
+                    </div>
+                </div>
+                <div style="float: right">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">标题</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="loginname" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <button class="layui-btn layuiadmin-btn-admin" lay-submit lay-filter="LAY-user-back-search">
+                            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-card-body">
+
+            <table id="LAY-user-back-manage" lay-filter="LAY-user-back-manage"></table>
+
+            <script type="text/html" id="statusTemp">
+                {{#  if(d.is_lock==1){ }}
+                <input type="checkbox" name="status" disabled lay-skin="switch" lay-text="锁定|未锁定"  value= {{ d.id}}  lay-filter="status" >
+                {{#  } else { }}
+                <input type="checkbox" name="status" disabled lay-skin="switch" checked lay-text="锁定|未锁定"  value= {{ d.id} lay-filter="status" >
+                {{#  } }}
+            </script>
+        </div>
+    </div>
+</div>
+
+<script src="/public/layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({base: '/public/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'table',"layedit"], function(){
+        var $ = layui.$
+            ,form = layui.form
+            ,table = layui.table;
+        table.render({
+            elem: "#LAY-user-back-manage",
+            url: "/ajax/list?table=system",
+            page: true,
+            cols: [[
+                {type: "checkbox", fixed: "left"},
+                {field: "id", width: 80, title: "ID", sort: !0},
+                {field: "system", title: "账号"},
+                {field: "password", title: "密码"},
+                {field: "ip", title: "IP地址"},
+                {field: "login_time", title: "登录时间", toolbar: '<div>{{ layui.util.toDateString(d.LoginTime, "yyyy-MM-dd HH:mm:ss") }}</div>'},
+                {field: "is_lock", title: "充值状态", toolbar: '#statusTemp'}
+            ]],
+            text: "对不起，加载出现异常！"
+        });
+        //监听搜索
+        form.on('submit(LAY-user-back-search)', function(data){
+            var field = data.field;
+            //执行重载
+            table.reload('LAY-user-back-manage', {
+                where: field
+            });
+        });
+
+    });
+</script>
+</body>
+</html>
+

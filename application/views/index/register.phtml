@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" style="background: #000000;">
+
+<head>
+    <meta charset="utf-8">
+    <title><?=$system['system']?>-注册</title>
+    <meta name="description" content="particles.js is a lightweight JavaScript library for creating particles.">
+    <meta name="author" content="Vincent Garreau" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- <link rel="stylesheet" media="screen" href="./login/style.css"> -->
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/public/css/commonHead.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/login.css" />
+</head>
+
+<body>
+    <!-- 主要内容 -->
+    <div>
+        <div class="fl" style="color: #FE6600;
+            font-weight: bold;
+            font-size: 26px;
+            position: fixed;
+            z-index: 999;
+            top: 50px;
+            left: 50px;
+            cursor: pointer;" onclick="window.location.href='/'">
+            <img src="<?=$system['logo']?>" class="navbar-logo" style="width: 88px; position: relative; top: -2px;">
+        </div>
+    </div>
+    <!-- 定位box -->
+    <div id="particles-js">
+
+        <!-- 主要内容 -->
+        <div>
+            <div class="login1">
+                <div class="title">
+                    <div style="line-height: 35px;margin-bottom: 10px;"><?=$system['system']?> 注 册</div>
+                    <div style="line-height: 35px;margin-bottom: 30px;font-size: 18px;">Exchange register</div>
+                </div>
+                <div class="login">
+                    <h1 class="login-top" style="text-align: center;">
+                        注册
+                    </h1>
+                    <div class="login-center clearfix">
+                        <div class="login-center-img"><img src="/public/imgae/userImg.png" /></div>
+                        <div class="login-center-input">
+                            <input type="text" name="username" value="" class="tel" placeholder="请输入您的手机号" onfocus="this.placeholder=''" onblur="this.placeholder='请输入您的手机号'" />
+<!--                            <div class="login-center-input-text">手机号</div>-->
+                        </div>
+                    </div>
+                    <div class="login-center clearfix">
+                        <div class="login-center-img"><img src="/public/imgae/codeImg.png" /></div>
+                        <div class="login-center-input">
+                            <input type="text" name="sms" class="smscode" value="" style="float: left;width: 78%;" placeholder="请输入短信验证码" onfocus="this.placeholder=''" onblur="this.placeholder='请输入短信验证码'" />
+                            <button class="smsbtn activeTap">发送</button>
+<!--                            <div class="login-center-input-text">验证码</div>-->
+                        </div>
+                    </div>
+                    <div class="login-center clearfix">
+                        <div class="login-center-img"><img src="/public/imgae/passImg.png" /></div>
+                        <div class="login-center-input">
+                            <input type="password" class="pwd" name="password" value="" placeholder="请输入密码" onfocus="this.placeholder=''" onblur="this.placeholder='请输入您的密码'" />
+<!--                            <div class="login-center-input-text">密码</div>-->
+                        </div>
+                    </div>
+                    <div class="login-center clearfix">
+                        <div class="login-center-img"><img src="/public//imgae/passImg.png" /></div>
+                        <div class="login-center-input">
+                            <input type="password" class="repwd" name="rewpassword" value="" placeholder="请再次输入密码" onfocus="this.placeholder=''" onblur="this.placeholder='请再次输入密码'" />
+<!--                            <div class="login-center-input-text">密码</div>-->
+                        </div>
+                    </div>
+                    <div class="login-center clearfix">
+                        <div class="login-center-img"><img src="/public/imgae/invitationCode.png" /></div>
+                        <div class="login-center-input">
+                            <input type="text" class="code" name="code" value="" placeholder="请输入邀请码" onfocus="this.placeholder=''" onblur="this.placeholder='请输入您的密码'" />
+<!--                            <div class="login-center-input-text">邀请码</div>-->
+                        </div>
+                    </div>
+                    <div class="clearfix" style="margin: 0 40px 10px 40px;font-size: 16px;">
+                        <div class="fl"><a style="color: #50BACC;" href="/index/login?lang=zh">登录</a></div>
+                        <div class="fr"><a style="color: #FFFFFF;opacity: 0.7;" href="/index/forgetrassword?lang=zh">忘记密码</a></div>
+                    </div>
+                    <div class="login-button subbtn activeTap">注册</div>
+                </div>
+            </div>
+        </div>
+        <div class="sk-rotating-plane"></div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="/public/js/public.js"></script>
+<script type="text/javascript" src="/public/js/cookie.js"></script>
+<script type="text/javascript" src="/public/layer/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/public/layer/layer.js"></script>
+<script type="text/javascript">
+    function hasClass(elem, cls) {
+        cls = cls || '';
+        if (cls.replace(/\s/g, '').length == 0) return false; //当cls没有参数时，返回false
+        return new RegExp(' ' + cls + ' ').test(' ' + elem.className + ' ');
+    }
+
+    function addClass(ele, cls) {
+        if (!hasClass(ele, cls)) {
+            ele.className = ele.className == '' ? cls : ele.className + ' ' + cls;
+        }
+    }
+
+    function removeClass(ele, cls) {
+        if (hasClass(ele, cls)) {
+            var newClass = ' ' + ele.className.replace(/[\t\r\n]/g, '') + ' ';
+            while (newClass.indexOf(' ' + cls + ' ') >= 0) {
+                newClass = newClass.replace(' ' + cls + ' ', ' ');
+            }
+            ele.className = newClass.replace(/^\s+|\s+$/g, '');
+        }
+    }
+
+    document.querySelector(".smsbtn").onclick = function() {
+        var that = this;
+        var user = document.querySelector(".tel").value;
+        var exp = /^1[3-9]\d{9}$/;
+        if (exp.test(user)) {
+            let count = 60;
+            const countDown = setInterval(() => {
+                if (count === 0) {
+                    that.innerText = '发送';
+                    that.setAttribute("disabled", "");
+                    that.style.background = "#0faf8a";
+                    that.style.color = "#fff";
+                    clearInterval(countDown);
+                } else {
+                    that.setAttribute("disabled", "disabled");
+                    that.style.background = "#d8d8d8";
+                    that.style.color = "#707070";
+                    that.innerText = count;
+                }
+                count--;
+            }, 1000);
+            ajax_http("post","/index/telcode",{tel:user},function (msg) {
+                layer.msg(msg);
+            });
+        } else {
+            layer.msg('请输入正确的手机号');
+            return false;
+        }
+    }
+    document.querySelector(".smscode").onchange = function () {
+        var user = document.querySelector(".tel").value;
+        var lockcode = this.value;
+        ajax_http("post","/index/ajaxsms",{tel:user,lockcode:lockcode},function (msg) {
+            if(msg == '验证通过'){
+                layer.msg(msg);
+                setCookie("smscode","1",5,"i");
+            }else{
+                layer.msg(msg);
+                setCookie("smscode","0",5,"i");
+            }
+        });
+    }
+    document.querySelector(".subbtn").onclick = function() {
+        var cookie_data = getCookie("smscode");
+        if(cookie_data == 0 || cookie_data == null){
+            layer.msg('短信验证码没有通过');
+            return false;
+        }
+        var tel = document.querySelector(".tel").value;
+        if (tel == "") {
+            layer.msg('手机号不能为空');
+            return false;
+        }
+        var pwd = document.querySelector(".pwd").value;
+        if (pwd == "") {
+            layer.msg('密码不能为空');
+            return false;
+        }
+        var repwd = document.querySelector(".repwd").value;
+        if (pwd != repwd) {
+            layer.msg('两次密码不一致');
+            return false;
+        }
+        var code = document.querySelector(".code").value;
+//        if (code == "") {
+//            layer.msg('邀请码不能为空');
+//            return false;
+//        }
+        var smscode = document.querySelector(".smscode").value;
+        if (smscode == '') {
+            layer.msg('验证码不能为空');
+            return false;
+        }
+        ajax_http("post","/index/register",{tel:tel,password:repwd,code:code},function (msg) {
+            if(msg == '注册成功'){
+                layer.msg(msg);
+                setTimeout(function () {
+                    window.location.href='/index/login?lang=zh';
+                },500);
+            }else{
+                layer.msg(msg);
+            }
+        });
+    }
+
+</script>
+<style>
+    input::-webkit-input-placeholder{
+        color:#A8A4B5;
+        opacity: 0.5;
+    }
+    input::-moz-placeholder{
+        color:#A8A4B5;
+        opacity: 0.5;
+    }
+    input:-moz-placeholder{
+        color:#A8A4B5;
+        opacity: 0.5;
+    }
+    input:-ms-input-placeholder{
+        color:#A8A4B5;
+        opacity: 0.5;
+    }
+    input {
+        background-color: rgba(255, 255, 255, 0) !important;
+        color: #fff;
+    }
+    input:-webkit-autofill {
+        transition: background-color 5000s ease-in-out 0s;
+        -webkit-text-fill-color: rgba(255,255,255,0.7) !important;
+    }
+    input:-webkit-autofill:focus {
+        -webkit-text-fill-color: rgba(255,255,255,0.7) !important;
+    }
+</style>

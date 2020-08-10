@@ -1,0 +1,142 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>龙链 - 后台管理系统</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="/public/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/public/layuiadmin/style/admin.css" media="all">
+</head>
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+            <div class="layui-form-item">
+                <div style="float: left;">
+                    <div class="layui-inline">
+
+                    </div>
+                </div>
+                <div style="float: right">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">标题</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="loginname" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <button class="layui-btn layuiadmin-btn-admin" lay-submit lay-filter="LAY-user-back-search">
+                            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-card-body">
+
+            <table id="LAY-user-back-manage" lay-filter="LAY-user-back-manage"></table>
+
+            <script type="text/html" id="black">
+                {{# if(d.black != null){ }}
+                    {{# if(d.currency == 1){ }}
+                        <a href="https://btc.com/block/{{d.black}}" target="_blank">{{d.black}}</a>
+                    {{# } else { }}
+                        <a href="https://www.yitaifang.com/blocks/{{d.black}}" target="_blank">{{d.black}}</a>
+                    {{# } }}
+                {{# } }}
+            </script>
+
+            <script type="text/html" id="statusTemp">
+                {{#  if(d.status==1){ }}
+                    <div style="color: green;">已支付</div>
+                {{#  } else if(d.status==2){ }}
+                    <div style="color: blue;">等待审核</div>
+                {{#  } else if(d.status==3){ }}
+                    <div style="color: red;">审核失败：{{d.info}}</div>
+                {{# } else { }}
+                    <div style="color: darkgrey;">未支付</div>
+                {{#  } }}
+            </script>
+
+            <script type="text/html" id="table-useradmin-admin">
+                {{#  if(d.status==2){ }}
+                    <a class="layui-btn layui-btn-xs" lay-event="success"><i class="layui-icon layui-icon-ok"></i>通过</a>
+                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="reject"><i class="layui-icon layui-icon-delete"></i>驳回</a>
+                {{# } }}
+            </script>
+        </div>
+    </div>
+</div>
+
+<script src="/public/layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({base: '/public/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'table',"layedit"], function(){
+        var $ = layui.$
+            ,form = layui.form
+            ,table = layui.table;
+        table.render({
+            elem: "#LAY-user-back-manage",
+            url: "/ajax/list?table=deposit",
+            page: true,
+            cols: [[
+                {type: "checkbox", fixed: "left"},
+                {field: "id", width: 80, title: "ID", sort: !0},
+                {field: "u_id", title: "用户ID"},
+                {field: "currency", title: "币种"},
+                {field: "token_num", title: "金额"},
+                {field: "address", title: "充值地址"},
+                {field: "black", title: "区块高度" ,toolbar: "#black"},
+                {field: "create_time", title: "充值时间", toolbar: '<div>{{ layui.util.toDateString(d.CreateTime, "yyyy-MM-dd HH:mm:ss") }}</div>'},
+                {field: "status", title: "充值状态", toolbar: '#statusTemp'},
+                {title: "操作", width: 150, align: "center", fixed: "right", toolbar: "#table-useradmin-admin"}]
+            ],
+            text: "对不起，加载出现异常！"
+        }),table.on("tool(LAY-user-back-manage)", function (e) {
+            e.data;
+            if ("success" === e.event){
+                var id = e.data.id;
+                $.post("/ajax/depositcheck",{id:id, type:"success"},function (msg) {
+                    if(msg == 1){
+                        layer.msg("操作成功");
+                        setTimeout(()=> location.reload(),1000);
+                    }else{
+                        layer.msg("操作失败");
+                    }
+                });
+            }
+            if ("reject" === e.event){
+                layer.prompt({formType: 0, title: "请输入驳回意见"}, function (t, i) {
+                    var id = e.data.id;
+                    $.post("/ajax/depositcheck", {id: id, type:"reject",info:t}, function (msg) {
+                        if (msg == 1) {
+                            layer.msg("操作成功");
+                            layer.close(i)
+                            setTimeout(()=> location.reload(),1000);
+                        } else {
+                            layer.msg("操作失败");
+                            layer.close(i)
+                        }
+                    });
+                });
+            }
+        });
+        //监听搜索
+        form.on('submit(LAY-user-back-search)', function(data){
+            var field = data.field;
+            //执行重载
+            table.reload('LAY-user-back-manage', {
+                where: field
+            });
+        });
+
+    });
+</script>
+</body>
+</html>
+

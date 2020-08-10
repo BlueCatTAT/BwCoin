@@ -1,0 +1,267 @@
+.contentBox .content{
+    width: 600px;
+    padding-top: 100px;
+    line-height: 30px;
+    margin: 0 auto;
+    position: relative;
+}
+.contentBox .fColor1 {
+    color: #c7cce6
+}
+
+.contentBox .record{
+    margin-right: 10px;
+    position: absolute;
+    right: 0;
+    top: 100px;
+    cursor: pointer;
+}
+
+.contentBox .trade {
+    width: 110px;
+    line-height: 30px;
+    border: 1px solid #4e5b85;
+    text-align: center;
+    border-radius: 4px;
+    margin-right: 15px;
+    margin-left: 15px
+}
+.contentBox .num{
+    margin-top: 15px
+}
+.contentBox .num input{
+    width: 450px;
+    height: 40px;
+    line-height: 40px;
+    border: 1px solid #4e5b85;
+    border-radius: 6px;
+    background-color: transparent;
+    padding: 0 10px;
+    color: #fff;
+    margin-top: 15px;
+    margin-bottom: 15px
+}
+.contentBox .comfirm-btn{
+    width: 450px;
+    line-height: 40px;
+    border-radius: 6px;
+    margin-top: 40px;
+    background-color: #4e5b85;
+    color: #fff;
+    border: none;
+    outline: none
+}
+
+
+.jy {
+    background:rgba(29,36,54,1);
+    border-radius:6px;
+    color:rgba(207,207,207,1);
+    padding-left: 20px;
+    background: #1D2436;
+    height: 55px;
+    line-height: 55px;
+    width: 100%;
+    border-radius: 6px 6px 0px 0px;
+    min-width: 217px;
+}
+
+.jy-text {
+    font-size:18px;
+    font-family:Source Han Sans CN;
+    color:rgba(207,207,207,1);
+}
+.pp {
+    font-size:14px;
+    font-family:Source Han Sans CN;
+    font-weight:400;
+    color:rgba(10,136,224,1);
+    padding-left: 37px;
+}
+
+.explain-ul {
+    padding: 20px;
+    /*width: 170px;*/
+}
+.explain-li {
+    float: left;
+    font-weight:400;
+    color:rgba(109,107,121,1);
+    line-height:22px;
+    font-size:14px;
+}
+
+.explain-a {
+    margin-top: 24px;
+    font-size:14px;
+    font-weight:400;
+    color:rgba(107,103,118,1);
+    height: 20px;
+}
+
+.w360 {
+    width: 360px
+}
+
+.paddlet19 {
+    padding-left: 20px; 
+    
+}
+
+.padding20 {
+    padding: 20px;
+}
+
+.mag20 {
+    margin: 20px;
+}
+
+
+.whole {
+    font-size:14px;
+    font-weight:400;
+    color:rgba(10,136,224,1);
+    height: 35px;
+    line-height: 35px;
+    /*margin-top: 10px;*/
+    padding-left: 20px;
+}
+
+.pay {
+    height: 45px;
+    margin: 0 20px 20px 0;
+}
+
+.pay-mode {
+    float: left;
+     color:rgba(107,103,118,1);
+     font-style: 14px ;
+     padding: 0 20px;
+     height: 33px;
+     text-align: center;
+     line-height: 33px;
+
+}
+.pay-info {
+    width: 100%;
+    background:rgba(13,16,30,1);
+}
+
+.content-inp {
+    width: 300px;
+    height: 30px;
+}
+
+.content-vu {
+    margin: 21px 20px 0px 20px;
+}
+
+.content-img {
+    width: 24px;
+    height: 24px;
+    vertical-align:middle;
+    margin: 0 21px
+}
+
+.com-sel {
+    cursor: pointer; 
+}
+
+.com-opt {
+    width: 212px;
+    height: 33px;
+    background-color: #131625!important;
+    border: 1px solid #0A88E0;
+    opacity:0.3;
+    border-radius:6px;
+    color:#A8A4B5;
+}
+
+.com-opt option {
+    font-weight:400;
+    color:rgba(168,164,181,1);
+}
+.bor-but {
+    border-bottom: 2px dashed #2A2B2F;
+}
+
+.bor-but1 {
+    border-bottom: 2px dashed #2A2B2F;
+    color: #6E6C7B;
+}
+
+.title {
+    color:#A8A4B5;
+}
+
+.tr79 {
+    height: 45px;
+}
+
+.tab-color {
+    color: #A8A4B5;
+}
+
+.transaction {
+    margin: 33px 0;
+    height: 35px;
+    line-height: 35px;
+
+}
+
+.csah {
+    font-size:14px;
+    font-weight:400;
+    color:#6B6776 ;
+    padding-left: 20px;
+}
+.cash-img {
+    width: 12px;
+    height: 12px;
+    margin: 0 10px;
+}
+.cash-transaction {
+    float: left;
+    color: #0A88E0;
+    font-weight:400;
+    font-size:18px;
+}
+
+.buttn {
+    width:186px;
+    height:33px;
+    background:linear-gradient(0deg,rgba(43,117,253,1),rgba(79,254,254,1));
+    border-radius:6px;
+    color:rgba(19,22,37,1);
+    font-size:14px;
+    margin: 0 20px 20px 20px;
+    font-weight:300;
+}
+
+
+.treaty {
+
+}
+
+.treaty li {
+    color: #6B6776;
+    font-size: 14px;
+    padding: 5px;
+}
+
+.reminder {
+    color: #E25657;
+}
+
+input[type="radio"],input[type="checkbox"]{
+zoom:150%;
+vertical-align:middle; 
+margin-top:-2px;
+background:rgba(10,136,224,1);
+}
+.chekbox-sp {
+    font-size: 14px;
+    font-family: Source Han Sans CN;
+    font-weight: 400;
+    color: rgba(10,136,224,1);
+}

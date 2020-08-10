@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta data-n-head="true" data-hid="format-detection" name="format-detection" content="telephone=no">
+    <meta data-n-head="true" http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta data-n-head="true" name="renderer" content="webkit">
+    <title><?=$system['system']?>-我的资产</title>
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/public/css/commonHead.css">
+    <link rel="stylesheet" href="/public/css/index1.css">
+    <!-- 当前页面内容样式 -->
+    <link rel="stylesheet" href="/public/css/assetsIndex.css">
+    <link rel="stylesheet" href="/public/css/capitalIndex.css">
+</head>
+
+<body class="scroll">
+    <div id="app">
+        <div class="box">
+            <?php load_view("inc/nav");?>
+            <!-- 合约账户 -->
+            <div class="account">
+                <div class="topcontent ft20 fColor1"><span>资产</span><span class="fr">记录</span></div>
+                <?php load_view("inc/uc");?>
+                <div class="rightcontent contentBK" style="background: #010715">
+                    <!-- 主体内容 -->
+                    <div class="contentBox" style="background: #181b2a;margin-bottom: 20px;padding-bottom: 10px">
+                        <h1 style="color: #c7cce6;">杆杆划转</h1>
+                        <div class="content fColor1">
+                            <div class="record" style="display: none;">记录</div>
+                            <div class="flex">
+                                <p>币种</p>
+                                <select name="ganggan" onclick="coin(this.value,'ganggan')">
+                                    <?php foreach($coin as $k=>$v): ?>
+                                    <option value="<?=$v['type']?>"><?=$v['type']?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <p>从</p>
+                                <p class="trade">币币账户</p>
+                                <p style="cursor: pointer;" onclick="send(this)">至</p>
+                                <p class="trade">杆杆账户</p>
+                            </div>
+                            <div class="num">
+                                <p>划转数量</p> <input type="number" placeholder="请输入最低100的划转数量">
+                                <p>杠杆可用余额：<span id="g_balance"><?=$ganggan['BTC_balance']?>BTC</span> 币币可用余额：<span id="g_user"><?=$user['btc_available_balance']?>BTC</span></p>
+                            </div>
+                            <button type="button" class="comfirm-btn activeTap" onclick="asynsend(this,'ganggan')">确认划转</button>
+                        </div>
+                    </div>
+
+                    <div class="contentBox" style="background: #181b2a;padding-bottom: 10px">
+                        <h1 style="color: #c7cce6;">合约划转</h1>
+                        <div class="content fColor1">
+                            <div class="record" style="display: none;">记录</div>
+                            <div class="flex">
+                                <p>币种</p>
+                                <select name="heyue" onclick="coin(this.value,'heyue')">
+                                    <?php foreach($coin as $k=>$v): ?>
+                                        <option value="<?=$v['type']?>"><?=$v['type']?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <p>从</p>
+                                <p class="trade">币币账户</p>
+                                <p style="cursor: pointer;" onclick="send(this)">至</p>
+                                <p class="trade">合约账户</p>
+                            </div>
+                            <div class="num">
+                                <p>划转数量</p> <input type="number" placeholder="请输入最低100的划转数量">
+                                <p>合约可用余额：<span id="h_balance"><?=$heyue['btc']?>BTC</span> 币币可用余额：<span id="h_user"><?=$user['btc_available_balance']?>BTC</span></p>
+                            </div>
+                            <button type="button" class="comfirm-btn activeTap" onclick="asynsend(this,'heyue')">确认划转</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="layui-layer-move"></div>
+</body>
+<script type="text/javascript" src="/public/js/public.js"></script>
+<script type="text/javascript" src="/public/layer/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/public/layer/layer.js"></script>
+<script>
+    var status = true;
+    function send(tag){
+        var prevNode = tag.previousSibling.previousSibling.innerText;
+        var nextNode = tag.nextSibling.nextSibling.innerText;
+        if(status){
+            tag.previousSibling.previousSibling.innerText = nextNode;
+            tag.nextSibling.nextSibling.innerText = prevNode;
+            status = false;
+        }else{
+            tag.previousSibling.previousSibling.innerText = prevNode;
+            tag.nextSibling.nextSibling.innerText = nextNode;
+            status = true;
+        }
+    }
+    function coin(data,type){
+        let coindata = data.toLowerCase();
+        let u_u = "<?=$user['usdt_available_balance']?>";
+        let u_b = "<?=$user['btc_available_balance']?>";
+        let u_e = "<?=$user['eth_available_balance']?>";
+        let u_l = "<?=$user['lbth_available_balance']?>";
+        if(type == "heyue"){
+            let h_u = "<?=$heyue['usdt']?>";
+            let h_b = "<?=$heyue['btc']?>";
+            let h_e = "<?=$heyue['eth']?>";
+            let h_l = "<?=$heyue['lbth']?>";
+            switch(coindata){
+                case "usdt" :
+                    document.getElementById("h_balance").innerText = h_u + data;
+                    document.getElementById("h_user").innerText = u_u + data;
+                    break;
+                case "btc" :
+                    document.getElementById("h_balance").innerText = h_b + data;
+                    document.getElementById("h_user").innerText = u_b + data;
+                    break;
+                case "eth" :
+                    document.getElementById("h_balance").innerText = h_e + data;
+                    document.getElementById("h_user").innerText = u_e + data;
+                    break;
+                case "lbth" :
+                    document.getElementById("h_balance").innerText = h_l + data;
+                    document.getElementById("h_user").innerText = u_l + data;
+                    break;
+            }
+        }else{
+            let g_u = "<?=$ganggan['balance']?>";
+            let g_b = "<?=$ganggan['BTC_balance']?>";
+            let g_e = "<?=$ganggan['ETH_balance']?>";
+            let g_l = "<?=$ganggan['LBTH_balance']?>";
+            switch(coindata){
+                case "usdt" :
+                    document.getElementById("g_balance").innerText = g_u + data;
+                    document.getElementById("g_user").innerText = u_u + data;
+                    break;
+                case "btc" :
+                    document.getElementById("g_balance").innerText = g_b + data;
+                    document.getElementById("g_user").innerText = u_b + data;
+                    break;
+                case "eth" :
+                    document.getElementById("g_balance").innerText = g_e + data;
+                    document.getElementById("g_user").innerText = u_e + data;
+                    break;
+                case "lbth" :
+                    document.getElementById("g_balance").innerText = g_l + data;
+                    document.getElementById("g_user").innerText = u_l + data;
+                    break;
+            }
+        }
+    }
+    function asynsend(tag,type) {
+        if(type == 'heyue'){
+            let cointype = tag.parentNode.children[1].children[1].value;
+            let start = tag.parentNode.children[1].children[3].innerText;
+            let end = tag.parentNode.children[1].children[5].innerText;
+            let num = parseFloat(tag.parentNode.children[2].children[1].value);
+            let heyue_num = parseFloat(document.getElementById("h_balance").innerText);
+            let user_num = parseFloat(document.getElementById("h_user").innerText);
+            if(start == '币币账户'){
+                if(user_num - num < 0){
+                   layer.msg("币币余额不足");
+                }else{
+                    ajax_http("post","/uc/ajax",{cointype:cointype,start:start,end:end,num:num,xtype:1},function(msg){
+                         alert(msg.message);
+                         setTimeout(()=>{
+                             location.href = location.href;
+                         },1000)
+                    },"json")
+                }
+            }else{
+                if(heyue_num - num < 0){
+                    layer.msg("合约余额不足");
+                }else{
+                    ajax_http("post","/uc/ajax",{cointype:cointype,start:start,end:end,num:num,xtype:2},function(msg){
+                        alert(msg.message);
+                        setTimeout(()=>{
+                            location.href = location.href;
+                        },1000)
+                    },"json")
+                }
+            }
+        }else{
+            let cointype = tag.parentNode.children[1].children[1].value;
+            let start = tag.parentNode.children[1].children[3].innerText;
+            let end = tag.parentNode.children[1].children[5].innerText;
+            let num = parseFloat(tag.parentNode.children[2].children[1].value);
+            let ganggan_num = parseFloat(document.getElementById("g_balance").innerText);
+            let user_num = parseFloat(document.getElementById("g_user").innerText);
+            if(start == '币币账户'){
+                if( user_num  - num< 0){
+                    layer.msg("币币余额不足");
+                }else{
+                    ajax_http("post","/uc/ajax",{cointype:cointype,start:start,end:end,num:num,xtype:3},function(msg){
+                        alert(msg.message);
+                        setTimeout(()=>{
+                            location.href = location.href;
+                        },1000)
+                    },"json")
+                }
+            }else{
+                if(ganggan_num - num < 0){
+                    layer.msg("杠杆余额不足");
+                }else{
+                    ajax_http("post","/uc/ajax",{cointype:cointype,start:start,end:end,num:num,xtype:4},function(msg){
+                        alert(msg.message);
+                        setTimeout(()=>{
+                            location.href = location.href;
+                        },1000)
+                    },"json")
+                }
+            }
+        }
+    }
+</script>
+</html>

@@ -1,0 +1,202 @@
+.fl {
+    float: left;
+}
+
+.ft20 {
+    font-size: 20px
+}
+
+.fColor1 {
+    color: #c7cce6;
+}
+
+.box .account {
+    width: 1200px;
+    /* padding-top: 30px; */
+    min-height: 880px;
+    margin: 0 auto;
+    overflow: hidden
+}
+
+.box {
+    background-color: #010715;
+}
+
+
+/* 提币地址管理 */
+
+.topcontent {
+    /* padding: 22px 30px; */
+    margin-bottom: 20px;
+    background-color: #1a2330;
+    border-radius: 5px
+}
+
+.topcontent {
+    height: 45px;
+    line-height: 45px;
+    padding: 0 30px;
+    margin: 20px 0 0 0;
+    font-size: 16px;
+    border-radius: 3px;
+    background-color: #181b2a;
+}
+
+.content-box {
+    background: #131625;
+}
+
+.C2C_mian_box .clear {
+    /* height: 330px; */
+    overflow: hidden;
+}
+
+.C2C_mian_box .clear .buy-box {
+    position: relative;
+    float: left;
+    background: #131625;
+    /* width: 280px; */
+    padding: 24px 14px 20px 14px;
+    width: 60%;
+    box-sizing: border-box;
+    padding-left: 60px;
+    margin-left: 60px;
+}
+
+.buy-box .buy-title {
+    font-size: 14px;
+    color: rgb(0, 226, 182);
+    text-transform: uppercase;
+}
+
+.sell-box .buy-title span {
+    font-size: 14px;
+    color: #ffffff !important;
+    margin-left: 5px;
+    font-weight: 600;
+}
+
+.C2C_mian_box .clear .buy-box p.prohibit {
+    height: 70px;
+    line-height: 84px;
+}
+
+.C2C_mian_box .clear .buy-box p.prohibit span {
+    color: #00e2b6;
+}
+
+.C2C_mian_box .clear .input-box {
+    overflow: hidden;
+}
+
+.C2C_mian_box .clear .buy-box .input {
+    float: right;
+    width: 84%;
+    height: 40px;
+    font-size: 16px;
+    font-weight: bold;
+    border: solid #1f2636 1px;
+    border-radius: 12px;
+    padding-right: 22px;
+    margin: 10px 0;
+    text-align: right;
+    box-sizing: border-box;
+    text-indent: 20px;
+}
+
+.C2C_mian_box .clear .sell-box .input {
+    color: #000;
+}
+
+.buy-box .buy-count {
+    color: #7d80ba;
+    padding-top: 30px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.buy-box .buy-count span:first-child {
+    float: left;
+    color: #7d80ba !important;
+}
+
+.buy-box .btn-buy {
+    float: right;
+    /* width: 15%; */
+    height: 20px;
+    font-size: 8px;
+    color: #fff;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    padding: 17px 30px;
+    line-height: 5px;
+    margin-top: 40px;
+}
+
+.sell-box .btn-buy {
+    background: #00e2b6!important;
+}
+
+.buy-box .chain-name1 {
+    color: #ffffff;
+    position: absolute;
+    right: 30px;
+    top: 65px;
+}
+
+
+/* <!-- <label class="chain-name1">卖出价：</label> --> */
+
+
+/* <!-- <label class="chain-name2" style="text-transform:uppercase;">卖出量：</label> --> */
+
+.C2C_mian_box .clear .buy-box .chain-name1 {
+    top: 76px;
+    left: 83px;
+    width: 120px;
+    color: #7d80ba;
+    font-size: 14px;
+}
+
+.buy-box .chain-name2 {
+    color: #878787;
+    position: absolute;
+    right: 30px;
+    top: 130px;
+}
+
+.C2C_mian_box .clear .buy-box .chain-name2 {
+    top: 140px;
+    left: 18px;
+    width: 120px;
+    color: #7d80ba;
+    font-size: 14px;
+    text-align: right;
+}
+
+
+/* 提示 */
+
+.tips {
+    padding: 10px 40px 29px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    background-color: #0D101E;
+    box-sizing: border-box;
+    border-radius: 0 0 20px 20px;
+}
+
+.C2C_hint .title {
+    line-height: 40px;
+    font-size: 20px;
+    color: #CFCFCF;
+}
+
+.C2C_hint p {
+    line-height: 30px;
+    font-size: 14px;
+    color: #6A6877;
+}

@@ -1,0 +1,275 @@
+<?php
+$type = !isset($_GET['type'])?"index":$_GET['type'];
+$db = new dbModel();
+$system = $db->field("*")->table("bw_setting")->find();
+?>
+<div style="border-bottom: 2px solid #1d2436">
+    <!-- 导航栏部分 -->
+    <div class="nav_bar">
+        <div  class="content clear" style="height: 60px;">
+            <div class="fl" style="color: #008cf8;font-weight: bold;font-size: 26px;">
+                <img src="<?=$system['logo']?>" class="navbar-logo" style="width: 88px; position: relative; top: -2px;">
+            </div>
+            <!-- 导航栏 -->
+            <ul  class="navbar-item fl mouseDefault" style="margin-left: 17px;">
+                <li class="base"><a href="/index/index?type=index&lang=zh" class="<?php if($type == 'index'){echo 'router-link-exact-active router-link-active';} ?>">首页</a></li>
+                <li class="base"><a href="/index/btbi?type=btbi&lang=zh" class="<?php if($type == 'btbi'){echo 'router-link-exact-active router-link-active';} ?>">法币交易</a></li>
+                <li class="base"><a href="/trade/index?type=trade&market=btc_usdt&lang=zh" class="<?php if($type == 'trade'){echo 'router-link-exact-active router-link-active';} ?>">币币交易</a></li>
+                <li class="base"><a href="/trade/leveraged?type=leveraged&market=btc_usdt&lang=zh" class="<?php if($type == 'leveraged'){echo 'router-link-exact-active router-link-active';} ?>">杠杆交易</a></li>
+                <li class="base"><a href="/trade/heyue?type=heyue&market=btc_usdt&lang=zh" class="<?php if($type == 'heyue'){echo 'router-link-exact-active router-link-active';} ?>">永续合约</a></li>
+                <li class="base"><a onclick="navlink('auktion')"  class="<?php if($type == 'auktion'){echo 'router-link-exact-active router-link-active';} ?>">代币拍卖</a></li>
+                <li class="base"><a onclick="navlink('currencyinterest')"  class="<?php if($type == 'currencyinterest'){echo 'router-link-exact-active router-link-active';} ?>">PoS矿池</a></li>
+                <li class="base"><a onclick="navlink('newcoin')"  class="<?php if($type == 'newcoin'){echo 'router-link-exact-active router-link-active';} ?>">新币预售</a></li>
+                <li class="base"><a onclick="navlink('vote')" class="<?php if($type == 'vote'){echo 'router-link-exact-active router-link-active';} ?>">投票上币</a></li>
+    <!--            <li class="base"><a href="#" class="">帮助中心</a></li>-->
+    <!--            <li class="base downapp">APP下载-->
+    <!--                <div class="appcode tl"><span></span>-->
+    <!--                    <div class="app-left">-->
+    <!--                        <p  class="code">-->
+    <!--                            <img src="/public/imgae/anzhuo.png" alt="haha"></p>-->
+    <!--                        <p  class="texts">扫码下载</p>-->
+    <!--                    </div>-->
+    <!--                    <div  class="app-right">-->
+    <!--                        <a href="http://heyue.longbasz.cn/dist/#">-->
+    <!--                            <b><img src="/public/imgae/ios.png" alt=""></b>-->
+    <!--                            <p class="texts"><img alt="">扫码下载</p>-->
+    <!--                        </a>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--            </li>-->
+            </ul>
+            <?php if(!empty($_SESSION['username'])): ?>
+                <!-- 用户登录状态 -->
+                <div class="fr">
+                    <div class="account-box fl positionR curPer flex" id="uc">
+                        <div class="msg_wrap">
+                            <div class="account_login fColor1 fl">
+                                <img src="/public/imgae/setUp1.png" alt="" class="icon_img">
+                                <span><?=$_SESSION['username']?></span>
+                                <img src="/public/imgae/next.png" class="icon_img">
+                            </div>
+                        </div>
+                        <!--style="display: none;"-->
+                        <div class="account-choose mine ft14 fColor1" >
+                            <p class="curPer">
+                                <img src="/public/imgae/setUp2.png" alt="">
+                                <span onclick="window.location.href='/uc/account?uc=account&lang=zh'">账户设置</span></p>
+                            <p  class="curPer">
+                                <img src="/public/imgae/news2.png" alt="">
+                                <span onclick="window.location.href='/uc/transactions?uc=transactions&lang=zh'">交易日志</span>
+                            </p>
+                            <p  class="curPer">
+                                <img src="/public/imgae/setUp2.png" alt="">
+                                <span onclick="window.location.href='/uc/assets?uc=assets&lang=zh'">我的资产</span></p>
+                            <p class="curPer">
+                                <img src="/public/imgae/identity2.png" alt="">
+                                <span onclick="window.location.href='/uc/authentication?lang=zh'">身份认证</span></p>
+                            <p  class="curPer">
+                                <img src="/public/imgae/signIn1.png" alt="">
+                                <span onclick="window.location.href='/index/notice?lang=zh'">帮助中心</span>
+                            </p>
+                            <p  class="curPer">
+                                <img src="/public/imgae/signIn1.png" alt="">
+                                <span onclick="window.location.href='/index/loginout?lang=zh'">退出登录</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 选择语法 -->
+                <div class="fr language">
+                    <div class="account-box fl positionR curPer flex">
+                        <div class="msg_wrap">
+                            <div class="account_login fColor1 fl">
+                                <img src="/public/imgae/china.png" alt="" class="icon_img" style="vertical-align: middle">
+                                简体中文
+                                <img src="/public/imgae/next.png" class="icon_img" style="vertical-align: middle">
+                            </div>
+                        </div>
+                        <!--style="display: none;" -->
+                        <div class="account-choose mine ft14 fColor1" >
+                            <p  class="curPer">
+                                <img src="/public/imgae/Britain.png"alt="">
+                                <span >English</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            <?php else: ?>
+                <!-- 注册 登录 -->
+                <div class="fr" style="color: #A8A4B5;font-size: 15px;margin-right: 20px;cursor: pointer;" onclick="location.href='/index/register?lang=zh'">&nbsp;注册</div>
+                <div class="fr" style="color: #A8A4B5;font-size: 15px;cursor: pointer;" onclick="location.href='/index/login?lang=zh'">&nbsp;登录 |</div>
+                <!-- 选择语法 -->
+                <div class="fr language">
+                    <div class="account-box fl positionR curPer flex">
+                        <div class="msg_wrap">
+                            <div class="account_login fColor1 fl">
+                                <img src="/public/imgae/china.png" alt="" class="icon_img" style="vertical-align: middle">
+                                简体中文
+                                <img src="/public/imgae/next.png" class="icon_img" style="vertical-align: middle">
+                            </div>
+                        </div>
+                        <div class="account-choose mine ft14 fColor1">
+                            <p class="curPer">
+                                <img src="/public/imgae/Britain.png"alt="">
+                                <span >English</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
+<div id="nav_mengban" style="display: none;" onclick="navshow()"></div>
+<div id="nav_login" style="display: none;">
+    <form>
+        <div class="tips_Box" >
+            <div class="title">请先登录</div>
+            <div class="iptBox" id="nav_user">
+                <img class="img" src="/public/imgae/backUser.png" alt="">
+                <input class="ipt" type="text" placeholder="请输入账号">
+            </div>
+            <div class="iptBox" id="nav_pass">
+                <img class="img" src="/public/imgae/backPass.png" alt="">
+                <input class="ipt" type="password" placeholder="请输入账号">
+            </div>
+            <div class="account_box">
+                <span class="left" onclick="location.href='/index/register?lang=zh'">注册账号</span>
+                <span class="right" onclick="location.href='/index/forgetrassword?lang=zh'" style="opacity: 0.7;">忘记密码？</span>
+            </div>
+            <div class="submitBut" onclick="sendlogin()" style="opacity: 0.7;">登录</div>
+        </div>
+    </form>
+</div>
+<style>
+    #nav_mengban{
+        position: fixed;
+        margin: 0;
+        padding: 0;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+        background: rgba(0,0,0,0.5);
+    }
+    input::-webkit-input-placeholder{
+        color:#A8A4B5;
+        opacity: 0.5;
+    }
+    input::-moz-placeholder{
+        color:#A8A4B5;
+        opacity: 0.5;
+    }
+    input:-moz-placeholder{
+        color:#A8A4B5;
+        opacity: 0.5;
+    }
+    input:-ms-input-placeholder{
+        color:#A8A4B5;
+        opacity: 0.5;
+    }
+    input {
+        background-color: rgba(255, 255, 255, 0) !important;
+        color: #fff;
+    }
+    input:-webkit-autofill {
+        transition: background-color 5000s ease-in-out 0s;
+        -webkit-text-fill-color: rgba(255,255,255,0.7) !important;
+    }
+    input:-webkit-autofill:focus {
+        -webkit-text-fill-color: rgba(255,255,255,0.7) !important;
+    }
+    .account-choose p:hover{background: #171c2c;}
+    .language:hover .account-choose{display: block;}
+</style>
+<script>
+var status = window.sessionStorage.status;
+var linkurl = "";
+function navlink(data) {
+    if(status == "undefined" || status == 1){
+        document.getElementById("nav_mengban").style.display = "block";
+        document.getElementById("nav_login").style.display = "block";
+        linkurl = "/activity/"+data+"?type="+data+"&lang=zh";
+    }else if(status == 2){
+        window.location.href = "/activity/"+data+"?type="+data+"&lang=zh";
+    }else{
+        window.sessionStorage.status = 1;
+        linkurl = "";
+    }
+}
+function sendlogin() {
+    var formNode = document.forms[0];
+    var user = formNode.elements[0].value;
+    var pass = formNode.elements[1].value;
+    if(user == ""){
+        document.getElementById("nav_user").style.border = "red 2px solid";
+        return
+    }else{
+        document.getElementById("nav_user").style.border = "2px solid rgba(10,136,224,1)";
+    }
+    if(pass == ""){
+        document.getElementById("nav_pass").style.border = "red 2px solid";
+        return
+    }else{
+        document.getElementById("nav_pass").style.border = "2px solid rgba(10,136,224,1)";
+    }
+
+    ajax_http("post","/index/login",{tel:user,password:pass},function(msg){
+        if(msg == "登录成功"){
+            var hreflink = linkurl;
+            window.sessionStorage.status = 2;
+            document.getElementById("nav_mengban").style.display = "none";
+            document.getElementById("nav_login").style.display = "none";
+            linkurl = "";
+            window.location.href = hreflink;
+        }else{
+            window.sessionStorage.status = 1;
+            alert(msg);
+        }
+    })
+}
+
+function navshow() {
+    document.getElementById("nav_mengban").style.display = "none";
+    document.getElementById("nav_login").style.display = "none";
+}
+
+var ajax_http = function (method,url,data,callback,type = 'text'){
+    let http;
+    if(window.XMLHttpRequest){
+        http = new XMLHttpRequest();
+    } else {
+        http = new ActiveXObject( 'Microsoft.XMLHTTP' );
+    }
+
+    if( method.toLowerCase() == 'post'){
+        http.open("POST",url, true);
+        http.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        http.send(jsonToString(data));
+    }else{
+        http.open("GET",url+"?"+jsonToString(data), true);
+        http.send(null);
+    }
+
+    http.onreadystatechange = function(){
+        if(http.readyState == 4 && http.status == 200){
+            if(type == 'text'){
+                callback(http.responseText);
+            }else if(type == 'json'){
+                callback(JSON.parse(http.responseText));
+            }else{
+                callback(JSON.parse(http.responseXML));
+            }
+        }
+    }
+}
+
+function jsonToString(json) {
+    var arr = [];
+    for (var i in json) {
+        arr.push(i + '=' + json[i]);
+    };
+    return arr.join('&');
+}
+</script>

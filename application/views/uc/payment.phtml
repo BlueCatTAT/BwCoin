@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta data-n-head="true" data-hid="format-detection" name="format-detection" content="telephone=no">
+    <meta data-n-head="true" http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta data-n-head="true" name="renderer" content="webkit">
+    <title><?=$system['system']?>-我的资产</title>
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/public/css/commonHead.css">
+    <link rel="stylesheet" href="/public/css/index1.css">
+    <!-- 当前页面内容样式 -->
+    <link rel="stylesheet" href="/public/css/assetsIndex.css">
+    <style>
+        .rec-con ul li:nth-of-type(2n-1) {
+            background: #171c2c !important;
+            height: 45px;
+            border: none;
+        }
+        .rec-con ul li:nth-of-type(2n) {
+            background: #191E35 !important;
+            height: 45px;
+            border: none;
+        }
+    </style>
+</head>
+
+<body class="scroll">
+<div id="app">
+    <div class="box">
+        <?php load_view("inc/nav");?>
+        <!-- 合约账户 -->
+        <div class="account contractAccount">
+            <div class="topcontent ft20 fColor1"><span>资产</span></div>
+            <?php load_view("inc/uc");?>
+            <div class="rightcontent contentBK">
+                <div>
+                    <div class="content fColor1 ft12">
+                        <ul class="content_ul">
+                            <li class="li">
+                                <div class="hide_div">
+                                    <!-- 点击记录 -->
+                                    <div class="rec-box boxCon">
+                                        <div class="rec-con">
+                                            <div class="rec-title">
+                                                <span class="span">id</span>
+                                                <span class="span">类型</span>
+                                                <span class="span">姓名</span>
+                                                <span class="span">卡号</span>
+                                                <span class="span">币种</span>
+                                                <span class="span">图片</span>
+                                                <span class="span">银行名称</span>
+                                                <span class="span">支行信息</span>
+                                                <span class="span">操作</span>
+                                            </div>
+                                            <ul class="rec-list">
+                                                <?php foreach ($result as $k=>$v): ?>
+                                                <li>
+                                                    <span class="span"><?=$v['id']?></span>
+                                                    <span class="span"><?=$v['type']?></span>
+                                                    <span class="span"><?=$v['username']?></span>
+                                                    <span class="span"><?=$v['cid']?></span>
+                                                    <span class="span"><?=$v['coin']?></span>
+                                                    <span class="span"><img src="<?=$v['pic']?>" style="width: 30px;height: 30px;margin-top: 5px;" /></span>
+                                                    <span class="span"><?=$v['bankname']?></span>
+                                                    <span class="span"><?=$v['bankinfo']?></span>
+                                                    <span class="span" style="color: orangered;" onclick="del(<?=$v['id']?>)">删除</span>
+                                                </li>
+                                                <?php endforeach; ?>
+                                            </ul>
+                                            <p class="more" onclick="Tshow()">+ 添加收款方式</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 弹窗展示 -->
+    <div class="tipsPosi"></div>
+    <!-- 弹窗内容 -->
+    <div class="tipsCon" >
+        <div class="title"> + 添加收款方式: <img class="img error" src="/public/imgae/err.png" alt=""></div>
+        <div class="boxPosi">
+            <!--  选中收款方式  -->
+            <div class="items">
+                <div class="components-item-inner">
+                    <p class="font-black label-tip">收款方式</p>
+                    <div class="ivu-input-wrapper">
+                        <div class="inpBox " style="flex: 1;margin: 0px !important;border: 1px solid #1D2436;" >
+                            <select id="cidtype" class="ipt" style="text-indent: 20px;width: 98%;padding: 0;color: rgba(255,255,255,0.3);">
+                                <option value="0">--请选择--</option>
+                                <option value="微信">微信</option>
+                                <option value="支付宝">支付宝</option>
+                                <option value="银联卡">银联卡</option>
+                            </select>
+                        </div
+                    </div>
+                </div>
+                <!-- 切换显示内容 -->
+                <div class="contentBox">
+                    <div class="pay-item-container">
+                        <div class="components-item-inner">
+                            <p class="font-black label-tip">姓名</p>
+                            <div class="ivu-input-wrapper"><input type="text" id="username" style="border: 1px solid #1D2436 !important; color: rgba(255, 255, 255,0.5)!important;"  placeholder="请输入姓名" value="" maxlength="30" class="ivu-input ivu-input-large"></div>
+                        </div>
+
+                        <div class="components-item-inner wx hide">
+                            <p class="font-black label-tip">微信号</p>
+                            <div class="ivu-input-wrapper"><input type="text" id="wx" style="border: 1px solid #1D2436 !important; color: rgba(255, 255, 255,0.5)!important;" placeholder="请输入微信账号" maxlength="30" class="ivu-input ivu-input-large"></div>
+                        </div>
+
+                        <div class="components-item-inner zfb hide">
+                            <p class="font-black label-tip">支付宝账号</p>
+                            <div class="ivu-input-wrapper"><input type="text" id="zfb" style="border: 1px solid #1D2436 !important; color: rgba(255, 255, 255,0.5)!important;" placeholder="请输入微信账号" maxlength="30" class="ivu-input ivu-input-large"></div>
+                        </div>
+
+                        <div class="components-item-inner yhk hide">
+                            <p class="font-black label-tip">银行名称</p>
+                            <div class="ivu-input-wrapper"><input type="text" id="bankname" style="border: 1px solid #1D2436 !important; color: rgba(255, 255, 255,0.5)!important;" placeholder="请输入银行名称" maxlength="30" class="ivu-input ivu-input-large"></div>
+                        </div>
+                        <div class="components-item-inner yhk hide">
+                            <p class="font-black label-tip">银行卡</p>
+                            <div class="ivu-input-wrapper"><input type="text" id="bank" style="border: 1px solid #1D2436 !important; color: rgba(255, 255, 255,0.5)!important;" placeholder="请输入银行卡号" maxlength="30" class="ivu-input ivu-input-large"></div>
+                        </div>
+                        <div class="components-item-inner yhk hide">
+                            <p class="font-black label-tip">银行支行</p>
+                            <div class="ivu-input-wrapper"><input type="text" id="bankinfo" style="border: 1px solid #1D2436 !important; color: rgba(255, 255, 255,0.5)!important;" placeholder="请输入银行支行" maxlength="30" class="ivu-input ivu-input-large"></div>
+                        </div>
+
+                        <div class="components-item-inner">
+                            <p class="font-black label-tip">币种</p>
+                            <div class="ivu-input-wrapper">
+                                <div class="inpBox " style="flex: 1;margin: 0px !important;border: 1px solid #1D2436;" >
+                                    <select id="coin" class="ipt" style="text-indent: 20px;width: 98%;padding: 0;color: rgba(255,255,255,0.3);">
+                                        <?php foreach ($coin as $k1=>$v1): ?>
+                                        <option value="<?=$v1['type']?>"><?=$v1['type']?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="components-item-inner hide qrcode" style="position: relative;">
+                            <p class="titles font-black label-tip">二维码</p>
+                            <div class="upload-file-box" style="width: 100%; height: 100%; position: relative; z-index: 1;">
+                                <div class="upload-wrapper">
+                                    <img src="/public/imgae/imgUpload.jpg" id="tipsImg1" alt="">
+                                    <input class="input" type="file" id="file_idimg1" accept="image/gif, image/jpeg, image/jpg, image/png" value="">
+                                    <p class="font-gray upload-tips">请上传您的微信收款二维码图片(*.jpg / *.png / *.jpeg)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="userBut">
+                <div class="but" style="margin-right: 10px;" onclick="send()">确定</div>
+                <div class="but cancel" style="background: #6E7480">取消</div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="layui-layer-move"></div>
+</body>
+<script type="text/javascript" src="/public/layer/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/public/layer/layer.js"></script>
+<script typeof="text/javascript" src="/public/js/public.js"></script>
+</html>
+<style>
+    .hide_div {
+        padding: 0;
+        border: none;
+    }
+    .rec-box .rec-con {
+        margin: 10px 0;
+        padding: 0;
+    }
+    .navList{
+        position: relative;
+    }
+    .navList P {
+        /*flex: 1;*/
+        margin-right: 30px;
+        text-align: center;
+        cursor: pointer;
+    }
+    .navList .addBut{
+        position: absolute;
+        right: 20px;
+        top: 15px;
+    }
+    .navList P span {
+        padding: 8px 5px;
+        border-bottom: 2px solid #0E2648;
+        color: rgba(255,255,255,0.3);
+    }
+    .activeList {
+        color: #008cf8 !important;
+        border-bottom: 2px solid #008cf8 !important;
+    }
+    .rec-box .rec-con .span{
+        flex: 1;
+        text-align: center;
+        /*line-height: 3;*/
+    }
+    .rec-box .rec-con .span1{
+        flex: none;
+        width: 350px;
+        /*overflow: hidden;*/
+        display: block;
+        /*white-space: nowrap;*/
+        /*text-overflow: ellipsis;*/
+        /*overflow: hidden;*/
+        /*word-break: break-all;*/
+    }
+    .rec-box .rec-con .span2{
+        flex: none;
+        width: 150px;
+        display: block;
+    }
+    .content_ul{
+        padding: 0 !important;
+    }
+    .active2px{
+        color: rgba(0, 191, 244, 1);
+        cursor: pointer;
+    }
+    .activeTitle{
+        color: rgba(0, 191, 244, 1) !important;
+    }
+    .userBox .txt{
+        cursor: pointer;
+    }
+    /*弹窗开始*/
+    .tipsPosi{
+        opacity: 0.7;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        left:0;
+        top:0;
+        background: #000000;
+        z-index:99;
+        display: none;
+    }
+    .tipsCon {
+        position: fixed;
+        left: 50%;
+        top:50%;
+        width: 500px;
+        height: 530px;
+        margin-left: -250px;
+        margin-top: -265px;
+        z-index:100;
+        display: none;
+    }
+    .tipsCon .title{
+        height: 45px;
+        background: #1D2436;
+        line-height: 45px;
+        text-indent: 25px;
+        font-size: 16px;
+        color: #FFCFCFCF;
+        position: relative;
+        border-radius:10px 10px 0 0;
+    }
+    .tipsCon .title .img{
+        position: absolute;
+        right:25px;
+        top:10px;
+    }
+    .tipsCon .boxPosi{
+        /*padding: 0 20px;*/
+        padding: 15px 20px 0 20px;
+        background: #131625;
+        border-radius: 0 0 8px 8px;
+    }
+    .tipsCon .texts{
+        line-height: 30px;
+        font-size: 14px;
+        padding-top: 20px;
+        width:60px;
+    }
+    .boxPosi .inpBox{
+        border:1px solid #0A88E0;
+        position: relative;
+        overflow: hidden;
+        border-right: 1px solid #0D4D80;
+        text-indent: 30px;
+        /*padding-left: 20px;*/
+        margin-top: 20px;
+    }
+    .boxPosi .inpBox .ipt{
+        float: left;
+        height:33px;
+        /*width:80%;*/
+        width: 85%;
+        border: none;
+        font-size: 12px;
+    }
+    .boxPosi .inpBox .ipt option{
+        font-size: 12pt;
+    }
+    .boxPosi .inpBox .coin{
+        position: absolute;
+        right:80px;
+        top:5px;
+        font-size: 16px;
+        color: #363745;
+    }
+    .quanbu{
+        font-size:14px;
+        line-height:33px;
+        text-align: center;
+        color: rgba(255,255,255,0.7);
+        position: absolute;
+        right:20px;
+        top:0px;
+        /*color: #FFA7A4B5;*/
+    }
+    .texts .textBox{
+        float: left;
+        margin: 0 0 0 20px;
+    }
+    .texts .textBox .selectLeft{
+        width: 21px;
+        height:21px;
+        margin-right: 10px;
+        vertical-align: middle;
+    }
+    .texts .textBox .img{
+        width: 60px;
+        height:21px;
+    }
+    .userBut {
+        display: flex;
+        text-align: center;
+        margin-top: 20px;
+        padding-bottom: 15px;
+    }
+    .userBut .but {
+        flex: 1;
+        background: #0AC38A;
+        height: 33px;
+        color: white;
+        line-height: 33px;
+        border-radius: 6px;
+    }
+    /*新增*/
+    .boxPosi .items {
+        margin-top: 24px;
+        color: #9aa5b5;
+    }
+    .boxPosi .items:first-child {
+        margin-top: 0;
+    }
+    .boxPosi .items .titles {
+        margin-bottom: 4px;
+    }
+    .font-black {
+        color: #495666;
+    }
+    .boxPosi .items .ivu-select1 {
+        display: inline-block;
+        width: 100%;
+        box-sizing: border-box;
+        vertical-align: middle;
+        color: #1c242c;
+        font-size: 14px;
+        line-height: normal;
+        position: relative;
+    }
+    .ivu-select-selection {
+        display: block;
+        box-sizing: border-box;
+        outline: none;
+        user-select: none;
+        cursor: pointer;
+        position: relative;
+        /*background-color: #fff;*/
+        border-radius: 4px;
+        /*border: 1px solid #dfe2e7;*/
+        transition: all .2s ease-in-out;
+        border-right: 4px;
+    }
+    .ivu-select1 .ivu-select-selection  {
+        height: 32px;
+        position: relative;
+    }
+    .ivu-select1 .ivu-select-selection {
+        height: 36px;
+    }
+    .ivu-select1 .ivu-select-selected-value {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding-left: 8px;
+        padding-right: 24px;
+        height: 34px;
+        line-height: 34px;
+        font-size: 14px;
+    }
+    .ivu-select1{
+        color: #1c242c;
+        font-size: 14px;
+        line-height: normal;
+    }
+    .boxPosi .items .ivu-select-dropdown{
+        min-width: 426px;
+        position: absolute;
+        will-change: top, left;
+        transform-origin: center top;
+        top: 32px;
+        left: 0px;
+        width: auto;
+        max-height: 200px;
+        overflow: auto;
+        margin: 5px 0;
+        padding: 5px 0;
+        background-color: #fff;
+        box-sizing: border-box;
+        border-radius: 4px;
+        box-shadow: 0 1px 6px rgba(0,0,0,.2);
+        z-index: 900;
+        display: none;
+    }
+    .boxPosi .items .ivu-select-dropdown .ivu-select-dropdown-list {
+        min-width: 100%;
+        list-style: none;
+    }
+    .boxPosi .items .ivu-select-dropdown .ivu-select-dropdown-list .ivu-select-item {
+        margin: 0;
+        line-height: normal;
+        clear: both;
+        white-space: nowrap;
+        list-style: none;
+        cursor: pointer;
+        transition: background .2s ease-in-out;
+        padding: 7px 16px 8px;
+        font-size: 14px!important;
+        color: #000;
+        /*background: #f3f3f3;*/
+    }
+    .itemActive{
+        background: rgba(229,235,245,.5) !important;
+        color: #357ce1 !important;
+    }
+    .ivu-select-dropdown::-webkit-scrollbar{
+        width:5px;
+        height:10px;
+        /**/
+    }
+    .ivu-select-dropdown::-webkit-scrollbar-track{
+        background: rgb(239, 239, 239);
+        border-radius:2px;
+    }
+    .ivu-select-dropdown::-webkit-scrollbar-thumb{
+        background: #bfbfbf;
+        border-radius:10px;
+    }
+    .ivu-select-dropdown::-webkit-scrollbar-thumb:hover{
+        background: #333;
+    }
+    .ivu-select-dropdown::-webkit-scrollbar-corner{
+        background: #179a16;
+    }
+    /*弹窗显示内容*/
+    .contentBox .pay-item-container .components-item-inner {
+        margin-top: 24px;
+    }
+    .contentBox .pay-item-container .label-tip {
+        margin-bottom: 4px;
+    }
+    .contentBox .pay-item-container .ivu-input-wrapper {
+        display: inline-block;
+        width: 100%;
+        position: relative;
+        vertical-align: middle;
+        line-height: normal;
+    }
+    .contentBox .pay-item-container .ivu-input-wrapper .ivu-input-large {
+        font-size: 14px;
+        height: 36px;
+        padding: 6px 7px;
+    }
+    .contentBox .pay-item-container .ivu-input-wrapper .ivu-input {
+        display: inline-block;
+        width: 100%;
+        height: 32px;
+        line-height: 1.5;
+        font-size: 12px;
+        color: rgb(28, 36, 44);
+        background-color: rgb(255, 255, 255);
+        background-image: none;
+        position: relative;
+        cursor: text;
+        padding: 4px 7px;
+        border-width: 1px;
+        border-style: solid;
+        border-color: #1D2436;
+        border-image: initial;
+        border-radius: 4px;
+        transition: border 0.2s ease-in-out 0s, background 0.2s ease-in-out 0s, box-shadow 0.2s ease-in-out 0s;
+    }
+    .upload-file-box{
+        width: 100%;
+        height: 100%;
+        position: relative;
+        z-index: 1;
+    }
+    .pay-item-container .upload-wrapper {
+        text-align: center;
+        border: 1px dashed #dfe2e7;
+        border-radius: 3px;
+        padding: 20px 0;
+        position: relative;
+    }
+    .pay-item-container .upload-wrapper .upload-tips {
+        padding: 0 16px;
+    }
+    .upload-file-box .input{
+        background: red !important;
+        position: absolute;
+        left:0;
+        top:0 !important;
+        width:100%;
+        height:100%;
+        top:100%;
+        opacity: 0;
+    }
+    .upload-file-box #tipsImg1{
+        width: 120px;
+        height: 120px;
+        display: block;
+        margin: 0 auto 20px;
+    }
+    .ipt option{
+        background: #131625 !important;
+        color: rgba(255,255,255,0.5);
+    }
+</style>
+<script type="text/javascript">
+    $(function () {
+        $("#file_idimg1").change(function() {
+            var fil = this.files;
+            var fd = new FormData();
+            fd.append("file", fil[0]);
+            ajax_file("/upload/index", fd, function(msg) {
+                $("#tipsImg1").attr("src", msg.data)
+            },"json")
+        });
+//        $('.userBox .txt').click(function () {
+//            $(this).addClass("activeTitle").siblings().removeClass("activeTitle");
+//        });
+        $('.navList .addBut').click(function(){
+            $('.tipsPosi').show();
+            $('.tipsCon').show()
+        })
+        $('.tipsPosi, .tipsCon .error, .userBut .cancel').click(function(){
+            $('.tipsPosi').hide();
+            $('.tipsCon').hide();
+        })
+        $('.texts .textBox').click(function () {
+            var index = $(this).index();
+            $('.texts .textBox .selectLeft').attr("src","/public/imgae/userSelect1.png");
+            $(this).find('.selectLeft').attr("src","/public/imgae/userSelect2.png");
+        });
+        $("#cidtype").change(function () {
+            var indexval = $(this).val();
+            if(indexval == '微信'){
+                $(".wx").removeClass("hide");
+                $(".zfb").addClass("hide");
+                $(".yhk").addClass("hide");
+                $(".qrcode").removeClass("hide");
+            }else if(indexval == '支付宝'){
+                $(".wx").addClass("hide");
+                $(".zfb").removeClass("hide");
+                $(".yhk").addClass("hide");
+                $(".qrcode").removeClass("hide");
+            }else if(indexval == '银联卡'){
+                $(".wx").addClass("hide");
+                $(".zfb").addClass("hide");
+                $(".yhk").removeClass("hide");
+                $(".qrcode").addClass("hide");
+            }else{
+                $(".wx").addClass("hide");
+                $(".zfb").addClass("hide");
+                $(".yhk").addClass("hide");
+                $(".qrcode").addClass("hide");
+            }
+        });
+    });
+    $(".navList p").click(function() {
+        var index = $(this).index();
+        var type = $(this).find("span").text();
+        $(".navList p span").removeClass("activeList");
+        $(".navList p").eq(index).children().addClass("activeList");
+        ajax_http("post","/uc/transactions",{type:type},function(msg){
+            $(".rec-list").empty();
+            var str = "";
+            for(item of msg){
+                str += "<li>";
+                str += "<span class='span'>"+item.id+"</span>";
+                str += "<span class='span'>"+item.type+"</span>";
+                str += "<span class='span1'>"+item.info+"</span>";
+                str += "<span class='span'>"+item.num+"</span>";
+                str += "<span class='span'>"+item.currency_name+"</span>";
+                str += "<span class='span2'>"+formatDate(item.create_time*1000)+"</span>";
+                str += "</li>";
+            }
+            $(".rec-list").html(str);
+        },"json");
+    })
+
+    function formatDate(date) {
+        var date = new Date(date);
+        var YY = date.getFullYear() + '-';
+        var MM = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+        var DD = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate());
+        var hh = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+        var mm = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+        var ss = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
+        return YY + MM + DD +" "+hh + mm + ss;
+    }
+    
+    function Tshow() {
+        $(".tipsPosi").show();
+        $(".tipsCon").show();
+    }
+    
+    function send() {
+        var cidtype = $("#cidtype").val();
+        var username = $("#username").val();
+        var coin = $("#coin").val();
+        var wx = "";
+        var zfb = "";
+        var bank = "";
+        var bankname = "";
+        var bankinfo = "";
+        var tipsImg1 = $("#tipsImg1").attr("src");
+        var type = "";
+        var cid = "";
+        var pic = "";
+        if(tipsImg1 == "/public/imgae/imgUpload.jpg"){
+            pic = "";
+        }else{
+            pic = tipsImg1;
+        }
+        if(cidtype == '微信'){
+            type = cidtype;
+            cid = $("#wx").val();
+            bankname = "";
+            bankinfo = "";
+            pic = pic;
+        }else if(cidtype == '支付宝'){
+            type = cidtype;
+            cid = $("#zfb").val();
+            bankname = "";
+            bankinfo = "";
+            pic = pic;
+        }else if(cidtype == '银联卡'){
+            type = cidtype;
+            cid = $("#bank").val();
+            bankname = $("#bankname").val();
+            bankinfo = $("#bankinfo").val();
+            pic = "";
+        }else{
+            layer.msg("请选择收款方式");
+            return
+        }
+
+        if(username == ""){
+            layer.msg("姓名为空");
+            return
+        }
+
+        if(cid == ""){
+            layer.msg("微信号/支付宝号/银行卡号为空");
+            return
+        }
+
+        $.post("/uc/payment",{type:type,username:username,cid:cid,coin:coin,bankname:bankname,bankinfo:bankinfo,pic:pic},function (msg) {
+            if(msg == 1){
+                layer.msg("添加成功");
+                setTimeout(function () {
+                    window.location.href = location.href;
+                },500);
+            }else if(msg == 2){
+                layer.msg("数据重复");
+            }else{
+                layer.msg("添加失败");
+            }
+        },"json");
+
+    }
+
+    function del(id) {
+        $.post("/uc/delpayment",{id:id},function(msg){
+            if(msg == 1){
+                layer.msg("删除成功");
+                setTimeout(function () {
+                    window.location.href = location.href;
+                },500);
+            }else{
+                layer.msg("删除失败");
+            }
+        });
+    }
+</script>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta data-n-head="true" data-hid="format-detection" name="format-detection" content="telephone=no">
+    <meta data-n-head="true" http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta data-n-head="true" name="renderer" content="webkit">
+    <title><?=$system['system']?>-我的资产</title>
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/public/css/commonHead.css">
+    <link rel="stylesheet" href="/public/css/index1.css">
+    <!-- 当前页面内容样式 -->
+    <link rel="stylesheet" href="/public/css/assetsIndex.css">
+</head>
+
+<body class="scroll">
+    <div id="app">
+        <div class="box">
+            <?php load_view("inc/nav");?>
+            <!-- 合约账户 -->
+            <div class="account contractAccount">
+                <div class="topcontent ft20 fColor1"><span>资产</span></div>
+                <?php load_view("inc/uc");?>
+                <div class="rightcontent contentBK">
+                    <!--币币 -->
+                    <div>
+                        <div class="header fColor1">
+                            <p class="fl">币币账户：</p>
+                            <p class="fr right_text rightBut"><span>提币地址管理</span></p>
+                        </div>
+                        <div class="content fColor1 ft12">
+                            <div class="content_top flex alcenter fColor2">
+                                <p class="flex1 tc">币种<i></i></p>
+                                <p class="flex1 tc">总数</p>
+                                <p class="flex1 tc">可用</p>
+                                <p class="flex1 tc">冻结</p>
+                                <p class="flex1 tc">折合(CNY)</p>
+                                <p class="flex1 tc">操作</p>
+                            </div>
+                            <ul class="content_ul">
+                                <?php foreach ($coin as $k=>$v): ?>
+                                <li class="li">
+                                    <div class="content_li flex alcenter between">
+                                        <!-- 币种部分 -->
+                                        <p class="flex1 tc"><?=$v['type']?></p>
+                                        <p class="flex1 tc"><?=$v['num']?></p>
+                                        <p class="flex1 tc"><?=$v['available_balance']?></p>
+                                        <p class="flex1 tc"><?=$v['freeze_balance']?></p>
+                                        <p class="flex1 tc">0.00</p>
+                                        <p class="flex1 tc operation" data-id="<?=$k?>">
+                                            <span>充币</span>
+                                            <span>提币</span>
+                                            <span>记录</span>
+                                        </p>
+                                    </div>
+
+                                    <div class="hide_div" style="display: none;">
+                                        <!-- 点击充币 -->
+                                        <div class="boxCon">
+                                            <p class="fColor2 ft12">充币地址</p>
+                                            <div class="mt50 mb50 clearfix">
+                                                <img class="fl" style="width: 120px;height: 120px;display: block;" src="<?=$qrcode?>" alt="">
+                                                <div class="fl">
+                                                    <div>
+                                                        <textarea cols="20" rows="10" readonly="readonly" id="biao1" class="copy ft14" style="border-radius: 5px;margin: 13px 0 27px 20px;padding: 10px;
+                                            background: #fff;resize:none;height: 42px;width: 600px;font-family: none;"><?=$v['address']?></textarea>
+                                                    </div>
+                                                    <span id="copy" class="copy ft14 activeTap" onClick="copyUrl2()" style="border-radius: 5px;margin-top: 20px;margin-left: 20px;padding: 10px;background: #fff;">复制</span>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <p class="ft12 fColor2 mb50">
+                                                    查看
+                                                    <span class="excharge_record">充币记录</span>跟踪状态
+                                                </p>
+                                            </div>
+                                            <p class="ft12 fColor2 mb15">温馨提示</p>
+                                            <ul class="tips_ul ft12 fColor2" style="list-style: disc inside;">
+                                                <li class="tips_li" style="list-style: disc inside;">请勿向上述地址充值任何非<?=$v['type']?>资产，否则资产将不可找回。</li>
+                                            </ul>
+                                        </div>
+                                        <!-- 点击提币 -->
+                                        <div class="boxCon" style="display: none;">
+                                            <p class="fColor2 ft12 mb15">提币地址</p>
+                                            <input type="text" class="address_inp fColor1 mb30 address" list="addresslist">
+                                            <datalist id="addresslist">
+                                                <?php foreach($v['withdraw_address'] as $ks=>$v1): ?>
+                                                    <option value="<?=$v1['address']?>"><?=$v1['address']?></option>
+                                                <?php endforeach; ?>
+                                            </datalist>
+                                            <p class="fColor2 ft12 mb15 flex between alcenter">
+                                                <span>数量</span>
+                                                <span>可用：<span class="use_num"><?=$v['available_balance']?></span><span><?=$v['type']?></span></span>
+                                            </p>
+                                            <label class="num_lab flex between mb30">
+                                                <input type="number" onkeyup="linkage(this)" placeholder="最小提币数量0.00" class="fColor1" style="padding: 0;" min="0">
+                                                <span><?=$v['type']?></span>
+                                            </label>
+                                            <div class="flex mb50">
+                                                <div class="left_inp_wrap flex1">
+                                                    <p class="fColor2 ft12 mb15"><span>手续费</span> <span>3%</span></p>
+                                                    <label class="range_lab flex alcenter between"><span>0.00</span> <span><?=$v['type']?></span></label>
+                                                </div>
+                                                <div class="right_inp_wrap flex1">
+                                                    <p class="mb15"><span class="fColor2 ft12">到账数量</span></p>
+                                                    <label class="get_lab flex alcenter between"><span>0.00</span> <span><?=$v['type']?></span></label>
+                                                </div>
+                                            </div>
+                                            <div class="flex">
+                                                <div class="flex2">
+                                                    <p class="ft12 fColor2 mb15">温馨提示</p>
+                                                    <ul class="tips_ul ft12 fColor2" style="list-style: disc inside;">
+                                                        <li class="tips_li" style="list-style: disc inside;">请勿向上述地址充值任何非<?=$v['type']?>资产，否则资产将不可找回。</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="flex1 tc"><button class="withdraw_btn activeTap" onclick="send(this,'<?=$v['type']?>')">提币</button></div>
+                                            </div>
+                                        </div>
+                                        <!-- 点击记录 -->
+                                        <div class="rec-box boxCon" style="display: none;">
+                                            <div class="rec-con">
+                                                <div class="rec-title"><span>数量000  </span> <span>记录</span> <span>时间</span></div>
+                                                <ul class="rec-list">
+                                                    <li><span>10000.00</span> <span>后台调节合约账户余额:SASAS</span> <span>2020-04-08 13:46:44</span></li>
+                                                    <li><span>10000.00</span> <span>后台调节合约账户余额:</span> <span>2020-04-08 13:46:12</span></li>
+                                                    <li><span>10000.00</span> <span>后台调节合约账户余额:</span> <span>2020-04-08 13:45:26</span></li>
+                                                    <li><span>10000.00</span> <span>后台调节法币账户余额:</span> <span>2020-04-08 13:45:02</span></li>
+                                                </ul>
+                                                <p class="more">加载更多</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--合约 -->
+                    <div>
+                        <div class="header fColor1">
+                            <p class="fl">合约账户：</p>
+                        </div>
+                        <div class="content fColor1 ft12">
+                            <div class="content_top flex alcenter fColor2">
+                                <p class="flex1 tc">BTC</p>
+                                <p class="flex1 tc">USDT</p>
+                                <p class="flex1 tc">ETH</p>
+                                <p class="flex1 tc">LBTH</p>
+                                <p class="flex1 tc">&nbsp;</p>
+                            </div>
+                            <ul class="content_ul">
+                                <li class="li">
+                                    <div class="content_li flex alcenter between">
+                                        <!-- 币种部分 -->
+                                        <p class="flex1 tc"><?=$heyue['btc']?></p>
+                                        <p class="flex1 tc"><?=$heyue['usdt']?></p>
+                                        <p class="flex1 tc"><?=$heyue['eth']?></p>
+                                        <p class="flex1 tc"><?=$heyue['lbth']?></p>
+                                        <p class="flex1 tc">&nbsp;</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--杠杆 -->
+                    <div>
+                        <div class="header fColor1">
+                            <p class="fl">杠杆账户：</p>
+                        </div>
+                        <div class="content fColor1 ft12">
+                            <div class="content_top flex alcenter fColor2">
+                                <p class="flex1 tc">BTC</p>
+                                <p class="flex1 tc">USDT</p>
+                                <p class="flex1 tc">ETH</p>
+                                <p class="flex1 tc">LBTH</p>
+                                <p class="flex1 tc">&nbsp;</p>
+                            </div>
+                            <ul class="content_ul">
+                                <li class="li">
+                                    <div class="content_li flex alcenter between">
+                                        <!-- 币种部分 -->
+                                        <p class="flex1 tc"><?=$ganggan['BTC_balance']?></p>
+                                        <p class="flex1 tc"><?=$ganggan['balance']?></p>
+                                        <p class="flex1 tc"><?=$ganggan['ETH_balance']?></p>
+                                        <p class="flex1 tc"><?=$ganggan['LBTH_balance']?></p>
+                                        <p class="flex1 tc">&nbsp;</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--法币 -->
+                    <div>
+                        <div class="header fColor1">
+                            <p class="fl">法币账户：</p>
+                        </div>
+                        <div class="content fColor1 ft12">
+                            <div class="content_top flex alcenter fColor2">
+                                <p class="flex1 tc">CNY</p>
+                                <p class="flex1 tc">USD</p>
+                                <p class="flex1 tc">&nbsp;</p>
+                                <p class="flex1 tc">&nbsp;</p>
+                                <p class="flex1 tc">&nbsp;</p>
+                            </div>
+                            <ul class="content_ul">
+                                <li class="li">
+                                    <div class="content_li flex alcenter between">
+                                        <!-- 币种部分 -->
+                                        <p class="flex1 tc"><?=$fabi['reb_cash']?></p>
+                                        <p class="flex1 tc"><?=$fabi['my_cash']?></p>
+                                        <p class="flex1 tc">&nbsp;</p>
+                                        <p class="flex1 tc">&nbsp;</p>
+                                        <p class="flex1 tc">&nbsp;</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 提币地址管理 -->
+            <div class="account withdrawalAddress" style="display: none;">
+                <div class="topcontent ft20 ">
+                    <span class="white"><span class="baseColor">资产&gt;</span> 提币地址管理</span>
+                    <span class="white fr butReturn">&lt;&lt;返回</span>
+                </div>
+                <div class="content">
+                    <div>
+                        <div class="contentBK fColor1  pdlr20 pdtb20 ft12">
+                            <div class="flex alcenter">
+                                <span class="w10 mr20">币种</span>
+                                <span class="flex1 mr20">提币地址</span>
+                                <span class="flex1">备注</span></div>
+                            <div class="mt10">
+                                <div class="flex alcenter">
+                                    <select name="currency" id="currency" class="w10 mr20 ">
+                                        <option value="币种">币种</option>
+                                        <?php foreach($coin as $k2=>$v2): ?>
+                                        <option value="<?=$v2['type']?>"><?=$v2['type']?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <input id="address" placeholder="请输入提币地址" class="flex1 mr20">
+                                    <input id="remarks" placeholder="请输入备注" type="text" class="flex1 "></div>
+                                <div class="add">
+                                    <div class="baseBtn activeTap">添加</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" mt15">
+                        <div class="account_title ttBk white flex">
+                            <div class="ml20">地址列表</div>
+                        </div>
+                        <div class="contentBK fColor1  pdlr20 pdtb20 ft12">
+                            <div class="flex alcenter">
+                                <span class="flex1">币种</span>
+                                <span class="flex1">提币地址</span>
+                                <span class="flex1">备注</span>
+                                <span class="flex1">操作</span>
+                            </div>
+                            <div class="mt10">
+                                <?php foreach($withdraw_address as $k3=>$v3): ?>
+                                    <div class="flex alcenter" style="margin-top: 10px;">
+                                        <span class="flex1"><?=$v3['currency']?></span>
+                                        <span class="flex1"><?=$v3['address']?></span>
+                                        <span class="flex1"><?=$v['remarks']?></span>
+                                        <span class="flex1 delete" style="cursor: pointer;" data-index="<?=$k3?>">删除</span>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="layui-layer-move"></div>
+</body>
+
+</html>
+<script type="text/javascript" src="/public/js/public.js"></script>
+<script type="text/javascript" src="/public/layer/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/public/layer/layer.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $(".content_ul").on("click", "li div .operation span", function() {
+            var id = Number($(this).parent().attr("data-id"));
+            var _index = $(this).index();
+            $(".content_ul .li .hide_div").hide();
+            $(".content_ul .li .hide_div .boxCon").hide();
+            $(".content_ul .li").eq(id).children(".hide_div").show();
+            $(this).parent().parent().next('div').find(".boxCon").eq(_index).show();
+        });
+        $(".mt10").on("click", ".alcenter .delete", function() {
+            var _index = $(this).attr("data-index");
+            var that = $(this);
+            ajax_http("post","/uc/deladdress",jsonstr,function (msg) {
+                if(msg == 1){
+                    layer.msg("删除成功");
+                    that.parent().remove();
+                }else{
+                    layer.msg("删除失败");
+                }
+            });
+        });
+        $(".rightBut").click(function() {
+            $(".contractAccount").hide();
+            $(".withdrawalAddress").show();
+        });
+        $(".butReturn").click(function() {
+            $(".contractAccount").show();
+            $(".withdrawalAddress").hide();
+        });
+        $(".baseBtn").click(function () {
+            var currency = $("#currency").val();
+            if(currency == '币种'){
+                layer.msg("请选择对应币种");
+                return false;
+            }
+            var address = $("#address").val();
+            if(address == '' || address.slice(0,2) != '0x'){
+                layer.msg("请填写提币地址");
+                return false;
+            }
+            var remarks = $("#remarks").val();
+            var jsonstr = {
+                currency:currency,
+                address:address,
+                remarks:remarks
+            };
+            ajax_http("post","/uc/editaddress",jsonstr,function (msg) {
+                if(msg == 1){
+                    layer.msg("添加成功");
+                }else{
+                    layer.msg("添加失败");
+                }
+            });
+        });
+    })
+
+
+    function copyUrl2() {
+        var Url2 = document.getElementById("biao1");
+        Url2.select();
+        document.execCommand("Copy");
+        layer.msg("复制成功");
+    }
+
+    function linkage(tag) {
+        var input_num = parseFloat(tag.value);
+        var totalNode = parseFloat(tag.parentNode.previousSibling.previousSibling.childNodes[3].childNodes[1].innerText);
+        if(input_num > totalNode){
+            layer.msg('当前提现金额大于可用余额！');
+        }else if(input_num <= 0){
+            layer.msg('当前提现金额需要大于0！');
+        }else{
+            var feeNode = input_num * 0.003;
+            tag.parentNode.nextSibling.nextSibling.childNodes[1].childNodes[3].childNodes[0].innerText = feeNode;
+            var numNode = input_num - feeNode;
+            tag.parentNode.nextSibling.nextSibling.childNodes[3].childNodes[3].childNodes[0].innerText = numNode;
+        }
+    }
+    
+    function send(tag,type) {
+        var numNode = tag.parentNode.parentNode.previousSibling.previousSibling.childNodes[1].childNodes[3].childNodes[0].innerText;
+        var input_num = tag.parentNode.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.childNodes[1].value;
+        var address = tag.parentNode.parentNode.parentNode.childNodes[3].value;
+        var pass = prompt("请输入交易密码");
+        var str = {
+            pass:pass,
+            input_num:input_num,
+            numNode:numNode,
+            type:type,
+            address:address
+        };
+        ajax_http("post","/uc/withdraw",str,function (msg) {
+             if(msg == 2){
+                 layer.msg("请设置交易密码");
+             }else if(msg == 0){
+                 layer.msg("交易密码错误");
+             }else{
+                 layer.msg("交易成功");
+             }
+        });
+    }
+</script>

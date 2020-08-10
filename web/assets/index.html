@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta data-n-head="true" data-hid="format-detection" name="format-detection" content="telephone=no">
+    <meta data-n-head="true" http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta data-n-head="true" name="renderer" content="webkit">
+    <title>我的资产</title>
+    <link rel="icon" type="image/x-icon" href="../imgae/anzhuo.png">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/commonHead.css">
+    <link rel="stylesheet" href="../css/index1.css">
+    <!-- 当前页面内容样式 -->
+    <link rel="stylesheet" href="./assetsIndex.css">
+</head>
+
+<body class="scroll">
+    <div id="app">
+        <div class="box">
+            <div style="border-bottom: 2px solid #131625">
+                <!-- 导航栏部分 -->
+                <div class="nav_bar">
+                    <div class="content clear" style="height: 60px;">
+                        <div class="fl" style="color: #FE6600;font-weight: bold;font-size: 26px;">
+                            霸王
+                            <!-- <img src="./imgae/logo.0ef4895.png" class="navbar-logo" style="width: 150px; position: relative; top: -2px;"> -->
+                        </div>
+                        <!-- 导航栏 -->
+                        <ul class="navbar-item fl mouseDefault ml20">
+                            <!-- router-link-exact-active router-link-active -->
+                            <li class="base"><a href="../index.html" class="">首页</a></li>
+                            <li class="base"><a href="../transaction/index.html" class="">法币交易</a></li>
+                            <li class="base"><a href="javascript:;" class="">合约交易</a></li>
+                            <li class="base"><a href="../assets/index.html" class="router-link-active">我的资产</a></li>
+                            <li class="base"><a href="../notice/index.html" class="">帮助中心</a></li>
+                            <li class="base downapp">APP下载
+                                <!--  style="display: none;" -->
+                                <div class="appcode tl"><span></span>
+                                    <div class="app-left">
+                                        <p class="code">
+                                            <img src="../imgae/anzhuo.png" alt="haha"></p>
+                                        <p class="texts">扫码下载</p>
+                                    </div>
+                                    <div class="app-right">
+                                        <a href="http://heyue.longbasz.cn/dist/#">
+                                            <b><img src="../imgae/ios.png" alt=""></b>
+                                            <p class="texts"><img alt="">扫码下载</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- 用户登录状态 -->
+                        <div class="fr">
+                            <div class="account-box fl positionR curPer flex">
+                                <div class="msg_wrap">
+                                    <div class="account_login fColor1 fl">
+                                        <img src="../../public/imgae/setUp1.png" alt="" class="icon_img">
+                                        <span>136****8801</span>
+                                        <img src="../../public/imgae/setUp2.png" alt="">
+                                    </div>
+                                </div>
+                                <!--style="display: none;"-->
+                                <div class="account-choose mine ft14 fColor1">
+                                    <p class="curPer">
+                                        <img src="../../public/imgae/setUp1.png" alt="">
+                                        <img src="../../public/imgae/setUp2.png" alt="">
+                                        <span>账户设置</span></p>
+                                    <p class="curPer">
+                                        <img src="../../public/imgae/news1.png" alt="">
+                                        <img src="../../public/imgae/news2.png" alt="">
+                                        <span>交易日志</span>
+                                    </p>
+                                    <p class="curPer">
+                                        <img src="../../public/imgae/setUp1.png" alt="">
+                                        <img src="../../public/imgae/setUp2.png" alt="">
+                                        <span>收款设置</span></p>
+                                    <p class="curPer">
+                                        <img src="../../public/imgae/identity1.png" alt="">
+                                        <img src="../../public/imgae/identity2.png" alt="">
+                                        <span>身份认证</span></p>
+                                    <p class="curPer">
+                                        <img src="../../public/imgae/signIn1.png" alt="">
+                                        <img src="../../public/imgae/signIn1.png" alt="">
+                                        <span>退出登录</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 选择语法 -->
+                        <div class="fr language">
+                            <div class="account-box fl positionR curPer flex">
+                                <div class="msg_wrap">
+                                    <div class="account_login fColor1 fl">
+                                        <img src="../imgae/china.png" alt="" class="icon_img">
+                                        <span>简体中文</span>
+                                    </div>
+                                </div>
+                                <!--style="display: none;"-->
+                                <div class="account-choose mine ft14 fColor1">
+                                    <p class="curPer">
+                                        <img src="../imgae/Britain.png" alt="">
+                                        <span>English</span>
+                                    </p>
+                                    <p class="curPer">
+                                        <img src="../imgae/korea.png" alt="">
+                                        <span>韩语</span></p>
+                                    <p class="curPer">
+                                        <img src="../imgae/spain.png" alt="">
+                                        <span>西班牙</span>
+                                    </p>
+                                    <p class="curPer">
+                                        <img src="../imgae/italy.png" alt="">
+                                        <span>意大利</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 注册 登录 -->
+                        <div class="fr" style="color: #A8A4B5;font-size: 15px;margin-right: 20px;"><a href="../login/register.html" style="display: block;">&nbsp;注册</a></div>
+                        <div class="fr" style="color: #A8A4B5;font-size: 15px;"><a href="../login/login.html" style="display: block;">登录 丨 </a></div>
+                    </div>
+                </div>
+            </div>
+            <!-- 合约账户 -->
+            <div class="account contractAccount">
+                <div class="topcontent ft20 fColor1"><span>资产</span></div>
+                <div class="leftcontent contentBK">
+                    <div class="leftNav ft14">
+                        <ul class="fColor1">
+                            <li class="active">
+                                <a href="javascript:;" style="display: block;">
+                                    <img src="../imgae/contractAccount1.png">
+                                    <span>合约账户</span>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="./legalCurrencyIndex.html" style="display: block;">
+                                    <img src="../imgae/contractAccount2.png">
+                                    <span>法币账户</span>
+                                </a>
+
+                            </li>
+                            <li class="">
+                                <a href="./capitalIndex.html" style="display: block;">
+                                    <img src="../imgae/transferFunds2.png">
+                                    <span>资金划转</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="rightcontent contentBK">
+                    <div>
+                        <div class="header fColor1">
+                            <p class="fl">
+                                总资产折合：
+                                <!-- data-v-67f8e012="" class="asset_num" -->
+                                <span></span>205572.00</span> <span>CNY</span></p>
+                            <!-- class="address" -->
+                            <p class="fr right_text rightBut"><span>提币地址管理</span></p>
+                        </div>
+                        <div class="content fColor1 ft12">
+                            <div class="content_top flex alcenter fColor2">
+                                <p class="flex1 tc">
+                                    币种
+                                    <i></i></p>
+                                <p class="flex1 tc">可用</p>
+                                <p class="flex1 tc">冻结</p>
+                                <p class="flex1 tc">折合(CNY)</p>
+                                <p class="flex1 tc">操作</p>
+                            </div>
+                            <ul class="content_ul">
+                                <li class="li">
+                                    <div class="content_li flex alcenter between">
+                                        <!-- 币种部分 -->
+                                        <p class="flex1 tc">BTC</p>
+                                        <p class="flex1 tc">0.00</p>
+                                        <p class="flex1 tc">0.00</p>
+                                        <p class="flex1 tc">0.00</p>
+                                        <p class="flex1 tc operation" data-id="0">
+                                            <span>充币</span>
+                                            <span>提币</span>
+                                            <span>记录</span>
+                                        </p>
+                                    </div>
+
+                                    <div class="hide_div" style="display: none;">
+                                        <!-- 点击充币 -->
+                                        <div class="boxCon">
+                                            <p class="fColor2 ft12">000充币地址000</p>
+                                            <div class="mt50 mb50 clearfix">
+                                                <img class="fl" style="width: 120px;height: 120px;display: block;" src="../../public/imgae/anzhuo.png" alt="">
+                                                <div class="fl">
+                                                    <div>
+                                                        <textarea cols="20" rows="10" readonly="readonly" id="biao1" class="copy ft14" style="border-radius: 5px;margin: 13px 0 27px 20px;padding: 10px;
+                                            background: #fff;resize:none;height: 42px;width: 600px;font-family: none;">http://img5.imgtn.bdimg.com/it/u=188011183,316237456&fm=26&gp=0.jpg</textarea>
+                                                    </div>
+                                                    <span id="copy" class="copy ft14" onClick="copyUrl2()" style="border-radius: 5px;margin-top: 20px;margin-left: 20px;padding: 10px;background: #fff;">复制</span>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <p class="ft12 fColor2 mb50">
+                                                    查看
+                                                    <span class="excharge_record">充币记录</span>跟踪状态
+                                                </p>
+                                            </div>
+                                            <p class="ft12 fColor2 mb15">温馨提示</p>
+                                            <ul class="tips_ul ft12 fColor2" style="list-style: disc inside;">
+                                                <li class="tips_li" style="list-style: disc inside;">
+                                                    请勿向上述地址充值任何非USDT资产，否则资产将不可找回。</li>
+                                                <li class="tips_li" style="list-style: disc inside;">USDT充币仅支持simple send的方法，使用其他方法（send all）的充币暂时无法上账，请您谅解。</li>
+                                            </ul>
+                                        </div>
+                                        <!-- 点击提币 -->
+                                        <div class="boxCon" style="display: none;">
+                                            <p class="fColor2 ft12 mb15">提币地址00</p>
+                                            <input type="text" class="address_inp fColor1 mb30">
+                                            <p class="fColor2 ft12 mb15 flex between alcenter">
+                                                <span>数量</span>
+                                                <span>可用：<span class="use_num">0.00</span>BTC<span></span></span>
+                                            </p>
+                                            <label class="num_lab flex between mb30"><input type="text" placeholder="最小提币数量0.00" class="fColor1"> <span>BTC</span></label>
+                                            <div class="flex mb50">
+                                                <div class="left_inp_wrap flex1">
+                                                    <p class="fColor2 ft12 mb15"><span>手续费</span> <span>0.00%</span></p> <label class="range_lab flex alcenter between"><span>0.00</span> <span>BTC</span></label>
+                                                </div>
+                                                <div class="right_inp_wrap flex1">
+                                                    <p class="mb15"><span class="fColor2 ft12">到账数量</span></p>
+                                                    <label class="get_lab flex alcenter between"><span>0.00</span> <span>BTC</span></label>
+                                                </div>
+                                            </div>
+                                            <div class="flex">
+                                                <div class="flex2">
+                                                    <p class="ft12 fColor2 mb15">温馨提示</p>
+                                                    <ul class="tips_ul ft12 fColor2" style="list-style: disc inside;">
+                                                        <li class="tips_li" style="list-style: disc inside;">
+                                                            请勿向上述地址充值任何非USDT资产，否则资产将不可找回。</li>
+                                                        <li class="tips_li" style="list-style: disc inside;">USDT充币仅支持simple send的方法，使用其他方法（send all）的充币暂时无法上账，请您谅解。</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="flex1 tc"><button class="withdraw_btn">提币</button></div>
+                                            </div>
+                                        </div>
+                                        <!-- 点击记录 -->
+                                        <div class="rec-box boxCon" style="display: none;">
+                                            <div class="rec-con">
+                                                <div class="rec-title"><span>数量000  </span> <span>记录</span> <span>时间</span></div>
+                                                <ul class="rec-list">
+                                                    <li><span>10000.00</span> <span>后台调节合约账户余额:SASAS</span> <span>2020-04-08 13:46:44</span></li>
+                                                    <li><span>10000.00</span> <span>后台调节合约账户余额:</span> <span>2020-04-08 13:46:12</span></li>
+                                                    <li><span>10000.00</span> <span>后台调节合约账户余额:</span> <span>2020-04-08 13:45:26</span></li>
+                                                    <li><span>10000.00</span> <span>后台调节法币账户余额:</span> <span>2020-04-08 13:45:02</span></li>
+                                                </ul>
+                                                <p class="more">加载更多</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="li">
+                                    <div class="content_li flex alcenter between">
+                                        <!-- 币种部分 -->
+                                        <p class="flex1 tc">BTC</p>
+                                        <p class="flex1 tc">0.00</p>
+                                        <p class="flex1 tc">0.00</p>
+                                        <p class="flex1 tc">0.00</p>
+                                        <p class="flex1 tc operation" data-id="1">
+                                            <span>充币</span>
+                                            <span>提币</span>
+                                            <span>记录</span>
+                                        </p>
+                                    </div>
+
+                                    <div class="hide_div hide_div1" style="display: none;">
+                                        <!-- 点击充币 -->
+                                        <div class="boxCon">
+                                            <p class="fColor2 ft12">11111充币地址1111</p>
+                                            <div class="mt50 mb50 clearfix">
+                                                <img class="fl" style="width: 120px;height: 120px;display: block;" src="../../public/imgae/anzhuo.png" alt="">
+                                                <div class="fl">
+                                                    <div>
+                                                        <textarea cols="20" rows="10" readonly="readonly" id="biao1" class="copy ft14" style="border-radius: 5px;margin: 13px 0 27px 20px;padding: 10px;
+                                              background: #fff;resize:none;height: 42px;width: 600px;font-family: none;">http://img5.imgtn.bdimg.com/it/u=188011183,316237456&fm=26&gp=0.jpg</textarea>
+                                                    </div>
+                                                    <span id="copy" class="copy ft14" onClick="copyUrl2()" style="border-radius: 5px;margin-top: 20px;margin-left: 20px;padding: 10px;background: #fff;">复制</span>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <p class="ft12 fColor2 mb50">
+                                                    查看
+                                                    <span class="excharge_record">充币记录</span>跟踪状态
+                                                </p>
+                                            </div>
+                                            <p class="ft12 fColor2 mb15">温馨提示</p>
+                                            <ul class="tips_ul ft12 fColor2" style="list-style: disc inside;">
+                                                <li class="tips_li" style="list-style: disc inside;">
+                                                    请勿向上述地址充值任何非USDT资产，否则资产将不可找回。</li>
+                                                <li class="tips_li" style="list-style: disc inside;">USDT充币仅支持simple send的方法，使用其他方法（send all）的充币暂时无法上账，请您谅解。</li>
+                                            </ul>
+                                        </div>
+                                        <!-- 点击提币 -->
+                                        <div class="boxCon" style="display: none;">
+                                            <p class="fColor2 ft12 mb15">提币地址</p>
+                                            <input type="text" class="address_inp fColor1 mb30">
+                                            <p class="fColor2 ft12 mb15 flex between alcenter">
+                                                <span>数量</span>
+                                                <span>可用：<span class="use_num">0.00</span>BTC<span></span></span>
+                                            </p>
+                                            <label class="num_lab flex between mb30"><input type="text" placeholder="最小提币数量0.00" class="fColor1"> <span>BTC</span></label>
+                                            <div class="flex mb50">
+                                                <div class="left_inp_wrap flex1">
+                                                    <p class="fColor2 ft12 mb15"><span>手续费</span> <span>0.00%</span></p> <label class="range_lab flex alcenter between"><span>0.00</span> <span>BTC</span></label>
+                                                </div>
+                                                <div class="right_inp_wrap flex1">
+                                                    <p class="mb15"><span class="fColor2 ft12">到账数量</span></p>
+                                                    <label class="get_lab flex alcenter between"><span>0.00</span> <span>BTC</span></label>
+                                                </div>
+                                            </div>
+                                            <div class="flex">
+                                                <div class="flex2">
+                                                    <p class="ft12 fColor2 mb15">温馨提示</p>
+                                                    <ul class="tips_ul ft12 fColor2" style="list-style: disc inside;">
+                                                        <li class="tips_li" style="list-style: disc inside;">
+                                                            请勿向上述地址充值任何非USDT资产，否则资产将不可找回。</li>
+                                                        <li class="tips_li" style="list-style: disc inside;">USDT充币仅支持simple send的方法，使用其他方法（send all）的充币暂时无法上账，请您谅解。</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="flex1 tc"><button class="withdraw_btn">提币</button></div>
+                                            </div>
+                                        </div>
+                                        <!-- 点击记录 -->
+                                        <div class="rec-box boxCon" style="display: none;">
+                                            <div class="rec-con">
+                                                <div class="rec-title"><span>数量</span> <span>记录</span> <span>时间</span></div>
+                                                <ul class="rec-list">
+                                                    <li><span>10000.00</span> <span>后台调节合约账户余额:SASAS</span> <span>2020-04-08 13:46:44</span></li>
+                                                    <li><span>10000.00</span> <span>后台调节合约账户余额:</span> <span>2020-04-08 13:46:12</span></li>
+                                                    <li><span>10000.00</span> <span>后台调节合约账户余额:</span> <span>2020-04-08 13:45:26</span></li>
+                                                    <li><span>10000.00</span> <span>后台调节法币账户余额:</span> <span>2020-04-08 13:45:02</span></li>
+                                                </ul>
+                                                <p class="more">加载更多</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 提币地址管理 -->
+            <div class="account withdrawalAddress" style="display: none;">
+                <div class="topcontent ft20 ">
+                    <span class="white"><span class="baseColor">资产&gt;</span> 提币地址管理</span>
+                    <span class="white fr butReturn">&lt;&lt;返回</span>
+                </div>
+                <div class="content">
+                    <div>
+                        <div class="contentBK fColor1  pdlr20 pdtb20 ft12">
+                            <div class="flex alcenter">
+                                <span class="w10 mr20">币种</span>
+                                <span class="flex1 mr20">提币地址</span>
+                                <span class="flex1">备注</span></div>
+                            <div class="mt10">
+                                <div class="flex alcenter">
+                                    <select name="" id="" class="w10 mr20 ">
+                                        <option value="币种">币种</option> 
+                                        <option value="1">BTC</option>
+                                        <option value="2">ETH</option>
+                                        <option value="3">USDT</option>
+                                    </select>
+                                    <input placeholder="请输入提币地址" class="flex1 mr20">
+                                    <input placeholder="请输入备注" type="text" class="flex1 "></div>
+                                <div class="add">
+                                    <div class="baseBtn">添加</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" mt15">
+                        <div class="account_title ttBk white flex">
+                            <div class="ml20">地址列表</div>
+                        </div>
+                        <div class="contentBK fColor1  pdlr20 pdtb20 ft12">
+                            <div class="flex alcenter">
+                                <span class="flex1">币种</span>
+                                <span class="flex1">提币地址</span>
+                                <span class="flex1">备注</span>
+                                <span class="flex1">操作</span>
+                            </div>
+                            <div class="mt10">
+                                <div class="flex alcenter">
+                                    <span class="flex1"> ETH</span>
+                                    <span class="flex1">0x61010e9524f84879ea210eafb97fe0a0acfc6b0f</span>
+                                    <span class="flex1">imeth</span>
+                                    <span class="flex1">删除</span>
+                                </div>
+                            </div>
+                            <!---->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+    <div class="layui-layer-move"></div>
+</body>
+
+</html>
+<script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $(".content_ul").on("click", "li div .operation span", function() {
+            var id = Number($(this).parent().attr("data-id"));
+            var _index = $(this).index();
+            $(".content_ul .li .hide_div").hide();
+            $(".content_ul .li .hide_div .boxCon").hide();
+            $(".content_ul .li").eq(id).children(".hide_div").show();
+            $(this).parent().parent().next('div').find(".boxCon").eq(_index).show();
+        });
+        $(".rightBut").click(function() {
+            $(".contractAccount").hide();
+            $(".withdrawalAddress").show();
+        });
+        $(".butReturn").click(function() {
+            $(".contractAccount").show();
+            $(".withdrawalAddress").hide();
+        });
+    })
+
+    function copyUrl2() {
+        var Url2 = document.getElementById("biao1");
+        Url2.select();
+        document.execCommand("Copy");
+        alert("复制成功");
+    }
+</script>

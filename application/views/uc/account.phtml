@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta data-n-head="true" data-hid="format-detection" name="format-detection" content="telephone=no">
+    <meta data-n-head="true" http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta data-n-head="true" name="renderer" content="webkit">
+    <title><?=$system['system']?>-我的资产</title>
+    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/public/css/commonHead.css">
+    <link rel="stylesheet" href="/public/css/index1.css">
+    <!-- 当前页面内容样式 -->
+    <link rel="stylesheet" href="/public/css/assetsIndex.css">
+    <link rel="stylesheet" href="/public/css/accountIndex.css">
+    <style>
+        .contentBox {
+            display: none;
+        }
+        input{
+           color: #000 !important;
+        }
+    </style>
+</head>
+<!-- 账户入口 -->
+
+<body class="scroll">
+    <div id="app">
+        <div class="box">
+            <?php load_view("inc/nav");?>
+            <!-- 合约账户 -->
+            <div class="account">
+                <div class="topcontent ft20 fColor1"><span>资产</span></div>
+                <?php load_view("inc/uc");?>
+                <div class="rightcontent contentBK">
+                    <!-- 主体循环部分 -->
+                    <div class="SettingRight">
+                        <div class="titles">
+                            <h3 class="h3">安全设置</h3>
+                        </div>
+                        <div class="Column_Security">
+                            <div class="fl sc_status">
+                                <img src="/public/imgae/sfrzpng.png" width="45" height="45">
+                                <h3>实名认证</h3>
+                                <?php
+                                 $status = "";
+                                 $links = "";
+                                 switch ($user['authenticate']){
+                                     case 0 :
+                                         $status = "<b style='color:#7d80ba;'>未认证</b>";
+                                         $links = '<p><a class="btnson activeTap" href="/uc/authentication?lang=zh">去认证</a></p>';
+                                         break;
+                                     case 1 :
+                                         $status = "<b style='color:#7d80ba;'>初级认证-等待审核</b>";
+                                         $links = '<p><a class="btnson activeTap" href="#" style="background: #5f5f5f !important;cursor: no-drop;">升级认证</a></p>';
+                                         break;
+                                     case 2 :
+                                         $status = "<b style='color:#24D328;'>初级认证-通过</b>";
+                                         $links = '<p><a class="btnson activeTap" href="/uc/authentication?lang=zh">升级认证</a></p>';
+                                         break;
+                                     case 3 :
+                                         $status = "<b style='color:#7d80ba;'>高级认证-等待审核</b>";
+                                         $links = '<p><a class="btnson activeTap" href="#" style="background: #5f5f5f !important;cursor: no-drop;">升级认证</a></p>';
+                                         break;
+                                     case 4 :
+                                         $status = "<b style='color:#24D328;'>高级认证-通过</b>";
+                                         $links = '<p><a class="btnson activeTap" href="#" style="background: #5f5f5f !important;cursor: no-drop;">升级认证</a></p>';
+                                         break;
+                                     case 5 :
+                                         $status = "<b style='color:#FF0000;'>初级-审核失败</b>";
+                                         $links = '<p><a class="btnson activeTap" href="/uc/authentication?lang=zh">去认证</a></p>';
+                                         break;
+                                     case 6 :
+                                         $status = "<b style='color:#FF0000;'>高级-审核失败</b>";
+                                         $links = '<p><a class="btnson activeTap" href="/uc/authentication?lang=zh">升级认证</a></p>';
+                                         break;
+                                 }
+                                ?>
+                                <p><?=$status?></p>
+                                <?=$links?>
+                            </div>
+                            <div class="fl sc_status">
+                                <img src="/public/imgae/pass.png" width="45" height="45">
+                                <h3>登录密码</h3>
+                                <p>用于登录您的账号，请保存好登录密码</p>
+                                <p><a class="btns addPassword activeTap">修改</a></p>
+                            </div>
+                            <div class="fl sc_status">
+                                <img src="/public/imgae/paypass.png" width="45" height="45">
+                                <h3>交易密码</h3>
+                                <p>账户资金变动时，需先验证交易密码</p>
+                                <p><a class="btns addTransaction activeTap"><?=($user['transaction_password'] == null)?"设置":"修过"?></a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 弹出层统一背景 -->
+                    <div class="contentBack" style="display: none;"></div>
+                    <!-- 弹出修改密码 -->
+                    <div class="loginBox" style="display: none;">
+                        <div class="box-page box-back ">
+                            <div id="" class="box-content">
+                                <div class="float_win_pay">
+                                    <div class="tan_title">
+                                        <h4>修改登录密码</h4>
+                                        <!--  onclick="transactionBtn();" -->
+                                        <span class="close-btn closeTransaction">x</span>
+                                    </div>
+                                    <div class="payment_content">
+                                        <ul>
+                                            <li>
+                                                <span class="label-1">旧登录密码</span>
+                                                <input type="password" id="oldpaypassword" class="input-1 usedPass1">
+                                            </li>
+                                            <li>
+                                                <span class="label-1">新登录密码</span>
+                                                <input type="password" id="newpaypassword" class="input-1 newPass1">
+                                            </li>
+                                            <li>
+                                                <span class="label-1">确认登录密码</span>
+                                                <input type="password" id="repaypassword" class="input-1 confirmPass1">
+                                            </li>
+                                            <li style="margin-top:30px;">
+                                                <a href="javascript:void(0)" class="btns loginPassword activeTap">确认</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- 弹出交易密码 -->
+                    <div class="transactionBox" style="display: none;">
+                        <div class="box-page box-back ">
+                            <div id="" class="box-content">
+                                <div class="float_win_pay">
+                                    <div class="tan_title">
+                                        <h4><?=($user['transaction_password'] == null)?"设置":"修过"?>交易密码</h4>
+                                        <!--  onclick="transactionBtn();" -->
+                                        <span class="close-btn closeTransaction">x</span>
+                                    </div>
+                                    <div class="payment_content">
+                                        <ul>
+                                            <li style="display: <?=($user['transaction_password'] == null)?"none":"block"?>">
+                                                <span class="label-1">旧交易密码</span>
+                                                <input type="password" id="oldpaypassword" class="input-1 usedPass">
+                                            </li>
+                                            <li>
+                                                <span class="label-1">新交易密码</span>
+                                                <input type="password" id="newpaypassword" class="input-1 newPass">
+                                            </li>
+                                            <li>
+                                                <span class="label-1">确认交易密码</span>
+                                                <input type="password" id="repaypassword" class="input-1 confirmPass">
+                                            </li>
+                                            <li style="margin-top:30px;">
+                                                <a href="javascript:void(0)" class="btns activeTap <?=($user['transaction_password'] == null)?"UpPaypasswordNews":"UpPaypassword"?> ">确认</a>
+                                            </li>
+                                            <li>
+                                                <p class="forget tc"><a href="#">忘记交易密码？</a></p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="layui-layer-move"></div>
+</body>
+</html>
+<script type="text/javascript" src="/public/js/public.js"></script>
+<script type="text/javascript" src="/public/layer/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/public/layer/layer.js"></script>
+<script type="text/javascript">
+    $(function() {
+        // 点击显示修改登录密码
+        $(".addPassword").click(function() {
+            $(".loginBox").show();
+            $(".contentBack").show();
+        });
+        $(".addPassword").click(function() {
+            $(".loginBox").show();
+            $(".contentBack").show();
+        });
+        // 点击显示修改交易模板
+        $(".addTransaction").click(function() {
+            $(".transactionBox").show();
+            $(".contentBack").show();
+        });
+        // 点击显示关闭交易模板
+        $('.closeTransaction,.contentBack').click(function() {
+            // console.log("111")
+            $(".transactionBox").hide();
+            $(".contentBack").hide();
+            // $(".addPassword").hide();
+            $(".loginBox").hide()
+        });
+        // 创建交易密码
+        $(".UpPaypasswordNews").click(function() {
+            var newPass = $(".newPass").val(); //新交易密码
+            var confirmPass = $(".confirmPass").val(); //确认交易密码
+            if (newPass == "") {
+                layer.msg('新交易密码不能是空');
+                return
+            } else if (confirmPass == "") {
+                layer.msg('确认交易密码不能是空');
+                return
+            } else if (newPass != confirmPass) {
+                layer.msg('确认交易密码与新交易密码不一致');
+                return
+            }
+            ajax_http("post","/uc/paypassword",{type:'add',pass:confirmPass},function (msg) {
+                if(msg == 1){
+                    layer.msg("创建成功");
+                    setTimeout(()=> location.reload(),1000);
+                }else{
+                    layer.msg("创建失败");
+                }
+            });
+        });
+        // 提交修改交易密码
+        $(".UpPaypassword").click(function() {
+            var usedPass = $(".usedPass").val(); //旧交易密码
+            var newPass = $(".newPass").val(); //新交易密码
+            var confirmPass = $(".confirmPass").val(); //确认交易密码
+            //console.log(usedPass, newPass, confirmPass, "交易")
+            if (usedPass == "") {
+                console.log('旧交易密码不能是空');
+                return
+            } else if (newPass == "") {
+                console.log('新交易密码不能是空');
+                return
+            } else if (confirmPass == "") {
+                console.log('确认交易密码不能是空');
+                return
+            } else if (newPass != confirmPass) {
+                console.log('确认交易密码与新交易密码不一致');
+                return
+            }
+            ajax_http("post","/uc/paypassword",{type:'edit',pass:confirmPass,locapass:usedPass},function (msg) {
+                if(msg == 1){
+                    layer.msg("修改成功");
+                    setTimeout(()=> location.reload(),1000);
+                }else if(msg == 2){
+                    layer.msg("旧交易密填写错误");
+                }else{
+                    layer.msg("修改失败");
+                }
+            });
+        });
+        // 提交修改登录密码
+        $(".loginPassword").click(function() {
+            var usedPass = $(".usedPass1").val(); //旧登录密码
+            var newPass = $(".newPass1").val(); //新登录密码
+            var confirmPass = $(".confirmPass1").val(); //确认登录密码
+            if (usedPass == "") {
+                layer.msg('旧登录密码不能是空');
+                return
+            } else if (newPass == "") {
+                layer.msg('新登录密码不能是空');
+                return
+            } else if (confirmPass == "") {
+                layer.msg('确认登录不能是空');
+                return
+            } else if (newPass != confirmPass) {
+                layer.msg('新登录密码与确认登录密码不一致');
+                return
+            }
+            ajax_http("post","/uc/editpass",{pass:confirmPass,locapass:usedPass},function (msg) {
+                if(msg == 1){
+                    layer.msg("修改成功");
+                    setTimeout(()=> location.reload(),1000);
+                }else if(msg == 2){
+                    layer.msg("旧密填写错误");
+                }else{
+                    layer.msg("修改失败");
+                }
+            });
+        });
+    })
+</script>

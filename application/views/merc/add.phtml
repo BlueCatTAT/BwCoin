@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>网站设置</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="/public/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/public/layuiadmin/style/admin.css" media="all">
+</head>
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">系统设置</div>
+                <div class="layui-card-body" pad15>
+                    <div class="layui-form" wid100 lay-filter="">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">代理商账号</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="username" lay-verify="required" placeholder="请输入代理商账号" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">代理商姓名</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="name" lay-verify="required" placeholder="请输入代理商姓名" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">代理商密码</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="password" lay-verify="required" placeholder="请输入代理商密码" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">代理商等级</label>
+                            <div class="layui-input-block">
+                                <select name="rating" lay-filter="rating">
+                                    <?php if($rating == 0 ): ?>
+                                    <option value="0">--请选择--</option>
+                                    <option value="1">一级代理商</option>
+                                    <option value="2">二级代理商</option>
+                                    <option value="3">三级代理商</option>
+                                    <option value="4">四级代理商</option>
+                                    <option value="5">五级代理商</option>
+                                    <?php elseif($rating == 1 ): ?>
+                                    <option value="0">--请选择--</option>
+                                    <option value="2">二级代理商</option>
+                                    <option value="3">三级代理商</option>
+                                    <option value="4">四级代理商</option>
+                                    <option value="5">五级代理商</option>
+                                    <?php elseif($rating == 2 ): ?>
+                                    <option value="0">--请选择--</option>
+                                    <option value="3">三级代理商</option>
+                                    <option value="4">四级代理商</option>
+                                    <option value="5">五级代理商</option>
+                                    <?php elseif($rating == 3 ): ?>
+                                    <option value="0">--请选择--</option>
+                                    <option value="4">四级代理商</option>
+                                    <option value="5">五级代理商</option>
+                                    <?php elseif($rating == 4 ): ?>
+                                    <option value="5">五级代理商</option>
+                                    <?php else: ?>
+                                    <?php endif; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">代理商信息</label>
+                            <div class="layui-input-block">
+                                <select name="floor_id" id="floor_id" lay-filter="floor_id" style="width: 150px;"></select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" lay-submit lay-filter="set_website" id="set_website">确认保存</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/public/layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({base: '/public/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'form'], function () {
+        var $ = layui.$ , form = layui.form;
+        form.on("submit(set_website)", function (data) {
+            let jsonstr = {
+                username: data.field.username,
+                name: data.field.name,
+                password: data.field.password,
+                rating: data.field.rating,
+                floor_id: data.field.floor_id
+            };
+            $.post("/merc/add", jsonstr, function (msg) {
+                if (msg == 1) {
+                    //发异步，把数据提交给php
+                    layer.alert("操作成功", {icon: 6}, function () {
+                        // 对窗口进行刷新
+                        location.reload();
+                    });
+                } else if (msg == 2) {
+                    layer.alert("该内容已经存在，请重新输入")
+                } else {
+                    layer.alert("操作成功")
+                }
+            });
+        });
+        form.on('select(rating)', function(data){
+            var tag = data.value;
+            var admin = "<?=$_SESSION['merc']?>";
+            if(tag == 1){
+                $("#floor_id").empty();
+                $("<option value='"+admin+"'>"+admin+"</option>").appendTo($("#floor_id"));
+            }else{
+                $.post("/merc/israting",{tag:tag},function(msg){
+                    $("#floor_id").empty();
+                    for(var i=0;i<msg.res.length;i++){
+                        $("<option value='"+msg.res[i]+"'>"+msg.res[i]+"</option>").appendTo($("#floor_id"));
+                    }
+                },"json");
+            }
+            form.render('select');    //重新渲染
+            form.render('select','floor_id');  //指定select框重新渲染
+        });
+    });
+    
+
+</script>
+</body>
+</html>
+<style>
+    .layui-anim.layui-icon {
+        margin: -8px 0 0 8px;
+    }
+</style>
